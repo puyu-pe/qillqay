@@ -11,11 +11,11 @@
     "require": {
         "php": ">=7.4.0",
         "mikehaertl/phpwkhtmltopdf": "^2.5",
-        "bacon/bacon-qr-code": "^2.0"
+        "twig/twig": "^3.7"
     },
     "autoload": {
         "psr-4": {
-            "PuyuPe\\": "src/"
+            "Puyupe\\NexusPdf\\": "src/"
         }
     }
 }
