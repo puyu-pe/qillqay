@@ -7,7 +7,6 @@ use PuyuPe\NexusPdf\Loaders\FormatFilter;
 use PuyuPe\NexusPdf\Loaders\ImageFilter;
 use PuyuPe\NexusPdf\Loaders\LegendFilter;
 use PuyuPe\NexusPdf\Loaders\QrRender;
-
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
