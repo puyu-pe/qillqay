@@ -1,4 +1,4 @@
-{  "name": "puyupe/nexus-doc-gen",
+{  "name": "puyu-pe/nexus-doc-gen",
     "description": "Librería para generar documentos en PDF para los proyectos de puyu.pe",
     "type": "library",
     "license": "MIT",
@@ -10,8 +10,8 @@
     ],
     "require": {
         "php": ">=7.4.0",
-        "mikehaertl/phpwkhtmltopdf": "^2.5",
-        "twig/twig": "^3.7",
+        "mikehaertl/phpwkhtmltopdf": "^2.4",
+        "twig/twig": "^3.0",
         "bacon/bacon-qr-code": "^2.0"
     },
     "autoload": {
