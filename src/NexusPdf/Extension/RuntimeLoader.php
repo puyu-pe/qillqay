@@ -1,5 +1,6 @@
 <?php
- namespace PuyuPe\NexusPdf\Extension;
+
+namespace PuyuPe\NexusPdf\Extension;
 
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
