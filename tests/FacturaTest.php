@@ -10,8 +10,8 @@ class FacturaTest extends TestCase
     public function testGeneratePdf()
     {
         $data = $this->getMockedData();
-        $wkhtmlPath = '/usr/bin/wkhtmltopdf';
-        $filePath = PdfGenerator::generatePdf($data, $wkhtmlPath, 'test');
+        $wkhtmlPath = '/usr/local/bin/wkhtmltopdf';
+        $filePath = PdfGenerator::generatePdf($data, $wkhtmlPath, 'file', 'test');
 
         $this->assertFileExists($filePath);
     }

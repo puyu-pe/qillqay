@@ -1,12 +1,11 @@
 <?php
-
 namespace PuyuPe\NexusPdf\Tests;
 
 use PuyuPe\NexusPdf\PdfGenerator;
 
 use PHPUnit\Framework\TestCase;
 
-class BoletaTest extends TestCase
+class FacturaTicketTest extends TestCase
 {
     public function testGeneratePdf()
     {
@@ -29,91 +28,87 @@ class BoletaTest extends TestCase
     private function getData()
     {
         $cpeJSON = '{
-          "company": {
-            "ruc": "10123456789",
-            "razonSocial": "EMPRESA TEST",
-            "nombreComercial": "EMPRESA TEST S.R.L.",
-            "address": {
-              "ubigueo": "030101",
-              "codigoPais": "PE",
-              "departamento": "Apurímac",
-              "provincia": "Abancay",
-              "distrito": "Abancay",
-              "urbanizacion": null,
-              "direccion": "AV. BRILLA EL SOL MZ. X Lt. 46 - URB. BELLA VISTA BAJA - ABANCAY - APURIMAC",
-              "codLocal": "0000"
-            },
-            "email": null,
-            "telephone": null
-          },"tipoOperacion": "0101",
-            "tipoDoc": "03",
-            "serie": "B001",
-            "correlativo": 6032,
-            "fechaEmision": "2023-09-05 15:51:13",
-            "fechaVencimiento": "2023-09-05",
-            "tipoMoneda": "PEN",
-            "mtoOperGravadas": 0,
-            "mtoOperExoneradas": "40.00",
-            "mtoOperInafectas": 0,
-            "mtoISC": 0,
-            "mtoIGV": 0,
-            "sumDsctoGlobal": 0,
-            "totalAnticipios": 0,
-            "totalImpuestos": 0,
-            "valorVenta": "40.00",
-            "subTotal": "40.00",
-            "mtoImpVenta": "40.00",
-            "formaPago": {
-            "moneda": "PEN",
-            "tipo": "Contado",
-            "monto": "40.00"
-            },
-            "cuotas": null,
-            "formato": "a4",
-            "codLocal": "0000",
-            "client": {
-            "tipoDoc": 1,
-            "numDoc": "28715164",
-            "rznSocial": "HUAMAN LIMA LEONCIO ARMANDO",
-            "email": null,
-            "address": {
-            "ubigueo": "-",
-            "direccion": "-"
-            }
-            },
-            "details": [
-            {
-            "unidad": "ZZ",
-            "cantidad": 1,
-            "sumOtrosCargos": 0,
-            "cargos": 0,
-            "codProducto": null,
-            "codProdSunat": null,
-            "descripcion": "SERVICIO DE TRANSPORTE PASAJERO: 28715164-HUAMAN LIMA LEONCIO ARMANDO, RUTA: ANDAHUAYLAS-AYACUCHO, VIAJE: 05/09/2023 10:00 AM",
-            "isc": 0,
-            "porcentajeIgv": 18,
-            "igv": 0,
-            "totalImpuestos": 0,
-            "mtoBaseIgv": "40.00",
-            "mtoValorVenta": "40.00",
-            "mtoValorUnitario": "40.00",
-            "mtoPrecioUnitario": "40.00",
-            "tipAfeIgv": "20"
-            }
-            ],
-            "legends": [
-            {
-            "code": "1000",
-            "value": "CUARENTA CON 00/100 SOLES"
-            }
-            ],
-            "observation": null,
-            "cashier": {
-            "tipoDoc": 1,
-            "numDoc": "-",
-            "rznSocial": "LILA"
-            }
-            }';
+"company": {
+"ruc": "20450523381",
+"razonSocial": "EMPRESA DE TRANSPORTES REY DE LOS ANDES DE AYMARAES - PAMPAMARCA S.R.L.",
+"nombreComercial": "REY DE LOS ANDES",
+"address": {
+"ubigueo": "030101",
+"codigoPais": "PE",
+"departamento": "APURIMAC",
+"provincia": "ABANCAY",
+"distrito": "ABANCAY",
+"urbanizacion": null,
+"direccion": "AV. BRASIL NRO. 216 - URB. LAS AMÉRICAS",
+"codLocal": "0000"
+},
+"email": null,
+"telephone": "989290733"
+},
+"tipoOperacion": "0101",
+"tipoDoc": "01",
+"serie": "FE01",
+"correlativo": 1060,
+"fechaEmision": "2023-09-11 09:26:47",
+"fechaVencimiento": "2023-09-11",
+"tipoMoneda": "PEN",
+"mtoOperGravadas": "3.39",
+"mtoOperExoneradas": 0,
+"mtoOperInafectas": 0,
+"mtoISC": 0,
+"mtoIGV": "0.61",
+"totalImpuestos": "0.61",
+"valorVenta": "3.39",
+"subTotal": "4.00",
+"mtoImpVenta": "4.00",
+"formaPago": {
+"moneda": "PEN",
+"tipo": "Contado",
+"monto": "4.00"
+},
+"cuotas": null,
+"formato": "ticket",
+"codLocal": "0000",
+"client": {
+"tipoDoc": "6",
+"numDoc": "20526918429",
+"rznSocial": "COOPERATIVA DE AHORRO Y CREDITO LOS ANDES COTARUSI AYMARAES",
+"email": null,
+"address": {
+"ubigueo": "-",
+"direccion": "-"
+}
+},
+"details": [
+{
+"unidad": "ZZ",
+"cantidad": 1,
+"codProducto": "-",
+"codProdSunat": null,
+"descripcion": "SERVICIO DE TRANSPORTE: 1 SOBRE MANILA",
+"porcentajeIgv": 18,
+"igv": "0.61",
+"tipAfeIgv": "10",
+"totalImpuestos": "0.61",
+"mtoBaseIgv": "3.39",
+"mtoValorVenta": "3.39",
+"mtoValorUnitario": "3.39",
+"mtoPrecioUnitario": "4.00"
+}
+],
+"legends": [
+{
+"code": "1000",
+"value": "CUATRO CON 00/100 SOLES"
+}
+],
+"observation": "1 SOBRE",
+"cashier": {
+"tipoDoc": 1,
+"numDoc": "-",
+"rznSocial": "MONICA"
+}
+}';
 
         return json_decode($cpeJSON);
     }
