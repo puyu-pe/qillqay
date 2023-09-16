@@ -1,12 +1,11 @@
 <?php
-
 namespace PuyuPe\NexusPdf\Tests;
 
 use PuyuPe\NexusPdf\PdfGenerator;
 
 use PHPUnit\Framework\TestCase;
 
-class BoletaTest extends TestCase
+class BoletaTicketTest extends TestCase
 {
     public function testGeneratePdf()
     {
@@ -19,101 +18,95 @@ class BoletaTest extends TestCase
 
     public function getMockedData()
     {
-
         $data = $this->getData();
         $data->params = $this->getParams();
         return $data;
-
     }
 
     private function getData()
     {
         $cpeJSON = '{
           "company": {
-            "ruc": "10123456789",
-            "razonSocial": "EMPRESA TEST",
-            "nombreComercial": "EMPRESA TEST S.R.L.",
+            "ruc": "20527056579",
+            "razonSocial": "UNIVERSIDAD NACIONAL MICAELA BASTIDAS DE APURIMAC",
+            "nombreComercial": "UNAMBA",
             "address": {
-              "ubigueo": "030101",
+              "ubigueo": "030109",
               "codigoPais": "PE",
-              "departamento": "Apurímac",
+              "departamento": "Apur\u00EDmac",
               "provincia": "Abancay",
               "distrito": "Abancay",
               "urbanizacion": null,
-              "direccion": "AV. BRILLA EL SOL MZ. X Lt. 46 - URB. BELLA VISTA BAJA - ABANCAY - APURIMAC",
+              "direccion": "Av. Garcilazo de la Vega S/N",
               "codLocal": "0000"
             },
             "email": null,
             "telephone": null
-          },"tipoOperacion": "0101",
-            "tipoDoc": "03",
-            "serie": "B001",
-            "correlativo": 6032,
-            "fechaEmision": "2023-09-05 15:51:13",
-            "fechaVencimiento": "2023-09-05",
-            "tipoMoneda": "PEN",
-            "mtoOperGravadas": 0,
-            "mtoOperExoneradas": "40.00",
-            "mtoOperInafectas": 0,
-            "mtoISC": 0,
-            "mtoIGV": 0,
-            "sumDsctoGlobal": 0,
-            "totalAnticipios": 0,
-            "totalImpuestos": 0,
-            "valorVenta": "40.00",
-            "subTotal": "40.00",
-            "mtoImpVenta": "40.00",
-            "formaPago": {
+          },
+          "tipoOperacion": "0101",
+          "formato": "ticket",
+          "tipoDoc": "03",
+          "codLocal": "0000",
+          "serie": "B001",
+          "correlativo": "25689",
+          "fechaEmision": "2023-09-15 19:12:07",
+          "fechaVencimiento": "2023-09-15",
+          "tipoMoneda": "PEN",
+          "mtoOperGravadas": "0.0000",
+          "mtoOperExoneradas": "5494.0000",
+          "mtoOperInafectas": "0.0000",
+          "mtoIGV": "0.0000",
+          "totalImpuestos": "0.0000",
+          "valorVenta": "5494.0000",
+          "subTotal": "5494.0000",
+          "mtoImpVenta": "5494.0000",
+          "formaPago": {
             "moneda": "PEN",
             "tipo": "Contado",
-            "monto": "40.00"
-            },
-            "cuotas": null,
-            "formato": "a4",
-            "codLocal": "0000",
-            "client": {
-            "tipoDoc": 1,
-            "numDoc": "28715164",
-            "rznSocial": "HUAMAN LIMA LEONCIO ARMANDO",
-            "email": null,
+            "monto": "5494.000000"
+          },
+          "cuotas": [],
+          "client": {
+            "tipoDoc": "1",
+            "numDoc": "-",
+            "rznSocial": "COMEDOR UNIVERSITARIO",
             "address": {
-            "ubigueo": "-",
-            "direccion": "-"
-            }
+              "ubigueo": "-",
+              "direccion": null
             },
-            "details": [
-            {
-            "unidad": "ZZ",
-            "cantidad": 1,
-            "sumOtrosCargos": 0,
-            "cargos": 0,
-            "codProducto": null,
-            "codProdSunat": null,
-            "descripcion": "SERVICIO DE TRANSPORTE PASAJERO: 28715164-HUAMAN LIMA LEONCIO ARMANDO, RUTA: ANDAHUAYLAS-AYACUCHO, VIAJE: 05/09/2023 10:00 AM",
-            "isc": 0,
-            "porcentajeIgv": 18,
-            "igv": 0,
-            "totalImpuestos": 0,
-            "mtoBaseIgv": "40.00",
-            "mtoValorVenta": "40.00",
-            "mtoValorUnitario": "40.00",
-            "mtoPrecioUnitario": "40.00",
-            "tipAfeIgv": "20"
-            }
-            ],
-            "legends": [
-            {
-            "code": "1000",
-            "value": "CUARENTA CON 00/100 SOLES"
-            }
-            ],
-            "observation": null,
-            "cashier": {
+            "email": null,
+            "telephone": null
+          },
+          "cashier": {
             "tipoDoc": 1,
             "numDoc": "-",
-            "rznSocial": "LILA"
+            "rznSocial": "ucaja"
+          },
+          "details": [
+            {
+              "codProducto": "1.3.210.199.11",
+              "unidad": "NIU",
+              "descripcion": "TARJETAS DE COMEDOR UNIVERSITARIO",
+              "cantidad": "1.0000",
+              "mtoValorUnitario": "5494.0000",
+              "mtoValorVenta": "5494.0000",
+              "mtoBaseIgv": "5494.0000",
+              "porcentajeIgv": 0,
+              "igv": 0,
+              "tipAfeIgv": "20",
+              "totalImpuestos": 0,
+              "mtoPrecioUnitario": "5494.0000"
             }
-            }';
+          ],
+          "legends": [
+            {
+              "code": "1000",
+              "value": "CINCO MIL CUATROCIENTOS NOVENTA Y CUATRO  CON 00/100 SOLES."
+            }
+          ],
+          "observation": "Venta de tiques de comedor universitario para la atenci\u00F3n del 18 al 29 de setiembre del 2023",
+          "documentFooter": null
+        }';
 
         return json_decode($cpeJSON);
     }

@@ -1,5 +1,5 @@
 {  "name": "puyu-pe/nexus-doc-gen",
-    "description": "Librería para generar documentos en PDF para los proyectos de puyu.pe",
+    "description": "Librería para generar documentos en PDF para los proyectos de Puyu.pe",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PuyuPe\\NexusPdf\\": "src/NexusPdf"
+            "PuyuPe\\NexusPdf\\": "src"
         }
     },
     "require-dev": {

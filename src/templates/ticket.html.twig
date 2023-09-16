@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        {% include 'templates/assets/ticket-style.css' %}
+    </style>
+</head>
+<style>
+    {{ client.style }}
+</style>
+<body>
+{% set isNota = doc.tipoDoc in ['07', '08'] %}
+{% set isFactura = doc.tipoDoc in ['01'] %}
+{% set isBoleta = doc.tipoDoc in ['03'] %}
+{% set isAnticipo = doc.totalAnticipos is defined and doc.totalAnticipos > 0 %}
+{% set cp = doc.company %}
+{% set name = doc.tipoDoc|catalog('01') %}
+<div>
+    <div class="center">
+        <div id="logo">
+            <img id="image" src="{{ doc.params.user.logo }}" alt="">
+        </div>
+        <h5 id="business_name" class="bold mayus">*** {{ cp.nombreComercial }} ***</h5>
+        <h5 class="mayus">{{ cp.address.direccion }}</h5>
+        <h5 class="mayus"> {{ cp.address.distrito }} {{ cp.address.provincia }} {{ cp.address.departamento }}
+        </h5>
+        <h5>RUC : {{ cp.ruc }}</h5>
+        {% if client.description is not empty %}
+            <h5>{{ doc.params.user.header|raw }}</h5>
+        {% endif %}
+        {% if cp.telephone is not empty %}
+            <h5>TELÉFONO: {{ cp.telephone }}</h5>
+        {% endif %}
+        <h4>
+            <br>
+            <b>
+                <label class="center">{{ name }} ELECTRÓNICA</label>
+            </b>
+            <br>
+            <b>{{ doc.serie }}-{{ doc.correlativo }}</b>
+        </h4>
+    </div>
+
+    {% set cl = doc.client %}
+    <h5><b>ADQUIRIENTE: </b></h5>
+    {% set cl = doc.client %}
+    <h5>
+        <strong>{{ cl.tipoDoc|catalog('06') }}</strong>
+        {{ cl.numDoc }}
+    </h5>
+    <h5>
+        <strong>SEÑOR(ES): </strong>
+        {{ cl.rznSocial }}
+    </h5>
+    {% if doc.client.address.direccion != '' and cl.address.direccion != '-' %}
+        <h5><strong>DIRECCIÓN: </strong>{{ cl.address.direccion }}</h5>
+    {% endif %}
+    <h5>
+        <strong>FECHA DE EMISIÓN: </strong>
+        {{ doc.fechaEmision|date('d/m/Y') }}
+        {% if doc.fechaEmision|date('H:i:s') != '00:00:00' %}
+            {{ doc.fechaEmision|date('H:i:s') }}
+        {% endif %}
+    </h5>
+    {% if doc.formaPago is defined %}
+        {% if doc.formaPago.tipo == 'credit' %}
+            <h5>
+                <strong>FECHA DE VENCIMIENTO: </strong>
+                {{ doc.formaPago.fechaVencimiento|date('d/m/Y') }}
+            </h5>
+        {% endif %}
+    {% endif %}
+    <h5>
+        <strong>MONEDA: </strong>
+        {{ doc.tipoMoneda ~ ' - ' ~ doc.tipoMoneda | catalog('021') }}</h5>
+    {% if doc.moneda != constants.CURRENCY_DEFAULT and doc.monedaTipoCambio is defined %}
+        <h5>
+            <strong>TIPO DE CAMBIO: </strong>{{ doc.monedaTipoCambio }}
+        </h5>
+    {% endif %}
+    {% if doc.tipoDoc == constants.TYPE_DOC['factura'] %}
+        <h5><strong>IGV: </strong>18%</h5>
+    {% endif %}
+    <br>
+    <table>
+        <thead>
+        <tr class="bottom">
+            <td class="center">
+                <h5 class="bold left">CANT.</h5>
+            </td>
+            <td class="center">
+                <h5 class="bold">COD.</h5>
+            </td>
+            <td class="left">
+                <h5 class="bold">DESCRIPCIÓN</h5>
+            </td>
+            <td class="right">
+                <h5 class="bold">P/U</h5>
+            </td>
+            <td class="right" style="width:80px;">
+                <h5 class="bold">TOTAL</h5>
+            </td>
+        </tr>
+        </thead>
+        <div>
+            {% if client.status == 'is_development' %}
+                <h4 class="mark bold">SIN VALOR LEGAL</h4>
+            {% endif %}
+            {% if doc.anulled or (doc.code_sunat >= constants.STATUS['min-regection'] and doc.code_sunat <= constants.STATUS['max-regection']) %}
+                <h4 class="mark-error"><strong>ANULADO/RECHAZADO</strong></h4>
+            {% endif %}
+        </div>
+        <tbody>
+        {% for item in doc.details %}
+            {% set mtoValorUnitario = (item.mtoValorUnitario|number_format(2, '.', '') > 0) ? item.mtoValorUnitario : item.mtoValorGratuito %}
+            {% set mtoPrecioUnitario = (item.mtoPrecioUnitario|number_format(2, '.', '') > 0) ? item.mtoPrecioUnitario : item.mtoValorGratuito %}
+            {% set mtoPrecioTotal = (mtoPrecioUnitario * item.cantidad) %}
+            <tr>
+                <td class="center">{{ item.cantidad|number_format(2, '.', '') }}</td>
+                <td class="center">{{ item.codProducto|default('-') }}</td>
+                <td class="left cort mayus bold" colspan="3">{{ item.descripcion|raw }}</td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td class="right">
+                    {{ mtoPrecioUnitario|number_format(3, '.', '') }}
+                </td>
+                <td class="right">
+                    {{ mtoPrecioTotal|number_format(2, '.', '') }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+        <tfoot class="top">
+        {% if not isBoleta %}
+            <tr class="right">
+                <td colspan="3"></td>
+                <td class="bold">
+                    GRAVADAS
+                </td>
+                <td class="bold">
+                    {{ doc.mtoOperGravadas|number_format(2, '.', '') }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if doc.totalAnticipos is not empty %}
+            <tr class="right">
+                <td colspan="3"></td>
+                <td class="bold">
+                    ANTICIPOS
+                </td>
+                <td class="bold">
+                    {{ doc.totalAnticipos|number_format(2, '.', '') }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if doc.mtoDescuentos is not empty %}
+            <tr class="right">
+                <td colspan="3"></td>
+                <td class="bold">
+                    DESCUENTOS
+                </td>
+                <td class="bold">
+                    {{ doc.mtoDescuentos|number_format(2, '.', '') }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if doc.mtoOperGratuitas is not empty %}
+            <tr class="right">
+                <td colspan="3"></td>
+                <td class="bold">
+                    GRATUITOS
+                </td>
+                <td class="bold">
+                    {{ doc.mtoOperGratuitas|number_format(2, '.', '') }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if not isBoleta %}
+            {% if doc.mtoISC is not empty %}
+                <tr class="right">
+                    <td colspan="3"></td>
+                    <td class="bold">
+                        ISC
+                    </td>
+                    <td class="bold">
+                        {{ doc.mtoISC|number_format(2, '.', '') }}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endif %}
+        {% if doc.icbper is not empty %}
+            <tr class="right">
+                <td colspan="3"></td>
+                <td class="bold">
+                    I.C.B.P.E.R.
+                </td>
+                <td class="bold">
+                    {{ doc.icbper|number_format(2, '.', '') }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if not isBoleta %}
+            <tr class="right">
+                <td colspan="3"></td>
+                <td class="bold">
+                    IGV
+                </td>
+                <td class="bold">
+                    {{ doc.mtoIGV|default(null)|number_format(2, '.', '') }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if doc.mtoCargos is not empty %}
+            <tr class="right">
+                <td colspan="3"></td>
+                <td class="bold">
+                    CARGOS
+                </td>
+                <td class="bold">
+                    {{ doc.mtoCargos|number_format(2, '.', '') }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if not isBoleta %}
+            {% if doc.mtoOperExoneradas is not empty %}
+                <tr class="right">
+                    <td colspan="3"></td>
+                    <td class="bold">
+                        EXONERADAS
+                    </td>
+                    <td class="bold">
+                        {{ doc.mtoOperExoneradas|number_format(2, '.', '') }}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endif %}
+        {% if not isBoleta %}
+            {% if doc.mtoOperInafectas is not empty %}
+                <tr class="right">
+                    <td colspan="3"></td>
+                    <td class="bold">
+                        INAFECTAS
+                    </td>
+                    <td class="bold">
+                        {{ doc.mtoOperInafectas|number_format(2, '.', '') }}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endif %}
+        {% if doc.sumOtrosCargos is not empty %}
+            <tr class="right">
+                <td></td>
+                <td></td>
+                <td class="bold" colspan="2">
+                    SUM. OTROS CARGOS
+                </td>
+                <td class="bold">
+                    {{ doc.sumOtrosCargos|number_format(2, '.', '') }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if doc.sumOtrosDescuentos is not empty %}
+            <tr class="right">
+                <td></td>
+                <td></td>
+                <td class="bold" colspan="2">
+                    OTROS DESCUENTOS
+                </td>
+                <td class="bold">
+                    {{ doc.sumOtrosDescuentos|number_format(2, '.', '') }}
+                </td>
+            </tr>
+        {% endif %}
+        <tr class="">
+            <td></td>
+            <td></td>
+            <td colspan="2" class="bold right">
+                TOTAL
+            </td>
+            <td class="bold right">
+                {{ doc.mtoImpVenta|number_format(2, '.', '') }}
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    <br>
+    <h5><b>IMPORTE EN LETRAS:</b>
+        {% for legend in doc.legends %}
+            <label for="">{{ legend.value }}</label>
+            <br>
+        {% endfor %}
+    </h5>
+    <h5 class="ml-3">
+        <b>FORMA DE PAGO:</b>
+        <span>
+        {% if doc.formaPago is not defined %}
+            Contado: {{ doc.mtoImpVenta|number_format(2, '.', '') }}
+        {% else %}
+            {{ doc.formaPago.tipo ~ ' ' ~ doc.formaPago.moneda ~ ' ' ~ doc.formaPago.monto|number_format(2, '.', '') }}
+        {% endif %}
+        </span>
+    </h5>
+    {% if doc.observation is defined %}
+        <div id="observation" class="mt-1">
+            <h5 class="ml-3"><b>OBSERVACIÓN:</b> <span>{{ doc.observation|nl2br|raw }}</span></h5>
+        </div>
+    {% endif %}
+    {% if doc.cashier is defined %}
+        <h5 class="ml-3"><b>CAJERO:</b>
+            {{ doc.cashier.rznSocial }}
+        </h5>
+    {% endif %}
+    {% if doc.seller is defined %}
+        <h5 class="ml-3"><b>VENDEDOR:</b>
+            {{ doc.seller.rznSocial }}
+        </h5>
+    {% endif %}
+    {% if doc.finalMessage is defined %}
+        <h5 class="center mt-3">{{ doc.finalMessage|raw }}</h5>
+    {% endif %}
+    <br>
+    {% if isNota %}
+        <div class="mt-3">
+            <h6 class="bold ml-3">MOTIVO DE EMISIÓN: <label for="">{{ doc.desMotivo }}</label></h6>
+            <h6 class="bold ml-3">DOCUMENTO RELACIONADO: <label for="">{{ doc.numDocfectado }}</label></h6>
+        </div>
+    {% endif %}
+
+    <div class="center">
+        {% if doc.params.user.footer is defined %}
+            <h5>{{ doc.params.user.footer|raw }}</h5>
+        {% endif %}
+        {% if doc.params.system.hash is defined and doc.params.system.hash %}
+            <h5 class="center"><strong>Resumen:</strong> {{ doc.params.system.hash }}<br></h5>
+        {% endif %}
+        <img style="height: 150px; width: 150px" src="{{ qrCode(doc.stringQr)|image_b64('svg+xml') }}">
+    </div>
+    <h5 class="center">Emitido desde {{ app.name ~ " - " ~ app.owner }} - Perú </h5>
+</div>
+</body>
+</html>
