@@ -19,10 +19,17 @@
 {% set name = doc.tipoDoc|catalog('01') %}
 <div>
     <div class="center">
-        <div id="logo">
-            <img id="image" src="{{ doc.params.user.logo }}" alt="">
-        </div>
-        <h5 id="business_name" class="bold mayus">*** {{ cp.nombreComercial }} ***</h5>
+        {% if doc.params.user.logo is defined and doc.params.user.logo is not null %}
+            <div id="logo">
+                <img id="image" src="{{ doc.params.user.logo }}" alt="">
+            </div>
+        {% else %}
+            <h1 id="business_name" class="bold mayus">{{ cp.razonSocial }}</h1>
+        {% endif %}
+
+        {% if cp.nombreComercial is defined and cp.nombreComercial is not null %}
+            <h5 id="business_name" class="bold mayus">*** {{ cp.nombreComercial }} ***</h5>
+        {% endif %}
         <h5 class="mayus">{{ cp.address.direccion }}</h5>
         <h5 class="mayus"> {{ cp.address.distrito }} {{ cp.address.provincia }} {{ cp.address.departamento }}
         </h5>
@@ -47,7 +54,7 @@
     <h5><b>ADQUIRIENTE: </b></h5>
     {% set cl = doc.client %}
     <h5>
-        <strong>{{ cl.tipoDoc|catalog('06') }}</strong>
+        <strong>{{ cl.tipoDoc|catalog('06') }}: </strong>
         {{ cl.numDoc }}
     </h5>
     <h5>
@@ -84,9 +91,18 @@
         <h5><strong>IGV: </strong>18%</h5>
     {% endif %}
     <br>
+
+    <div>
+        {% if client.status == 'is_development' %}
+            <h4 class="mark bold">SIN VALOR LEGAL</h4>
+        {% endif %}
+        {% if doc.anulled %}
+            <h4 class="mark-error"><strong>ANULADO/RECHAZADO</strong></h4>
+        {% endif %}
+    </div>
     <table>
         <thead>
-        <tr class="bottom">
+        <tr>
             <td class="center">
                 <h5 class="bold left">CANT.</h5>
             </td>
@@ -104,15 +120,7 @@
             </td>
         </tr>
         </thead>
-        <div>
-            {% if client.status == 'is_development' %}
-                <h4 class="mark bold">SIN VALOR LEGAL</h4>
-            {% endif %}
-            {% if doc.anulled or (doc.code_sunat >= constants.STATUS['min-regection'] and doc.code_sunat <= constants.STATUS['max-regection']) %}
-                <h4 class="mark-error"><strong>ANULADO/RECHAZADO</strong></h4>
-            {% endif %}
-        </div>
-        <tbody>
+        <tbody class="items">
         {% for item in doc.details %}
             {% set mtoValorUnitario = (item.mtoValorUnitario|number_format(2, '.', '') > 0) ? item.mtoValorUnitario : item.mtoValorGratuito %}
             {% set mtoPrecioUnitario = (item.mtoPrecioUnitario|number_format(2, '.', '') > 0) ? item.mtoPrecioUnitario : item.mtoValorGratuito %}
@@ -133,8 +141,7 @@
             </tr>
         {% endfor %}
         </tbody>
-
-        <tfoot class="top">
+        <tfoot>
         {% if not isBoleta %}
             <tr class="right">
                 <td colspan="3"></td>
@@ -253,8 +260,7 @@
         {% endif %}
         {% if doc.sumOtrosCargos is not empty %}
             <tr class="right">
-                <td></td>
-                <td></td>
+                <td colspan="3"></td>
                 <td class="bold" colspan="2">
                     SUM. OTROS CARGOS
                 </td>
@@ -265,8 +271,7 @@
         {% endif %}
         {% if doc.sumOtrosDescuentos is not empty %}
             <tr class="right">
-                <td></td>
-                <td></td>
+                <td colspan="3"></td>
                 <td class="bold" colspan="2">
                     OTROS DESCUENTOS
                 </td>
@@ -275,10 +280,9 @@
                 </td>
             </tr>
         {% endif %}
-        <tr class="">
-            <td></td>
-            <td></td>
-            <td colspan="2" class="bold right">
+        <tr>
+            <td colspan="3"></td>
+            <td class="bold right">
                 TOTAL
             </td>
             <td class="bold right">
@@ -304,7 +308,7 @@
         {% endif %}
         </span>
     </h5>
-    {% if doc.observation is defined %}
+    {% if doc.observation is defined and doc.observation is not null  %}
         <div id="observation" class="mt-1">
             <h5 class="ml-3"><b>OBSERVACIÓN:</b> <span>{{ doc.observation|nl2br|raw }}</span></h5>
         </div>
@@ -340,6 +344,6 @@
         <img style="height: 150px; width: 150px" src="{{ qrCode(doc.stringQr)|image_b64('svg+xml') }}">
     </div>
     <h5 class="center">Emitido desde {{ app.name ~ " - " ~ app.owner }} - Perú </h5>
-</div>
+
 </body>
 </html>

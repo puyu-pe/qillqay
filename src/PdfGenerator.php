@@ -79,6 +79,11 @@ class PdfGenerator
 
                     break;
                 case "html":
+                    if ($env == 'test'){
+                        $resultPath = sys_get_temp_dir() . '/nexuspdf_' . self::generateRandomString(6) . '.html';
+                        file_put_contents($resultPath, $html);
+                        return $resultPath;
+                    }
 
                     return $html;
 
@@ -112,7 +117,7 @@ class PdfGenerator
                 return [
                     'no-outline',
                     'print-media-type',
-                    'page-width' => '71mm',
+                    'page-width' => '80mm',
                     'page-height' => '210mm',
                     'margin-top' => '5mm',
                     'margin-bottom' => '5mm',
