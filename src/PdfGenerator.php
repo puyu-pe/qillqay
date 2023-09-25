@@ -45,7 +45,7 @@ class PdfGenerator
                 date("d/m/Y", strtotime($data->fechaEmision)),
                 $tipoDoc,
                 $numDoc,
-                $data->params->system->hash ?? $data->params['system']->hash
+                $data->params->system->hash
             ]);
             $data->stringQr = $stringQr;
 
