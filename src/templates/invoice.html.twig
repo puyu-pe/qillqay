@@ -50,7 +50,7 @@
                                 </tr>
                                 <tr>
                                     <td align="center">
-                                        <span style="font-size:24px">{{ doc.serie }}-{{ doc.correlativo }}</span>
+                                        <span style="font-size:24px">{{ doc.serie }} - {{ doc.correlativo }}</span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -100,7 +100,7 @@
                             <strong>Razón Social:</strong>
                             {{ cl.rznSocial }}</td>
                         <td width="40%" align="left">
-                            <strong>{{ cl.tipoDoc|catalog('06') }}:</strong>
+                            <strong>{{ cl.tipoDoc|catalog('061') }}:</strong>
                             {{ cl.numDoc }}</td>
                     </tr>
                     <tr>
@@ -141,7 +141,7 @@
                         <td width="60%" align="left">
                             <strong>Tipo Moneda:
                             </strong>
-                            {{ doc.tipoMoneda|catalog('021') }}
+                            {{ doc.tipoMoneda }} - {{ doc.tipoMoneda|catalog('02') }}
                         </td>
                         <td width="40%" align="left">
                             {% if doc.compra is defined and doc.compra %}
@@ -167,7 +167,7 @@
                 </table>
             </div>
             <br>
-            {% set moneda = doc.tipoMoneda|catalog('02') %}
+            {% set moneda = doc.tipoMoneda|catalog('021') %}
             <div class="tabla_borde">
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tbody>
@@ -180,7 +180,7 @@
                     </tr>
                     {% for det in doc.details %}
                         <tr class="  ">
-                            <td align="right" style="">
+                            <td align="right">
                                 {{ det.cantidad|n_format }}
                                 {{ det.unidad }}
                             </td>
@@ -318,8 +318,7 @@
                                         <strong>Total Anticipo:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.totalAnticipos|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.totalAnticipos|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -329,8 +328,7 @@
                                         <strong>Op. Gravadas:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.mtoOperGravadas|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.mtoOperGravadas|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -340,8 +338,7 @@
                                         <strong>Op. Inafectas:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.mtoOperInafectas|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.mtoOperInafectas|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -351,8 +348,7 @@
                                         <strong>Op. Exoneradas:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.mtoOperExoneradas|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.mtoOperExoneradas|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -364,8 +360,7 @@
                                         {% endif %}:</strong>
                                 </td>
                                 <td width="120" align="right">
-														<span>{{ moneda }}
-                                                            {{ doc.mtoIGV|n_format }}</span>
+                                    <span>{{ moneda }} {{ doc.mtoIGV|n_format }}</span>
                                 </td>
                             </tr>
                             {% if doc.mtoISC %}
@@ -374,8 +369,7 @@
                                         <strong>I.S.C.:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.mtoISC|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.mtoISC|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -385,8 +379,7 @@
                                         <strong>Otros Cargos:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.sumOtrosCargos|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.sumOtrosCargos|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -396,8 +389,7 @@
                                         <strong>Otros Descuentos:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.sumOtrosDescuentos|n_format }}</span>
+                                        <span>{{ moneda }}  {{ doc.sumOtrosDescuentos|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -407,8 +399,7 @@
                                         <strong>I.C.B.P.E.R.:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.icbper|n_format }}</span>
+                                        <span>{{ moneda }}  {{ doc.icbper|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -418,8 +409,7 @@
                                         <strong>Otros Tributos:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.mtoOtrosTributos|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.mtoOtrosTributos|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -428,21 +418,18 @@
                                     <strong>Precio Venta:</strong>
                                 </td>
                                 <td width="120" align="right">
-														<span id="ride-importeTotal"
-                                                              class="ride-importeTotal">{{ moneda }}
-                                                            {{ doc.mtoImpVenta|n_format }}</span>
+                                    <span id="ride-importeTotal"
+                                          class="ride-importeTotal">{{ moneda }} {{ doc.mtoImpVenta|n_format }}</span>
                                 </td>
                             </tr>
                             {% if doc.perception and doc.perception.mto %}
                                 {% set perc = doc.perception %}
-                                {% set soles = 'PEN'|catalog('02') %}
                                 <tr>
                                     <td align="right">
                                         <strong>Percepción:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ soles }}
-                                                                {{ perc.mto|n_format }}</span>
+                                        <span>{{ moneda }} {{ perc.mto|n_format }}</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -450,8 +437,7 @@
                                         <strong>Total a Pagar:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ soles }}
-                                                                {{ perc.mtoTotal|n_format }}</span>
+                                        <span>{{ moneda }} {{ perc.mtoTotal|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}

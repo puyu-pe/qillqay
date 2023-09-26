@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE l>
+<!-- catalogo de impuesto-->
+<l>
+    <c id="EUR">€</c>
+    <c id="USD">$</c>
+    <c id="PEN">S/</c>
+</l>

@@ -87,11 +87,12 @@
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tbody>
                     <tr style="background-color: {{ doc.params.system.background }} !important;">
-                        <td colspan="2" class="bold gray" style="border-radius: 10px 10px 0 0 !important">DESTINATARIO</td>
+                        <td colspan="2" class="bold gray" style="border-radius: 10px 10px 0 0 !important">DESTINATARIO
+                        </td>
                     </tr>
                     <tr class="border_top">
                         <td width="60%" align="left"><strong>Razón Social:</strong> {{ cl.rznSocial }}</td>
-                        <td width="40%" align="left"><strong>{{ cl.tipoDoc|catalog('06') }}:</strong> {{ cl.numDoc }}
+                        <td width="40%" align="left"><strong>{{ cl.tipoDoc|catalog('061') }}:</strong> {{ cl.numDoc }}
                         </td>
                     </tr>
                     <tr>
@@ -122,16 +123,17 @@
                                 Transporte:</strong> {{ doc.envio.modTraslado }} </td>
                     </tr>
                     <tr>
-                        <td width="60%" align="left"><strong>Peso Bruto Total ({{ doc.envio.undPesoTotal }}
-                                ):</strong> {{ doc.envio.pesoTotal }}%
+                        <td width="60%" align="left"><strong>
+                                Peso Bruto Total ({{ doc.envio.undPesoTotal }}):</strong> {{ doc.envio.pesoTotal }}
                         </td>
-                        <td width="40%">{% if doc.envio.numBultos %}<strong>Número de
-                                Bultos:</strong>  {{ doc.envio.numBultos }}{% endif %}</td>
+                        <td width="40%">{% if doc.envio.numBultos %}
+                                <strong>Número de Bultos:</strong>  {{ doc.envio.numBultos }}{% endif %}
+                        </td>
                     </tr>
                     <tr>
-                        <td width="60%" align="left"><strong>P. Partida:</strong> {{ doc.envio.partida.ubigueo }}
+                        <td width="60%" align="left"><strong>P. Partida:</strong> {{ doc.envio.partida.ubigeo }}
                             - {{ doc.envio.partida.direccion }}</td>
-                        <td width="40%" align="left"><strong>P. Llegada: </strong> {{ doc.envio.llegada.ubigueo }}
+                        <td width="40%" align="left"><strong>P. Llegada: </strong> {{ doc.envio.llegada.ubigeo }}
                             - {{ doc.envio.llegada.direccion }}</td>
                     </tr>
                     </tbody>
@@ -144,17 +146,20 @@
                     <table width="100%" border="0" cellpadding="5" cellspacing="0">
                         <tbody>
                         <tr style="background-color: {{ doc.params.system.background }} !important;">
-                            <td colspan="2" class="bold gray" style="border-radius: 10px 10px 0 0 !important">TRANSPORTE</td>
+                            <td colspan="2" class="bold gray" style="border-radius: 10px 10px 0 0 !important">
+                                TRANSPORTE
+                            </td>
                         </tr>
                         <tr class="border_top">
                             <td width="60%" align="left"><strong>Razón Social:</strong> {{ tr.rznSocial }}</td>
-                            <td width="40%" align="left"><strong>{{ tr.tipoDoc|catalog('06') }}
+                            <td width="40%" align="left"><strong>{{ tr.tipoDoc|catalog('061') }}
                                     :</strong> {{ tr.numDoc }}</td>
                         </tr>
                         <tr>
                             <td width="60%" align="left"><strong>Vehiculo:</strong> {{ tr.placa }}</td>
                             <td width="40%" align="left">
-                                <strong>Conductor:</strong> {{ tr.choferTipoDoc|catalog('06') }} {{ tr.choferDoc }}</td>
+                                <strong>Conductor:</strong> {{ tr.choferTipoDoc|catalog('061') }} {{ tr.choferDoc }}
+                            </td>
                         </tr>
                         </tbody>
                     </table>
