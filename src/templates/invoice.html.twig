@@ -214,8 +214,7 @@
                         <table width="100%" border="0" cellpadding="5" cellspacing="0">
                             <tbody>
                             <tr>
-                                <td colspan="4">
-                                    <br>
+                                <td>
                                     <br>
                                     <span style="font-family:Tahoma, Geneva, sans-serif; font-size:12px"
                                           text-align="center">
@@ -228,28 +227,41 @@
 															</strong>
 														</span>
                                     <br>
-                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <strong>Información Adicional</strong>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
+
+                        {% set anotherLegends = false %}
+                        {% for leg in doc.legends %}
+                            {% if leg.code != '1000' and leg.code != '2006' %}
+                                {% set anotherLegends = true %}
+                            {% endif %}
+                        {% endfor %}
                         <table width="100%" border="0" cellpadding="5" cellspacing="0">
                             <tbody>
-                            <tr class="border_top">
-                                <td width="30%" style="font-size: 10px;">
-                                    LEYENDA:
-                                </td>
-                                <td width="70%" style="font-size: 10px;">
-                                    <p>
+                            {% if anotherLegends %}
+                                <tr class="border_top">
+                                    <td width="30%" style="font-size: 10px;">
+                                        LEYENDA:
+                                    </td>
+                                    <td width="70%" style="font-size: 10px;">
                                         {% for leg in doc.legends %}
-                                            {% if leg.code != '1000' %}
-                                                {{ leg.value }}<br>
+                                            {% if leg.code != '1000' and leg.code != '2006' %}
+                                                {{ leg.value | raw }}
+                                                {% if not loop.last %}
+                                                    <br>
+                                                {% endif %}
                                             {% endif %}
                                         {% endfor %}
-                                    </p>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            {% endif %}
                             {% if isNota %}
                                 <tr class="border_top">
                                     <td width="30%" style="font-size: 10px;">
@@ -262,14 +274,16 @@
                             {% endif %}
                             {% if doc.params.user.extras is defined %}
                                 {% for item in doc.params.user.extras %}
-                                    <tr class="border_top">
-                                        <td width="30%" style="font-size: 10px;">
-                                            {{ item.name|upper }}:
-                                        </td>
-                                        <td width="70%" style="font-size: 10px;">
-                                            {{ item.value|raw }}
-                                        </td>
-                                    </tr>
+                                    {% if item.value is not empty and item.value is not null %}
+                                        <tr class="border_top">
+                                            <td width="30%" style="font-size: 10px;">
+                                                {{ item.name|upper }}:
+                                            </td>
+                                            <td width="70%" style="font-size: 10px;">
+                                                {{ item.value|raw }}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                             {% endif %}
                             </tbody>
@@ -447,6 +461,77 @@
                 </tr>
                 </tbody>
             </table>
+
+            <!-- INICIO DETRACCION -->
+
+            {% set hasDetraccion = false %}
+            {% set detraccionLegend = '' %}
+            {% for leg in doc.legends %}
+                {% if leg.code == '2006' %}
+                    {% set hasDetraccion = true %}
+                    {% set detraccionLegend = leg.value %}
+                {% endif %}
+            {% endfor %}
+
+            {% if hasDetraccion == true %}
+                {% set detraccion = doc.detraccion %}
+                <div class="tabla_borde">
+                    <table width="100%" border="0" cellpadding="1" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td align="left" colspan="6">
+                                <strong>Información de la detracción</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="left">
+                                <strong>Leyenda:</strong>
+                            </td>
+                            <td align="left" colspan="5">
+                                {{ detraccionLegend }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="left">
+                                <strong>Bien o Servicio:</strong>
+                            </td>
+                            <td align="left" colspan="5">
+                                {{ detraccion.codBienDetraccion }} - {{ detraccion.codBienDetraccion | catalog('54') }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="left">
+                                <strong>Medio de pago:</strong>
+                            </td>
+                            <td align="left" colspan="5">
+                                {{ detraccion.codMedioPago }} - {{ detraccion.codMedioPago | catalog('59') }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="left">
+                                <strong>Cta. Banco de la Nación:</strong>
+                            </td>
+                            <td align="left">
+                                {{ detraccion.ctaBanco }}
+                            </td>
+                            <td width="20%" align="left">
+                                <strong>Porcentaje de detracción:</strong>
+                            </td>
+                            <td align="left">
+                                {{ detraccion.percent | n_format(2) }}
+                            </td>
+                            <td width="20%" align="left">
+                                <strong>Monto detracción:</strong>
+                            </td>
+                            <td align="left">
+                                {{ moneda }} {{ detraccion.mount | n_format(2) }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            <!-- FIN DETRACCION -->
             <br>
             <br>
             {% if max_items is defined and doc.details|length > max_items %}
