@@ -28,7 +28,7 @@ class PdfGenerator
                 $tipoDoc = $data->destinatario->tipoDoc;
                 $numDoc = $data->destinatario->numDoc;
             } else {
-                if ($data->formato == 'ticket') {
+                if (isset($data->formato) && $data->formato == 'ticket') {
                     $reportType = 'ticket';
                 }
                 $tipoDoc = $data->client->tipoDoc;
