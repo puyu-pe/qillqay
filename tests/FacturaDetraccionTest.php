@@ -6,7 +6,7 @@ use PuyuPe\NexusPdf\PdfGenerator;
 
 use PHPUnit\Framework\TestCase;
 
-class FacturaTest extends TestCase
+class FacturaDetraccionTest extends TestCase
 {
     private $config;
 
@@ -38,99 +38,97 @@ class FacturaTest extends TestCase
     {
         $cpeJSON = '{
           "company": {
-            "ruc": "10123456789",
-            "razonSocial": "EMPRESA TEST",
-            "nombreComercial": "EMPRESA TEST S.R.L.",
+            "ruc": "20161515648",
+            "razonSocial": "Corporaci\u00F3n DEVELOPMENT",
+            "nombreComercial": "Corporaci\u00F3n DEVELOPMENT",
             "address": {
               "ubigueo": "030101",
               "codigoPais": "PE",
-              "departamento": "Apurímac",
+              "departamento": "Apur\u00EDmac",
               "provincia": "Abancay",
               "distrito": "Abancay",
               "urbanizacion": null,
-              "direccion": "AV. BRILLA EL SOL MZ. X Lt. 46 - URB. BELLA VISTA BAJA - ABANCAY - APURIMAC",
+              "direccion": "av. villa el sol",
               "codLocal": "0000"
             },
             "email": null,
             "telephone": null
           },
-          "tipoOperacion": "0101",
+          "tipoOperacion": "1001",
           "formato": "a4",
           "tipoDoc": "01",
           "codLocal": "0000",
           "serie": "F001",
-          "correlativo": "4863",
-          "fechaEmision": "2023-09-06 10:45:19",
-          "fechaVencimiento": "2023-09-24",
+          "correlativo": "53",
+          "fechaEmision": "2023-09-21 17:39:05",
+          "fechaVencimiento": "2023-09-21",
           "tipoMoneda": "PEN",
-          "mtoOperGravadas": "30.5084",
+          "mtoOperGravadas": "720.3390",
           "mtoOperExoneradas": "0.0000",
           "mtoOperInafectas": "0.0000",
-          "mtoIGV": "5.4916",
-          "totalImpuestos": "5.4916",
-          "valorVenta": "30.5084",
-          "subTotal": "36.0000",
-          "mtoImpVenta": "36.0000",
+          "mtoIGV": "129.6610",
+          "totalImpuestos": "129.6610",
+          "valorVenta": "720.3390",
+          "subTotal": "850.0000",
+          "mtoImpVenta": "850.0000",
           "formaPago": {
             "moneda": "PEN",
             "tipo": "Contado",
-            "monto": "36.000000"
+            "monto": "850.000000"
           },
           "cuotas": [],
           "client": {
             "tipoDoc": "6",
-            "numDoc": "10310122365",
-            "rznSocial": "VIZCARRA ASCARZA MARCOS",
+            "numDoc": "20564379248",
+            "rznSocial": "FASTWORKX S.R.L.",
             "address": {
               "ubigueo": "-",
-              "direccion": "-"
+              "direccion": "AV. VILLA EL SOL MZA. E LOTE. 8 URB. BELLAVISTA BAJA"
             },
             "email": null,
-            "telephone": "983602438"
+            "telephone": null
           },
           "cashier": {
             "tipoDoc": 1,
             "numDoc": "-",
-            "rznSocial": "delfina"
+            "rznSocial": "root"
           },
           "details": [
             {
-              "codProducto": "02011310784",
-              "unidad": "NIU",
-              "descripcion": "VALVULA SCOOTER 150 GY6 DMC COPILAR",
-              "cantidad": "1.0000",
-              "mtoValorUnitario": "15.2542",
-              "mtoValorVenta": "15.2542",
-              "mtoBaseIgv": "15.2542",
-              "porcentajeIgv": "18",
-              "igv": "2.7458",
-              "tipAfeIgv": "10",
-              "totalImpuestos": "2.7458",
-              "mtoPrecioUnitario": "18.0000"
-            },
-            {
               "codProducto": "-",
               "unidad": "NIU",
-              "descripcion": "VALVULA SCOOTER 150 GY6 ESC COPILAR",
+              "descripcion": "VINO DE MISA GENEROSO",
               "cantidad": "1.0000",
-              "mtoValorUnitario": "15.2542",
-              "mtoValorVenta": "15.2542",
-              "mtoBaseIgv": "15.2542",
+              "mtoValorUnitario": "720.3390",
+              "mtoValorVenta": "720.3390",
+              "mtoBaseIgv": "720.3390",
               "porcentajeIgv": "18",
-              "igv": "2.7458",
+              "igv": "129.6610",
               "tipAfeIgv": "10",
-              "totalImpuestos": "2.7458",
-              "mtoPrecioUnitario": "18.0000"
+              "totalImpuestos": "129.6610",
+              "mtoPrecioUnitario": "850.0000"
             }
           ],
           "legends": [
             {
               "code": "1000",
-              "value": "TREINTA Y SEIS  CON 00/100 SOLES."
+              "value": "OCHOCIENTOS CINCUENTA  CON 00/100 SOLES."
+            },
+            {
+              "code": "2006",
+              "value": "Operaci\u00F3n sujeta al Sistema de Pago de Obligaciones Tributarias con el Gobierno Central."
             }
           ],
-          "observation": "MENSAJE FINAL",
-          "documentFooter": null
+          "observation": "test observación",
+          "documentFooter": null,
+          "detraccion": {
+            "valueRef": null,
+            "codBienDetraccion": "020",
+            "codMedioPago": "001",
+            "ctaBanco": "334 4563 45678 4563",
+            "percent": "4",
+            "mount": "34.0000"
+          }
         }';
 
         return json_decode($cpeJSON);
@@ -150,15 +148,15 @@ class FacturaTest extends TestCase
             "header": null,
             "extras": [
               {
-                  "name": "FORMA DE PAGO",
+                "name": "FORMA DE PAGO",
                 "value": "Contado PEN 36.00"
               },
               {
-                  "name": "CAJERO",
+                "name": "CAJERO",
                 "value": "delfina"
               },
               {
-                  "name": "OBSERVACIÓN",
+                "name": "OBSERVACIÓN",
                 "value": ""
               }
             ],

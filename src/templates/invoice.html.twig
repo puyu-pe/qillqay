@@ -50,7 +50,7 @@
                                 </tr>
                                 <tr>
                                     <td align="center">
-                                        <span style="font-size:24px">{{ doc.serie }}-{{ doc.correlativo }}</span>
+                                        <span style="font-size:24px">{{ doc.serie }} - {{ doc.correlativo }}</span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -100,7 +100,7 @@
                             <strong>Razón Social:</strong>
                             {{ cl.rznSocial }}</td>
                         <td width="40%" align="left">
-                            <strong>{{ cl.tipoDoc|catalog('06') }}:</strong>
+                            <strong>{{ cl.tipoDoc|catalog('061') }}:</strong>
                             {{ cl.numDoc }}</td>
                     </tr>
                     <tr>
@@ -141,7 +141,7 @@
                         <td width="60%" align="left">
                             <strong>Tipo Moneda:
                             </strong>
-                            {{ doc.tipoMoneda|catalog('021') }}
+                            {{ doc.tipoMoneda }} - {{ doc.tipoMoneda|catalog('02') }}
                         </td>
                         <td width="40%" align="left">
                             {% if doc.compra is defined and doc.compra %}
@@ -167,7 +167,7 @@
                 </table>
             </div>
             <br>
-            {% set moneda = doc.tipoMoneda|catalog('02') %}
+            {% set moneda = doc.tipoMoneda|catalog('021') %}
             <div class="tabla_borde">
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tbody>
@@ -180,7 +180,7 @@
                     </tr>
                     {% for det in doc.details %}
                         <tr class="  ">
-                            <td align="right" style="">
+                            <td align="right">
                                 {{ det.cantidad|n_format }}
                                 {{ det.unidad }}
                             </td>
@@ -214,8 +214,7 @@
                         <table width="100%" border="0" cellpadding="5" cellspacing="0">
                             <tbody>
                             <tr>
-                                <td colspan="4">
-                                    <br>
+                                <td>
                                     <br>
                                     <span style="font-family:Tahoma, Geneva, sans-serif; font-size:12px"
                                           text-align="center">
@@ -228,28 +227,41 @@
 															</strong>
 														</span>
                                     <br>
-                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <strong>Información Adicional</strong>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
+
+                        {% set anotherLegends = false %}
+                        {% for leg in doc.legends %}
+                            {% if leg.code != '1000' and leg.code != '2006' %}
+                                {% set anotherLegends = true %}
+                            {% endif %}
+                        {% endfor %}
                         <table width="100%" border="0" cellpadding="5" cellspacing="0">
                             <tbody>
-                            <tr class="border_top">
-                                <td width="30%" style="font-size: 10px;">
-                                    LEYENDA:
-                                </td>
-                                <td width="70%" style="font-size: 10px;">
-                                    <p>
+                            {% if anotherLegends %}
+                                <tr class="border_top">
+                                    <td width="30%" style="font-size: 10px;">
+                                        LEYENDA:
+                                    </td>
+                                    <td width="70%" style="font-size: 10px;">
                                         {% for leg in doc.legends %}
-                                            {% if leg.code != '1000' %}
-                                                {{ leg.value }}<br>
+                                            {% if leg.code != '1000' and leg.code != '2006' %}
+                                                {{ leg.value | raw }}
+                                                {% if not loop.last %}
+                                                    <br>
+                                                {% endif %}
                                             {% endif %}
                                         {% endfor %}
-                                    </p>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            {% endif %}
                             {% if isNota %}
                                 <tr class="border_top">
                                     <td width="30%" style="font-size: 10px;">
@@ -262,14 +274,16 @@
                             {% endif %}
                             {% if doc.params.user.extras is defined %}
                                 {% for item in doc.params.user.extras %}
-                                    <tr class="border_top">
-                                        <td width="30%" style="font-size: 10px;">
-                                            {{ item.name|upper }}:
-                                        </td>
-                                        <td width="70%" style="font-size: 10px;">
-                                            {{ item.value|raw }}
-                                        </td>
-                                    </tr>
+                                    {% if item.value is not empty and item.value is not null %}
+                                        <tr class="border_top">
+                                            <td width="30%" style="font-size: 10px;">
+                                                {{ item.name|upper }}:
+                                            </td>
+                                            <td width="70%" style="font-size: 10px;">
+                                                {{ item.value|raw }}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                             {% endif %}
                             </tbody>
@@ -318,8 +332,7 @@
                                         <strong>Total Anticipo:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.totalAnticipos|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.totalAnticipos|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -329,8 +342,7 @@
                                         <strong>Op. Gravadas:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.mtoOperGravadas|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.mtoOperGravadas|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -340,8 +352,7 @@
                                         <strong>Op. Inafectas:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.mtoOperInafectas|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.mtoOperInafectas|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -351,8 +362,7 @@
                                         <strong>Op. Exoneradas:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.mtoOperExoneradas|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.mtoOperExoneradas|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -364,8 +374,7 @@
                                         {% endif %}:</strong>
                                 </td>
                                 <td width="120" align="right">
-														<span>{{ moneda }}
-                                                            {{ doc.mtoIGV|n_format }}</span>
+                                    <span>{{ moneda }} {{ doc.mtoIGV|n_format }}</span>
                                 </td>
                             </tr>
                             {% if doc.mtoISC %}
@@ -374,8 +383,7 @@
                                         <strong>I.S.C.:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.mtoISC|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.mtoISC|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -385,8 +393,7 @@
                                         <strong>Otros Cargos:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.sumOtrosCargos|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.sumOtrosCargos|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -396,8 +403,7 @@
                                         <strong>Otros Descuentos:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.sumOtrosDescuentos|n_format }}</span>
+                                        <span>{{ moneda }}  {{ doc.sumOtrosDescuentos|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -407,8 +413,7 @@
                                         <strong>I.C.B.P.E.R.:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.icbper|n_format }}</span>
+                                        <span>{{ moneda }}  {{ doc.icbper|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -418,8 +423,7 @@
                                         <strong>Otros Tributos:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ moneda }}
-                                                                {{ doc.mtoOtrosTributos|n_format }}</span>
+                                        <span>{{ moneda }} {{ doc.mtoOtrosTributos|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -428,21 +432,18 @@
                                     <strong>Precio Venta:</strong>
                                 </td>
                                 <td width="120" align="right">
-														<span id="ride-importeTotal"
-                                                              class="ride-importeTotal">{{ moneda }}
-                                                            {{ doc.mtoImpVenta|n_format }}</span>
+                                    <span id="ride-importeTotal"
+                                          class="ride-importeTotal">{{ moneda }} {{ doc.mtoImpVenta|n_format }}</span>
                                 </td>
                             </tr>
                             {% if doc.perception and doc.perception.mto %}
                                 {% set perc = doc.perception %}
-                                {% set soles = 'PEN'|catalog('02') %}
                                 <tr>
                                     <td align="right">
                                         <strong>Percepción:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ soles }}
-                                                                {{ perc.mto|n_format }}</span>
+                                        <span>{{ moneda }} {{ perc.mto|n_format }}</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -450,8 +451,7 @@
                                         <strong>Total a Pagar:</strong>
                                     </td>
                                     <td width="120" align="right">
-															<span>{{ soles }}
-                                                                {{ perc.mtoTotal|n_format }}</span>
+                                        <span>{{ moneda }} {{ perc.mtoTotal|n_format }}</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -461,6 +461,77 @@
                 </tr>
                 </tbody>
             </table>
+
+            <!-- INICIO DETRACCION -->
+
+            {% set hasDetraccion = false %}
+            {% set detraccionLegend = '' %}
+            {% for leg in doc.legends %}
+                {% if leg.code == '2006' %}
+                    {% set hasDetraccion = true %}
+                    {% set detraccionLegend = leg.value %}
+                {% endif %}
+            {% endfor %}
+
+            {% if hasDetraccion == true %}
+                {% set detraccion = doc.detraccion %}
+                <div class="tabla_borde">
+                    <table width="100%" border="0" cellpadding="1" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td align="left" colspan="6">
+                                <strong>Información de la detracción</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="left">
+                                <strong>Leyenda:</strong>
+                            </td>
+                            <td align="left" colspan="5">
+                                {{ detraccionLegend }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="left">
+                                <strong>Bien o Servicio:</strong>
+                            </td>
+                            <td align="left" colspan="5">
+                                {{ detraccion.codBienDetraccion }} - {{ detraccion.codBienDetraccion | catalog('54') }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="left">
+                                <strong>Medio de pago:</strong>
+                            </td>
+                            <td align="left" colspan="5">
+                                {{ detraccion.codMedioPago }} - {{ detraccion.codMedioPago | catalog('59') }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" align="left">
+                                <strong>Cta. Banco de la Nación:</strong>
+                            </td>
+                            <td align="left">
+                                {{ detraccion.ctaBanco }}
+                            </td>
+                            <td width="20%" align="left">
+                                <strong>Porcentaje de detracción:</strong>
+                            </td>
+                            <td align="left">
+                                {{ detraccion.percent | n_format(2) }}
+                            </td>
+                            <td width="20%" align="left">
+                                <strong>Monto detracción:</strong>
+                            </td>
+                            <td align="left">
+                                {{ moneda }} {{ detraccion.mount | n_format(2) }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            <!-- FIN DETRACCION -->
             <br>
             <br>
             {% if max_items is defined and doc.details|length > max_items %}

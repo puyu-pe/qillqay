@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE l>
+<!-- catalogo de tipos de documento de identidad -->
+<l>
+<c id="0">N/D</c>
+<c id="1">DNI</c>
+<c id="4">CE</c>
+<c id="6">RUC</c>
+<c id="7">PAS</c>
+<c id="A">CCDI</c>
+<c id="B">NO.D</c>
+<c id="C">TIN</c>
+<c id="D">IN</c>
+<c id="E">TAM</c>
+<c id="F">PTP</c>
+<c id="G">SVC</c>
+</l>
