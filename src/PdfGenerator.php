@@ -51,53 +51,69 @@ class PdfGenerator
 
             $html = $twig->render("templates/$reportType.html.twig", ['doc' => $data]);
 
+            $size = $data->formato ?? null;
 
-            switch ($format) {
-                case "file":
-                case "pdf":
-
-                    $options = self::getOptions($data->formato ?? null);
-                    $options['binary'] = $wkhtmlPath;
-                    $pdf = new Pdf($options);
-
-                    $pdf->addPage($html);
-
-                    if ($env == 'test' || $format == 'file') {
-                        $tempFilePath = sys_get_temp_dir() . '/nexuspdf_' . self::generateRandomString(6) . '.pdf';
-                        $result = $pdf->saveAs($tempFilePath);
-
-                        if (!$result) {
-                            $error = $pdf->getError();
-                            $resultPath = '/tmp/test-result.txt';
-                            file_put_contents($resultPath, $error);
-                        }
-
-                        return $tempFilePath;
-                    } else {
-                        $pdf->send();
-                    }
-
-                    break;
-                case "html":
-                    if ($env == 'test'){
-                        $resultPath = sys_get_temp_dir() . '/nexuspdf_' . self::generateRandomString(6) . '.html';
-                        file_put_contents($resultPath, $html);
-                        return $resultPath;
-                    }
-
-                    return $html;
-
-                default:
-                    return 'Formato no reconocido';
-            }
-
+            return self::runGeneration($html, $data, $wkhtmlPath, $size, $format, $env);
 
         } catch (Exception $exs) {
             return $exs->getTraceAsString();
         }
     }
 
-    public static function generateRandomString($length = 6)
+    public static function generateFromHtml($html, $wkhtmlPath, $size = 'a4', $format = 'pdf', $env = 'run')
+    {
+        try {
+            return self::runGeneration($html, null, $wkhtmlPath, $size, $format, $env);
+
+        } catch (Exception $exs) {
+            return $exs->getTraceAsString();
+        }
+    }
+
+    public static function runGeneration($html, $data, $wkhtmlPath, $size = 'a4', $format = 'pdf', $env = 'run')
+    {
+        switch ($format) {
+            case "file":
+            case "pdf":
+
+                $options = self::getOptions($size, $data);
+                $options['binary'] = $wkhtmlPath;
+                $pdf = new Pdf($options);
+
+                $pdf->addPage($html);
+
+                if ($env == 'test' || $format == 'file') {
+                    $tempFilePath = sys_get_temp_dir() . '/nexuspdf_' . self::generateRandomString(6) . '.pdf';
+                    $result = $pdf->saveAs($tempFilePath);
+
+                    if (!$result) {
+                        $error = $pdf->getError();
+                        $resultPath = '/tmp/test-result.txt';
+                        file_put_contents($resultPath, $error);
+                    }
+
+                    return $tempFilePath;
+                } else {
+                    $pdf->send();
+                }
+
+                break;
+            case "html":
+                if ($env == 'test') {
+                    $resultPath = sys_get_temp_dir() . '/nexuspdf_' . self::generateRandomString(6) . '.html';
+                    file_put_contents($resultPath, $html);
+                    return $resultPath;
+                }
+
+                return $html;
+
+            default:
+                return 'Formato no reconocido';
+        }
+    }
+
+
+    private static function generateRandomString($length = 6)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
@@ -109,16 +125,21 @@ class PdfGenerator
         return $randomString;
     }
 
-    private static function getOptions($formato)
+    private static function getOptions($size, $data = null)
     {
-
-        switch ($formato) {
+        switch ($size) {
             case 'ticket':
+
+                $height = '210mm';
+                if ($data != null) {
+                    $height = self::estimateTicketHeight($data) . 'mm';
+                }
+
                 return [
                     'no-outline',
                     'print-media-type',
                     'page-width' => '80mm',
-                    'page-height' => '210mm',
+                    'page-height' => $height,
                     'margin-top' => '5mm',
                     'margin-bottom' => '5mm',
                     'margin-left' => '3mm',
@@ -130,6 +151,28 @@ class PdfGenerator
                     'print-media-type'
                 ];
         }
+    }
 
+    private static function estimateTicketHeight($data)
+    {
+        $baseHeight = 220;
+        $additionalHeight = 0;
+
+        if(isset($data->params->user->header)){
+            $additionalHeight += 20;
+        }
+
+        if($data->tipoDoc == '07'){
+            $additionalHeight += 30;
+        }
+
+        if (isset($data->details) && is_array($data->details)) {
+            $itemHeight = 6;
+            $additionalHeight = count($data->details) * $itemHeight;
+        }
+
+        $totalHeight = $baseHeight + $additionalHeight;
+
+        return $totalHeight;
     }
 }
