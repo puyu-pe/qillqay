@@ -232,3 +232,16 @@ td {
     left: 35%;
     transform: rotate(-45deg);
 }
+
+.table-details thead th:first-child {
+    border-radius: 10px 0 0 0;
+}
+
+.table-details thead th:last-child {
+    border-radius: 0 10px 0 0;
+}
+
+.denomination{
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:12px;
+}

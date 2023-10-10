@@ -117,6 +117,7 @@ class GuiaRemisionTest extends TestCase
             "extras": [ ],
             "logo": ""
           },
+          "stringQr" : "puyu.pe",
           "documentFooter": null
         }';
         return json_decode($params);

@@ -25,29 +25,11 @@ class PdfGenerator
 
             if ($data->tipoDoc == '09') {
                 $reportType = 'despatch';
-                $tipoDoc = $data->destinatario->tipoDoc;
-                $numDoc = $data->destinatario->numDoc;
             } else {
                 if (isset($data->formato) && $data->formato == 'ticket') {
                     $reportType = 'ticket';
                 }
-                $tipoDoc = $data->client->tipoDoc;
-                $numDoc = $data->client->numDoc;
             }
-
-            $stringQr = implode("|", [
-                $data->company->ruc,
-                $data->tipoDoc,
-                $data->serie,
-                str_pad($data->correlativo, 6, "0", STR_PAD_LEFT),
-                $data->mtoIGV ?? 0,
-                $data->mtoImpVenta ?? 0,
-                date("d/m/Y", strtotime($data->fechaEmision)),
-                $tipoDoc,
-                $numDoc,
-                $data->params->system->hash
-            ]);
-            $data->stringQr = $stringQr;
 
             $html = $twig->render("templates/$reportType.html.twig", ['doc' => $data]);
 
