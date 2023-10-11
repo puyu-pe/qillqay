@@ -14,11 +14,14 @@ Documentos personalizados (desde el mismo formato de objeto y/o html):
 - Requiere datos adicionales (ver generación de objeto)
 
 # Utilización
+
 ## Requerimientos
 - PHP 7.4
 - Binario wkhtmltopdf 0.12.6 (mínimo)
+
 ## Instalación
 - Ejecutar el comando:
+
 ```
 composer require puyu-pe/nexus-doc-gen
 ```
@@ -157,7 +160,7 @@ $data->params = (object) [
         'hash' => 'm70vBMajaapHr5ByjkwEER8tCjc=',
         'background' => '#000000',
         'appMessage' => 'Emitido desde YUBIZ.PUYU.PE',
-        'customCss' => '',
+        'customCss' => '', /
         'anulled' => false,
         'is_production' => true,
     ],
