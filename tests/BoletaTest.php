@@ -18,6 +18,8 @@ class BoletaTest extends TestCase
     public function testGeneratePdf()
     {
         $data = $this->getMockedData();
+
+//echo json_encode($data);
         $wkhtmlPath = $this->config['wkhtmlPath'];
         $format = $this->config['format'];
         $filePath = PdfGenerator::generatePdf($data, $wkhtmlPath, $format, 'test');
@@ -79,7 +81,6 @@ class BoletaTest extends TestCase
             "monto": "40.00"
             },
             "cuotas": null,
-            "formato": "a4",
             "codLocal": "0000",
             "client": {
             "tipoDoc": 1,
@@ -156,6 +157,7 @@ class BoletaTest extends TestCase
             ],
             "logo": ""
           },
+          "stringQr" : "puyu.pe",
           "documentFooter": null
         }';
         return json_decode($params);

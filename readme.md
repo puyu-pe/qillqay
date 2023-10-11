@@ -3,28 +3,28 @@
 ** LIBRERIA EN PRUEBAS **
 
 Libreria para generar documentos en formatos A4 y ticket en PDF y HTML:
+
+Documentos electrónicos:
 - Facturas
 - Boletas
 - Notas de Crédito
-- Guias de remisión *
+- Guias de remisión (solo a4)
 
-* Guias de remisión solo permite formato A4
+Documentos personalizados (desde el mismo formato de objeto y/o html):
+- Requiere datos adicionales (ver generación de objeto)
 
 # Utilización
 
 ## Requerimientos
-
 - PHP 7.4
 - Binario wkhtmltopdf 0.12.6 (mínimo)
 
 ## Instalación
-
 - Ejecutar el comando:
 
 ```
 composer require puyu-pe/nexus-doc-gen
 ```
-
 ## Utilización
 
 - Incluir la libreria
@@ -60,24 +60,25 @@ $data = (object) [
     'tipoOperacion' => '0101',
     'formato' => 'ticket',
     'tipoDoc' => '03',
+    'tipoDocNombre' => '', // REQUERIDO SI tipoDoc = 00 
     'codLocal' => '0000',
     'serie' => 'B001',
     'correlativo' => '25735',
     'fechaEmision' => '2023-09-19 09:12:58',
     'fechaVencimiento' => '2023-09-19',
     'tipoMoneda' => 'PEN',
-    'mtoOperGravadas' => '0.0000',
-    'mtoOperExoneradas' => '6.0000',
-    'mtoOperInafectas' => '0.0000',
-    'mtoIGV' => '0.0000',
-    'totalImpuestos' => '0.0000',
-    'valorVenta' => '6.0000',
-    'subTotal' => '6.0000',
-    'mtoImpVenta' => '6.0000',
+    'mtoOperGravadas' => '0.00',
+    'mtoOperExoneradas' => '6.00',
+    'mtoOperInafectas' => '0.00',
+    'mtoIGV' => '0.00',
+    'totalImpuestos' => '0.00',
+    'valorVenta' => '6.00',
+    'subTotal' => '6.00',
+    'mtoImpVenta' => '6.00',
     'formaPago' => (object) [
         'moneda' => 'PEN',
         'tipo' => 'Contado',
-        'monto' => '6.000000',
+        'monto' => '6.0000',
     ],
     'cuotas' => [],
     'client' => (object) [
@@ -85,31 +86,61 @@ $data = (object) [
         'numDoc' => '70430738',
         'rznSocial' => 'LUIS ALFREDO HUAMANI QUISPE',
         'address' => (object) [
-            'ubigueo' => '-',
-            'direccion' => null,
-        ],
-        'email' => 'huamaniquispeluisalberto@gmail.com',
-        'telephone' => null,
+            'direccion' => null
+        ]
     ],
     'cashier' => (object) [
         'tipoDoc' => 1,
         'numDoc' => '-',
-        'rznSocial' => 'ucaja',
+        'rznSocial' => 'ucaja'
     ],
-    'details' => [
+    'detailsHeader' => //REQUERIDO SI tipoDoc = 00
+        [ // ENCABEZADO A MOSTRAR => DATO EN details
+            (object) [
+             'title ' => 'CODIGO',
+             'field' => 'codProducto'
+             ],
+            (object) [
+             'title ' => 'UNIDAD',
+             'field' => 'unidad'
+             ],
+            (object) [
+             'title ' => 'DESCRIPCION',
+             'field' => 'descripcion'
+             ],
+            (object) [
+             'title ' => 'CANTIDAD',
+             'field' => 'cantidad'
+             ],
+            (object) 
+            [ 'title ' => 'PRECIO ,
+            'field' UNITARIO' => 'mtoPrecioUnitario'
+            ],
+            (object) [
+             'title ' => 'TOTAL',
+             'field' => 'total'
+             ],
+        ],
+    'details' => [ //DE ACUERDO A detailsHeader si tipodoc = 00
         (object) [
             'codProducto' => '1.3.23.14.1',
             'unidad' => 'NIU',
             'descripcion' => 'CONSTANCIA DE NOTAS POR SEMESTRE',
-            'cantidad' => '1.0000',
-            'mtoValorUnitario' => '6.0000',
-            'mtoValorVenta' => '6.0000',
-            'mtoBaseIgv' => '6.0000',
+            'cantidad' => '1.00',
+            'mtoValorUnitario' => '6.00',
+            'mtoValorVenta' => '6.00',
+            'mtoBaseIgv' => '6.00',
             'porcentajeIgv' => 0,
             'igv' => 0,
             'tipAfeIgv' => '20',
             'totalImpuestos' => 0,
-            'mtoPrecioUnitario' => '6.0000',
+            'mtoPrecioUnitario' => '6.00',
+            'total' => '6.00' //REQUERIDO SI tipoDoc = 00
+        ],
+    ],
+    'detailsSummary' => [ //REQUERIDO SI tipoDoc = 00
+        (object) [ // TOTALES O RESUMEN A MOSTRAR
+            'TOTAL' => '6.00',
         ],
     ],
     'legends' => [
@@ -121,16 +152,15 @@ $data = (object) [
     'observation' => null,
     'documentFooter' => null,
 ];
-
-
 ```
-
 - Adicionar un campo params al objeto, debe contener la siguiente estructura:
 ```
 $data->params = (object) [
     'system' => (object) [
         'hash' => 'm70vBMajaapHr5ByjkwEER8tCjc=',
         'background' => '#000000',
+        'appMessage' => 'Emitido desde YUBIZ.PUYU.PE',
+        'customCss' => '', /
         'anulled' => false,
         'is_production' => true,
     ],
@@ -152,6 +182,7 @@ $data->params = (object) [
         ],
         'logo' => 'data:image/png;base64,[codigo]', 
     ],
+    'stringQR' => '',
     'documentFooter' => null,
 ];
 ```
@@ -162,5 +193,11 @@ $formato = 'pdf'; //pdf, html
 
 PdfGenerator::generatePdf($data, $wkhtmlPath, $formato);
 ```
+- Para generar desde HTML (debe incluir el css):
+``` 
+$wkhtmlPath = ''; //RUTA DEL BINARIO WKHTMLTOPDF, REQUERIDO SI SE QUIERE EN FORMATO PDF O ARCHIVO
+$formato = 'pdf'; //pdf, html
 
+PdfGenerator::generateFromHtml($html, $wkhtmlPath, $size = 'a4', $format = 'pdf', $env = 'run')
+```
 Se genera un stream del archivo, asi que no es necesario agregar return o asignarlo a una variable

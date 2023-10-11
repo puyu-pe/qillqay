@@ -586,7 +586,7 @@ class BoletaTicketTest extends TestCase
     private function getParams()
     {
         $params = '{
-            "system": {
+          "system": {
             "hash": " nFLJprnSa4WFbxvO/YE9nRcNnbc=",
             "background": "#123456",
             "appMessage" : "Emitido desde YUBIZ.PUYU.PE",
@@ -612,6 +612,7 @@ class BoletaTicketTest extends TestCase
             ],
             "logo": null
           },
+          "stringQr" : "",
           "documentFooter": null
         }';
         return json_decode($params);

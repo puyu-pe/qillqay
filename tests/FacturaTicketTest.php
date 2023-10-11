@@ -126,9 +126,10 @@ class FacturaTicketTest extends TestCase
     private function getParams()
     {
         $params = '{
-                "system": {
+          "system": {
             "hash": "m70vBMajaapHr5ByjkwEER8tCjc=",
             "background": "#000000",
+            "appMessage" : "Emitido desde YUBIZ.PUYU.PE",
             "anulled": false,
             "is_production": true
           },
@@ -151,6 +152,7 @@ class FacturaTicketTest extends TestCase
             ],
             "logo": ""
           },
+          "stringQr" : "puyu.pe",
           "documentFooter": null
         }';
         return json_decode($params);
