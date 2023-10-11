@@ -2,7 +2,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style type="text/css">
-        {% include 'templates/assets/a4-style.css' %}</style>
+        {% include 'templates/assets/a4-style.css' %}
+
+        {% if doc.params.system.customCss is not empty %}
+            {{ doc.params.system.customCss | raw }}
+        {% endif %}
+    </style>
 </head>
 <body class="white-bg">
 {% set cp = doc.company %}
@@ -94,6 +99,7 @@
                 </tr>
                 </tbody>
             </table>
+            <br>
             <!-- customer -->
             <div class="tabla_borde">
                 {% set cl = doc.client %}
@@ -115,10 +121,6 @@
                             {% if doc.fechaEmision|date('H:i:s') != '00:00:00' %}
                                 {{ doc.fechaEmision|date('H:i:s') }}
                             {% endif %}
-                            {% if doc.fechaVencimiento is not empty and doc.fechaVencimiento and isFactura %}
-                                <br><br><strong>Fecha Vencimiento:</strong>
-                                {{ doc.fechaVencimiento|date('d/m/Y') }}
-                            {% endif %}
                         </td>
                         <td width="40%" align="left">
                             <strong>Dirección:
@@ -128,6 +130,17 @@
                             {% endif %}
                         </td>
                     </tr>
+
+                    {% if doc.fechaVencimiento is not empty and doc.fechaVencimiento and isFactura %}
+                        <tr>
+                            <td width="60%" align="left">
+                                <strong>Fecha Vencimiento:</strong>
+                                {{ doc.fechaVencimiento|date('d/m/Y') }}
+                            </td>
+                            <td></td>
+                        </tr>
+                    {% endif %}
+
                     {% if isNota %}
                         <tr>
                             <td width="60%" align="left">
@@ -357,14 +370,14 @@
                             {% if isCustom %}
 
                                 {% for summary in doc.detailsSummary %}
-                                        <tr class="border_bottom">
-                                            <td align="right">
-                                                <strong>{{ summary.title }}:</strong>
-                                            </td>
-                                            <td width="120" align="right">
-                                                <span>{{ summary.value }}</span>
-                                            </td>
-                                        </tr>
+                                    <tr class="border_bottom">
+                                        <td align="right">
+                                            <strong>{{ summary.title }}:</strong>
+                                        </td>
+                                        <td width="120" align="right">
+                                            <span>{{ summary.value }}</span>
+                                        </td>
+                                    </tr>
                                 {% endfor %}
 
                             {% else %}
