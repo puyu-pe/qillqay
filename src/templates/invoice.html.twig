@@ -207,10 +207,12 @@
                     {% for det in doc.details %}
 
                         {% if isCustom %}
-                            {% for header in doc.detailsHeader %}
-                                {% set cellAlign = header.align is not null ? header.align : "right" %}
-                                <td align="{{ cellAlign }}">{{ attribute(det, header.field) | raw }}</td>
-                            {% endfor %}
+                            <tr>
+                                {% for header in doc.detailsHeader %}
+                                    {% set cellAlign = header.align is not null ? header.align : "right" %}
+                                    <td align="{{ cellAlign }}">{{ attribute(det, header.field) | raw }}</td>
+                                {% endfor %}
+                            </tr>
                         {% else %}
                             <tr>
                                 <td align="right">
