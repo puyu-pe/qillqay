@@ -616,7 +616,9 @@
                             {% if doc.params.system.hash is defined and doc.params.system.hash %}
                                 <strong>Resumen:</strong> {{ doc.params.system.hash }}<br>
                             {% endif %}
-                            <span>Representación impresa del Comprobante de Pago Electrónico</span>
+                            {% if not isCustom %}
+                                <span>Representación impresa del Comprobante de Pago Electrónico</span>
+                            {% endif %}
                         </td>
                         {% if doc.params.stringQr is not null %}
                             <td width="15%" align="center">
