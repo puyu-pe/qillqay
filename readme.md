@@ -1,4 +1,5 @@
-# Libreria para generar representación de CPE
+# PUYU.PE QILLQAY
+## Libreria para generar representación de CPE
 
 ** LIBRERIA EN PRUEBAS **
 
@@ -17,19 +18,19 @@ Documentos personalizados (desde el mismo formato de objeto y/o html):
 
 ## Requerimientos
 - PHP 7.4
-- Binario wkhtmltopdf 0.12.6 (mínimo)
+- Binario wkhtmltopdf 0.12.6 (mínimo) https://wkhtmltopdf.org/
 
 ## Instalación
 - Ejecutar el comando:
 
 ```
-composer require puyu-pe/nexus-doc-gen
+composer require puyu-pe/qillqay
 ```
 ## Utilización
 
 - Incluir la libreria
 ```
-use PuyuPe\NexusPdf\PdfGenerator;
+use PuyuPe\Qillqay\Generate;
 ```
 - Generar el objeto $data, el cual es el objeto $invoice que se usa para enviar a nexus (https://github.com/puyu-pe/nexus/blob/develop/docs/api.md)
 - Se puede usar el comando json_encode en caso de tener el json en una variable de tipo string 
@@ -98,7 +99,8 @@ $data = (object) [
         [ // ENCABEZADO A MOSTRAR => DATO EN details
             (object) [
              'title ' => 'CODIGO',
-             'field' => 'codProducto'
+             'field' => 'codProducto',
+             'align' => 'left' //Alineación de items, opcional, por defecto derecha (right)
              ],
             (object) [
              'title ' => 'UNIDAD',
@@ -121,7 +123,7 @@ $data = (object) [
              'field' => 'total'
              ],
         ],
-    'details' => [ //DE ACUERDO A detailsHeader si tipodoc = 00
+    'details' => [ //DE ACUERDO A detailsHeader, si tipodoc = 00 incluir todos los mencionados en field
         (object) [
             'codProducto' => '1.3.23.14.1',
             'unidad' => 'NIU',
@@ -140,7 +142,9 @@ $data = (object) [
     ],
     'detailsSummary' => [ //REQUERIDO SI tipoDoc = 00
         (object) [ // TOTALES O RESUMEN A MOSTRAR
-            'TOTAL' => '6.00',
+            'title' => 'TOTAL',
+            'value' => '6.00',
+            'colspan' => 2 //Requerido para formato ticket
         ],
     ],
     'legends' => [
@@ -151,6 +155,7 @@ $data = (object) [
     ],
     'observation' => null,
     'documentFooter' => null,
+    'params' => [VER CAMPO ADICIONAL]
 ];
 ```
 - Adicionar un campo params al objeto, debe contener la siguiente estructura:
@@ -159,8 +164,8 @@ $data->params = (object) [
     'system' => (object) [
         'hash' => 'm70vBMajaapHr5ByjkwEER8tCjc=',
         'background' => '#000000',
-        'appMessage' => 'Emitido desde YUBIZ.PUYU.PE',
-        'customCss' => '', /
+        'appMessage' => 'Emitido desde YUBIZ.PUYU.PE', //Requerido en formato ticket
+        'customCss' => '[CSS adicional para modificar estilos del documento, opcional]',
         'anulled' => false,
         'is_production' => true,
     ],
@@ -177,27 +182,41 @@ $data->params = (object) [
             ],
             (object) [
                 'name' => 'OBSERVACIÓN',
-                'value' => '',
+                'value' => '[Mensaje final u observación del documento, puede ser nulo]',
             ],
         ],
         'logo' => 'data:image/png;base64,[codigo]', 
     ],
-    'stringQR' => '',
+    'stringQR' => '', //Cadena a generar codigo QR, requerido para CPE
     'documentFooter' => null,
 ];
 ```
-- Llamar a la función generatePdf usando el siguiente codigo:
-``` 
-$wkhtmlPath = ''; //RUTA DEL BINARIO WKHTMLTOPDF, REQUERIDO SI SE QUIERE EN FORMATO PDF O ARCHIVO
-$formato = 'pdf'; //pdf, html
+- Se requieren los siguientes parámetros al momento de llamar a una de las funciones:
 
-PdfGenerator::generatePdf($data, $wkhtmlPath, $formato);
 ```
-- Para generar desde HTML (debe incluir el css):
+$data = Objeto de datos para generar el documento, para la función fromObject.
+$html = Cadena html para generar el documento, para la función fromHtml.
+$format = Formato de retorno del objeto (Opcional)
+          [pdf : Valor por defecto, stream pdf, html: Cadena html, file : Archivo en disco temporal (en pruebas)]
+$size = Tamaño del documento a generar (ticket, a4), solo para función fromHtml (Valor por defecto : a4).
+$wkhtmlPath = Ruta del archivo binario o ejecutable, valor por defecto 'wkhtmltopdf'. (Opcional)
+$env = Entorno de ejecución, solo usado para pruebas unitarias (Opcional, Valor por defecto run)
+```
+- Llamar a la función fromObject usando el siguiente codigo:
 ``` 
-$wkhtmlPath = ''; //RUTA DEL BINARIO WKHTMLTOPDF, REQUERIDO SI SE QUIERE EN FORMATO PDF O ARCHIVO
-$formato = 'pdf'; //pdf, html
+$data = [OBJETO DE DATOS]
 
-PdfGenerator::generateFromHtml($html, $wkhtmlPath, $size = 'a4', $format = 'pdf', $env = 'run')
+return Generate::fromObject($data); //Stream de archivo pdf (tamaño segun parametro de objeto)
+return Generate::fromObject($data, 'pdf', 'ruta/a/wkhtmltopdf'); //Stream de archivo pdf indicando la ruta del binario/ejecutable
+$html = Generate::fromObject($data, 'html'); //Generar string formato html
+$location = Generate::fromObject($data, 'file'); //Archivo temporal en pdf (En pruebas)
+```
+- Llamar a la función fromHtml (debe incluir el css):
+``` 
+$html = [cadena html a generar]
+
+return Generate::fromHtml($html); //Stream de archivo pdf en tamaño a4
+return Generate::fromHtml($html, 'pdf', 'ticket'); //Stream de archivo pdf en tamaño ticket
+return Generate::fromHtml($html, 'pdf', 'a4', 'ruta/a/wkhtmltopdf'); //Stream de archivo pdf en tamaño a4 indicando la ruta del binario/ejecutable
 ```
 Se genera un stream del archivo, asi que no es necesario agregar return o asignarlo a una variable

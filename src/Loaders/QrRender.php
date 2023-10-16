@@ -1,6 +1,6 @@
 <?php
 
-namespace PuyuPe\NexusPdf\Loaders;
+namespace PuyuPe\Qillqay\Loaders;
 
 use BaconQrCode\Common\ErrorCorrectionLevel;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;

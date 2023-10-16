@@ -1,8 +1,8 @@
 <?php
 
-namespace PuyuPe\NexusPdf\Tests;
+namespace PuyuPe\Qillqay\Tests;
 
-use PuyuPe\NexusPdf\PdfGenerator;
+use PuyuPe\Qillqay\Generate;
 
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class NotaFacturaTest extends TestCase
         $data = $this->getMockedData();
         $wkhtmlPath = $this->config['wkhtmlPath'];
         $format = $this->config['format'];
-        $filePath = PdfGenerator::generatePdf($data, $wkhtmlPath, $format, 'test');
+        $filePath = Generate::fromObject($data, $format, $wkhtmlPath, 'test');
 
         $this->assertFileExists($filePath);
     }

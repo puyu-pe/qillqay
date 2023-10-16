@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PuyuPe\NexusPdf\Loaders;
+namespace PuyuPe\Qillqay\Loaders;
 
 /**
  * Class LegendFilter.
