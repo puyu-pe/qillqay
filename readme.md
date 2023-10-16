@@ -1,4 +1,5 @@
-# Libreria para generar representación de CPE
+# PUYU.PE QILLQAY
+## Libreria para generar representación de CPE
 
 ** LIBRERIA EN PRUEBAS **
 
@@ -17,7 +18,7 @@ Documentos personalizados (desde el mismo formato de objeto y/o html):
 
 ## Requerimientos
 - PHP 7.4
-- Binario wkhtmltopdf 0.12.6 (mínimo)
+- Binario wkhtmltopdf 0.12.6 (mínimo) https://wkhtmltopdf.org/
 
 ## Instalación
 - Ejecutar el comando:
