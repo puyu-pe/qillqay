@@ -1,8 +1,8 @@
 <?php
 
-namespace PuyuPe\NexusPdf\Tests;
+namespace PuyuPe\Qillqay\Tests;
 
-use PuyuPe\NexusPdf\PdfGenerator;
+use PuyuPe\Qillqay\Generate;
 
 use PHPUnit\Framework\TestCase;
 
@@ -15,14 +15,15 @@ class BoletaTest extends TestCase
         parent::setUp();
         $this->config = parse_ini_file(__DIR__ . '/config.ini');
     }
+
     public function testGeneratePdf()
     {
         $data = $this->getMockedData();
 
-//echo json_encode($data);
         $wkhtmlPath = $this->config['wkhtmlPath'];
         $format = $this->config['format'];
-        $filePath = PdfGenerator::generatePdf($data, $wkhtmlPath, $format, 'test');
+
+        $filePath = Generate::fromObject($data, $format, $wkhtmlPath, 'test');
 
         $this->assertFileExists($filePath);
     }

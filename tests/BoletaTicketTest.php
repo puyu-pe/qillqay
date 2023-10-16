@@ -1,7 +1,7 @@
 <?php
-namespace PuyuPe\NexusPdf\Tests;
+namespace PuyuPe\Qillqay\Tests;
 
-use PuyuPe\NexusPdf\PdfGenerator;
+use PuyuPe\Qillqay\Generate;
 
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +19,8 @@ class BoletaTicketTest extends TestCase
         $data = $this->getMockedData();
         $wkhtmlPath = $this->config['wkhtmlPath'];
         $format = $this->config['format'];
-        $filePath = PdfGenerator::generatePdf($data, $wkhtmlPath, $format, 'test');
+
+        $filePath = Generate::fromObject($data, $format, $wkhtmlPath, 'test');
 
         $this->assertFileExists($filePath);
     }
@@ -612,7 +613,7 @@ class BoletaTicketTest extends TestCase
             ],
             "logo": null
           },
-          "stringQr" : "",
+          "stringQr" : "puyu.pe",
           "documentFooter": null
         }';
         return json_decode($params);

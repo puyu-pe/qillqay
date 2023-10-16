@@ -1,4 +1,4 @@
-{  "name": "puyu-pe/nexus-doc-gen",
+{  "name": "puyu-pe/qillqay",
     "description": "Librería para generar documentos en PDF para los proyectos de Puyu.pe",
     "type": "library",
     "license": "MIT",
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PuyuPe\\NexusPdf\\": "src"
+            "PuyuPe\\Qillqay\\": "src"
         }
     },
     "require-dev": {

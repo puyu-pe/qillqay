@@ -1,12 +1,12 @@
 <?php
 
-namespace PuyuPe\NexusPdf\Extension;
+namespace PuyuPe\Qillqay\Extension;
 
-use PuyuPe\NexusPdf\Loaders\DocumentFilter;
-use PuyuPe\NexusPdf\Loaders\FormatFilter;
-use PuyuPe\NexusPdf\Loaders\ImageFilter;
-use PuyuPe\NexusPdf\Loaders\LegendFilter;
-use PuyuPe\NexusPdf\Loaders\QrRender;
+use PuyuPe\Qillqay\Loaders\DocumentFilter;
+use PuyuPe\Qillqay\Loaders\FormatFilter;
+use PuyuPe\Qillqay\Loaders\ImageFilter;
+use PuyuPe\Qillqay\Loaders\LegendFilter;
+use PuyuPe\Qillqay\Loaders\QrRender;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;

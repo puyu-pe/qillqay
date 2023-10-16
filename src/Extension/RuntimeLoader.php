@@ -1,6 +1,6 @@
 <?php
 
-namespace PuyuPe\NexusPdf\Extension;
+namespace PuyuPe\Qillqay\Extension;
 
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 

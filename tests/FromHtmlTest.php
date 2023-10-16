@@ -1,8 +1,8 @@
 <?php
 
-namespace PuyuPe\NexusPdf\Tests;
+namespace PuyuPe\Qillqay\Tests;
 
-use PuyuPe\NexusPdf\PdfGenerator;
+use PuyuPe\Qillqay\Generate;
 
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +22,7 @@ class FromHtmlTest extends TestCase
         $wkhtmlPath = $this->config['wkhtmlPath'];
         $format = $this->config['format'];
         $size = 'ticket';
-        $filePath = PdfGenerator::generateFromHtml($html, $wkhtmlPath, $size, $format, 'test');
+        $filePath = Generate::fromHtml($html, $format, $size, $wkhtmlPath, 'test');
 
         $this->assertFileExists($filePath);
     }

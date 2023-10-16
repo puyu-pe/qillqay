@@ -1,16 +1,16 @@
 <?php
 
-namespace PuyuPe\NexusPdf;
+namespace PuyuPe\Qillqay;
 
-use PuyuPe\NexusPdf\Extension\ReportTwigExtension;
-use PuyuPe\NexusPdf\Extension\RuntimeLoader;
+use PuyuPe\Qillqay\Extension\ReportTwigExtension;
+use PuyuPe\Qillqay\Extension\RuntimeLoader;
 use mikehaertl\wkhtmlto\Pdf;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-class PdfGenerator
+class Generate
 {
-    public static function generatePdf($data, $wkhtmlPath, $format = 'pdf', $env = 'run')
+    public static function fromObject($data, $format = 'pdf', $wkhtmlPath = 'wkhtmltopdf', $env = 'run')
     {
         try {
             $templatePath = __DIR__;
@@ -35,24 +35,24 @@ class PdfGenerator
 
             $size = $data->formato ?? null;
 
-            return self::runGeneration($html, $data, $wkhtmlPath, $size, $format, $env);
+            return self::runGeneration($html, $data, $wkhtmlPath, $format, $size, $env);
 
         } catch (Exception $exs) {
             return $exs->getTraceAsString();
         }
     }
 
-    public static function generateFromHtml($html, $wkhtmlPath, $size = 'a4', $format = 'pdf', $env = 'run')
+    public static function fromHtml($html, $format = 'pdf', $size = 'a4', $wkhtmlPath = 'wkhtmltopdf', $env = 'run')
     {
         try {
-            return self::runGeneration($html, null, $wkhtmlPath, $size, $format, $env);
+            return self::runGeneration($html, null, $wkhtmlPath, $format, $size,  $env);
 
         } catch (Exception $exs) {
             return $exs->getTraceAsString();
         }
     }
 
-    public static function runGeneration($html, $data, $wkhtmlPath, $size = 'a4', $format = 'pdf', $env = 'run')
+    public static function runGeneration($html, $data, $wkhtmlPath, $format = 'pdf', $size = 'a4', $env = 'run')
     {
         switch ($format) {
             case "file":
@@ -140,11 +140,11 @@ class PdfGenerator
         $baseHeight = 220;
         $additionalHeight = 0;
 
-        if(isset($data->params->user->header)){
+        if (isset($data->params->user->header)) {
             $additionalHeight += 20;
         }
 
-        if($data->tipoDoc == '07'){
+        if ($data->tipoDoc == '07') {
             $additionalHeight += 30;
         }
 
