@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         {% include 'templates/assets/ticket-style.css' %}
+
+        {% if doc.params.system.customCss is not empty %}
+            {{ doc.params.system.customCss | raw }}
+        {% endif %}
     </style>
 </head>
-<style>
-    {{ client.style }}
-</style>
 <body>
 {% set isCustom = doc.tipoDoc in ['00'] %}
 {% set isFactura = doc.tipoDoc in ['01'] %}
@@ -20,22 +21,22 @@
 {% set name = isCustom ? doc.tipoDocNombre : doc.tipoDoc|catalog('01') %}
 <div>
     <div class="center">
-        {% if doc.params.user.logo is defined and doc.params.user.logo is not null %}
+        {% if doc.params.user.logo is not empty %}
             <div id="logo">
                 <img id="image" src="{{ doc.params.user.logo }}" alt="">
             </div>
-        {% else %}
-            <h1 id="business_name" class="bold mayus">{{ cp.razonSocial }}</h1>
+        {% elseif cp.nombreComercial is not empty %}
+            <h1 id="business_name" class="bold mayus">{{ cp.nombreComercial }}</h1>
         {% endif %}
 
-        {% if cp.nombreComercial is defined and cp.nombreComercial is not null %}
-            <h5 id="business_name" class="bold mayus">*** {{ cp.nombreComercial }} ***</h5>
+        {% if cp.razonSocial is defined and cp.razonSocial is not null %}
+            <h5 id="business_sunat" class="bold mayus">{{ cp.razonSocial }}</h5>
         {% endif %}
         <h5 class="mayus">{{ cp.address.direccion }}</h5>
         <h5 class="mayus"> {{ cp.address.distrito }} {{ cp.address.provincia }} {{ cp.address.departamento }}
         </h5>
         <h5>RUC : {{ cp.ruc }}</h5>
-        {% if client.description is not empty %}
+        {% if doc.params.user.header is not empty %}
             <h5>{{ doc.params.user.header|raw }}</h5>
         {% endif %}
         {% if cp.telephone is not empty %}
