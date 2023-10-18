@@ -184,8 +184,7 @@ class CustomDocumentTest extends TestCase
                     "name":"OBSERVACIÓN",
                     "value":""
                  }
-              ],
-              "logo":""
+              ]
            },
            "stringQr":"puyu.pe",
            "documentFooter":null

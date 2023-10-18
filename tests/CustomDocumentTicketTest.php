@@ -40,8 +40,8 @@ class CustomDocumentTicketTest extends TestCase
         $cpeJSON = '{
            "company":{
               "ruc":"10123456789",
-              "razonSocial":"EMPRESA TEST",
-              "nombreComercial":"EMPRESA TEST S.R.L.",
+              "razonSocial":"EMPRESA TEST S.R.L.",
+              "nombreComercial":"EMPRESA TEST",
               "address":{
                  "ubigueo":"030101",
                  "codigoPais":"PE",
@@ -122,14 +122,6 @@ class CustomDocumentTicketTest extends TestCase
                   "descripcion":"SERVICIO DE TRANSPORTE PASAJERO:<br> 28715164-HUAMAN LIMA LEONCIO ARMANDO,<br> RUTA: ANDAHUAYLAS-AYACUCHO,<br> VIAJE: 05/09/2023 10:00 AM",
                   "mtoPrecioUnitario":"40.00",
                   "total":"40.00"
-               },
-               {
-                  "unidad":"ZZ",
-                  "cantidad":1,
-                  "codProducto": "0100011",
-                  "descripcion":"SERVICIO DE TRANSPORTE PASAJERO:<br> 28715164-HUAMAN LIMA LEONCIO ARMANDO,<br> RUTA: ANDAHUAYLAS-AYACUCHO,<br> VIAJE: 05/09/2023 10:00 AM",
-                  "mtoPrecioUnitario":"40.00",
-                  "total":"40.00"
                }
            ],
            "detailsSummary":[
@@ -163,6 +155,7 @@ class CustomDocumentTicketTest extends TestCase
               "hash":"m70vBMajaapHr5ByjkwEER8tCjc=",
               "appMessage":"Emitido desde YUBIZ.PUYU.PE",
               "background":"#154c79",
+              "customCss": " #business_sunat { display: none } ",
               "anulled":false,
               "is_production":true
            },
