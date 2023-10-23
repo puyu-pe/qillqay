@@ -120,7 +120,7 @@
                     <tr>
                         <td width="60%" align="left"><strong>Motivo Traslado:</strong> {{ doc.envio.desTraslado }} </td>
                         <td width="40%" align="left"><strong>Modalidad de
-                                Transporte:</strong> {{ doc.envio.modTraslado }} </td>
+                                Transporte:</strong> {{ doc.envio.modTraslado | catalog('18') }} </td>
                     </tr>
                     <tr>
                         <td width="60%" align="left"><strong>
@@ -170,7 +170,7 @@
                     <tbody>
                     <tr style="background-color: {{ doc.params.system.background }} !important;">
                         <td align="center" class="gray bold" style="border-radius: 10px 0 0 0">Item</td>
-                        <td align="center" class="gray bold ">Código</td>
+                        <td align="center" class="gray bold">Código</td>
                         <td align="center" class="gray bold" width="300px">Descripción</td>
                         <td align="center" class="gray bold">Unidad</td>
                         <td align="center" class="gray bold" style="border-radius: 0 10px 0 0">Cantidad</td>
@@ -179,7 +179,7 @@
                         <tr class="border_top">
                             <td align="center">{{ loop.index }}</td>
                             <td align="center">{{ det.codigo }}</td>
-                            <td align="center">{{ det.descripcion }}</td>
+                            <td align="center">{{ det.descripcion|raw }}</td>
                             <td align="center">{{ det.unidad }}</td>
                             <td align="center">{{ det.cantidad }}</td>
                         </tr>
@@ -220,7 +220,6 @@
                     <tbody>
                     <tr>
                         <td style="text-align: right">
-                            <blockquote>
                                 {% if doc.params.user.footer is defined %}
                                     {{ doc.params.user.footer|raw }}
                                 {% endif %}
@@ -228,7 +227,6 @@
                                     <strong>Resumen:</strong>   {{ doc.params.system.hash }}<br>
                                 {% endif %}
                                 <span>Representación Impresa de la {{ name }} ELECTRÓNICA.</span>
-                            </blockquote>
                         </td>
                         <td width="15%" align="center">
                             <img style="padding-bottom:20px;" src="{{ qrCode(doc.params.stringQr)|image_b64('svg+xml') }}"
