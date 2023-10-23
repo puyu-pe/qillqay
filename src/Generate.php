@@ -31,6 +31,10 @@ class Generate
                 }
             }
 
+            foreach($data->details as $item){
+                $item->descripcion = str_replace('&nbsp;', ' ', $item->descripcion);
+            }
+
             $html = $twig->render("templates/$reportType.html.twig", ['doc' => $data]);
 
             $size = $data->formato ?? null;
