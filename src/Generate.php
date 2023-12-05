@@ -22,17 +22,25 @@ class Generate
             $twig->addExtension(new ReportTwigExtension());
 
             $reportType = 'invoice';
+            $isTicket = isset($data->formato) && $data->formato == 'ticket';
 
             if ($data->tipoDoc == '09') {
                 $reportType = 'despatch';
             } else {
-                if (isset($data->formato) && $data->formato == 'ticket') {
+                if ($isTicket) {
                     $reportType = 'ticket';
                 }
             }
 
-            foreach($data->details as $item){
+            foreach ($data->details as $item) {
                 $item->descripcion = str_replace('&nbsp;', ' ', $item->descripcion);
+            }
+
+            if (isset($data->observation)) {
+                $data->observation = str_replace('&nbsp;', ' ', $data->observation);
+                if ($isTicket) {
+                    self::reduceLine($data->observation);
+                }
             }
 
             $html = $twig->render("templates/$reportType.html.twig", ['doc' => $data]);
@@ -40,7 +48,6 @@ class Generate
             $size = $data->formato ?? null;
 
             return self::runGeneration($html, $data, $wkhtmlPath, $format, $size, $env);
-
         } catch (Exception $exs) {
             return $exs->getTraceAsString();
         }
@@ -50,7 +57,6 @@ class Generate
     {
         try {
             return self::runGeneration($html, null, $wkhtmlPath, $format, $size,  $env);
-
         } catch (Exception $exs) {
             return $exs->getTraceAsString();
         }
@@ -160,5 +166,28 @@ class Generate
         $totalHeight = $baseHeight + $additionalHeight;
 
         return $totalHeight;
+    }
+
+    function reduceLine($inputString)
+    {
+        // Set the maximum length for the separator
+        $maxLength = 48;
+    
+        // Get the number of underscores in the input string
+        $underscoreCount = strlen($inputString) - strlen(trim($inputString, '_'));
+    
+        // Calculate the maximum number of underscores allowed
+        $maxUnderscores = min($underscoreCount, $maxLength);
+    
+        // Create the shortened separator
+        $shortenedSeparator = str_repeat('_', $maxUnderscores);
+    
+        // Trim the input string to fit the maximum length
+        $trimmedInput = substr($inputString, 0, $maxLength - $maxUnderscores);
+    
+        // Concatenate the trimmed input and shortened separator
+        $result = $trimmedInput . $shortenedSeparator;
+    
+        return $result;
     }
 }
