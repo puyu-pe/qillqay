@@ -287,7 +287,7 @@ class BoletaTest extends TestCase
          "value":"QUINIENTOS TREINTA Y TRES  CON 50\/100 SOLES."
       }
    ],
-   "observation":" CEL : 990577706\nPLACA: 0183-3I\nTAR\u00c1N DEVOLUCIONES PARA PRODUCTOS DE SISTEMA EL\u00c9CTRICO",
+   "observation":" CEL : 990577706\nPLACA: 0183-3I\n_____________________________ NO SE ACEPTARÁN DEVOLUCIONES PARA PRODUCTOS DE SISTEMA ELÉCTRICO ",
    "documentFooter":""
 }';
 

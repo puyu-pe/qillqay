@@ -22,7 +22,6 @@ class Generate
             $twig->addExtension(new ReportTwigExtension());
 
             $reportType = 'invoice';
-
             if ($data->tipoDoc == '09') {
                 $reportType = 'despatch';
             } else {
@@ -31,8 +30,12 @@ class Generate
                 }
             }
 
-            foreach($data->details as $item){
+            foreach ($data->details as $item) {
                 $item->descripcion = str_replace('&nbsp;', ' ', $item->descripcion);
+            }
+
+            if (isset($data->observation)) {
+                $data->observation = str_replace('&nbsp;', ' ', $data->observation);
             }
 
             $html = $twig->render("templates/$reportType.html.twig", ['doc' => $data]);
@@ -40,7 +43,6 @@ class Generate
             $size = $data->formato ?? null;
 
             return self::runGeneration($html, $data, $wkhtmlPath, $format, $size, $env);
-
         } catch (Exception $exs) {
             return $exs->getTraceAsString();
         }
@@ -50,7 +52,6 @@ class Generate
     {
         try {
             return self::runGeneration($html, null, $wkhtmlPath, $format, $size,  $env);
-
         } catch (Exception $exs) {
             return $exs->getTraceAsString();
         }
@@ -161,4 +162,5 @@ class Generate
 
         return $totalHeight;
     }
+
 }
