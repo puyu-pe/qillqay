@@ -7,7 +7,7 @@
         {% include 'templates/assets/ticket-style.css' %}
 
         {% if doc.params.system.customCss is not empty %}
-            {{ doc.params.system.customCss | raw }}
+        {{ doc.params.system.customCss | raw }}
         {% endif %}
     </style>
 </head>
@@ -94,9 +94,16 @@
     {% endif %}
     {% if doc.tipoDoc == constants.TYPE_DOC['factura'] %}
         <h5><strong>IGV: </strong>18%</h5>
+        <br>
     {% endif %}
-    <br>
-
+    {% if doc.guias %}
+        <h5>
+            <strong>GUIAS:</strong>
+            {% for guia in doc.guias %}
+                {{ guia.nroDoc }}&nbsp;&nbsp;
+            {% endfor %}
+        </h5>
+    {% endif %}
     <div>
         {% if client.status == 'is_development' %}
             <h4 class="mark bold">SIN VALOR LEGAL</h4>
@@ -171,7 +178,7 @@
             {% for summary in doc.detailsSummary %}
                 {% set cellColspan = summary.colspan is not null ? summary.colspan : "1" %}
                 <tr class="right">
-                    <td colspan="{{ cellColspan  }}"></td>
+                    <td colspan="{{ cellColspan }}"></td>
                     <td align="right">
                         <strong>{{ summary.title }}:</strong>
                     </td>
@@ -387,7 +394,7 @@
             <h5 class="center"><strong>Resumen:</strong> {{ doc.params.system.hash }}<br></h5>
         {% endif %}
         {% if doc.params.stringQr is not empty %}
-        <img style="height: 150px; width: 150px" src="{{ qrCode(doc.params.stringQr)|image_b64('svg+xml') }}">
+            <img style="height: 150px; width: 150px" src="{{ qrCode(doc.params.stringQr)|image_b64('svg+xml') }}">
         {% endif %}
     </div>
     <h5 class="center">{{ doc.params.system.appMessage }}</h5>
