@@ -79,7 +79,7 @@ class FacturaGuiaRelTicketTest extends TestCase
   "nroDoc": "T001-123"
 },
 {
-  "tipoDoc": "09",
+  "tipoDoc": "31",
   "nroDoc": "T001-124"
 }
 ],
