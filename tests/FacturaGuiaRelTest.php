@@ -6,7 +6,7 @@ use PuyuPe\Qillqay\Generate;
 
 use PHPUnit\Framework\TestCase;
 
-class FacturaTest extends TestCase
+class FacturaGuiaRelTest extends TestCase
 {
     private $config;
 
@@ -75,6 +75,10 @@ class FacturaTest extends TestCase
             {
               "tipoDoc": "09",
               "nroDoc": "T001-123"
+            },
+            {
+              "tipoDoc": "31",
+              "nroDoc": "T001-124"
             }
           ],
           "formaPago": {

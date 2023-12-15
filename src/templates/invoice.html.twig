@@ -170,10 +170,9 @@
                     {% if doc.guias %}
                         <tr>
                             <td width="60%" align="left">
-                                <strong>Guias:
-                                </strong>
                                 {% for guia in doc.guias %}
-                                    {{ guia.nroDoc }}&nbsp;&nbsp;
+                                    <strong>{{guia.tipoDoc | catalog('01') | upper}}: </strong>
+                                    {{ guia.nroDoc }}<br>
                                 {% endfor %}
                             </td>
                             <td width="40%"></td>
