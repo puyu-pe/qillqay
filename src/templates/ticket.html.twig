@@ -98,9 +98,9 @@
     {% endif %}
     {% if doc.guias %}
         <h5>
-            <strong>GUIAS:</strong>
             {% for guia in doc.guias %}
-                {{ guia.nroDoc }}&nbsp;&nbsp;
+                <strong>{{guia.tipoDoc | catalog('01') | upper}}: </strong>
+                {{ guia.nroDoc }}<br>
             {% endfor %}
         </h5>
     {% endif %}
