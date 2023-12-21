@@ -38,87 +38,147 @@ class FacturaTicketTest extends TestCase
     private function getData()
     {
         $cpeJSON = '{
-"company": {
-"ruc": "20450523381",
-"razonSocial": "EMPRESA DE TRANSPORTES REY DE LOS ANDES DE AYMARAES - PAMPAMARCA S.R.L.",
-"nombreComercial": "REY DE LOS ANDES",
-"address": {
-"ubigueo": "030101",
-"codigoPais": "PE",
-"departamento": "APURIMAC",
-"provincia": "ABANCAY",
-"distrito": "ABANCAY",
-"urbanizacion": null,
-"direccion": "AV. BRASIL NRO. 216 - URB. LAS AMÉRICAS",
-"codLocal": "0000"
-},
-"email": null,
-"telephone": "989290733"
-},
-"tipoOperacion": "0101",
-"tipoDoc": "01",
-"serie": "FE01",
-"correlativo": 1060,
-"fechaEmision": "2023-09-11 09:26:47",
-"fechaVencimiento": "2023-09-11",
-"tipoMoneda": "PEN",
-"mtoOperGravadas": "3.39",
-"mtoOperExoneradas": 0,
-"mtoOperInafectas": 0,
-"mtoISC": 0,
-"mtoIGV": "0.61",
-"totalImpuestos": "0.61",
-"valorVenta": "3.39",
-"subTotal": "4.00",
-"mtoImpVenta": "4.00",
-"formaPago": {
-"moneda": "PEN",
-"tipo": "Contado",
-"monto": "4.00"
-},
-"cuotas": null,
-"formato": "ticket",
-"codLocal": "0000",
-"client": {
-"tipoDoc": "6",
-"numDoc": "20526918429",
-"rznSocial": "COOPERATIVA DE AHORRO Y CREDITO LOS ANDES COTARUSI AYMARAES",
-"email": null,
-"address": {
-"ubigueo": "-",
-"direccion": "-"
-}
-},
-"details": [
-{
-"unidad": "ZZ",
-"cantidad": 1,
-"codProducto": "-",
-"codProdSunat": null,
-"descripcion": "SERVICIO DE TRANSPORTE: 1 SOBRE MANILA",
-"porcentajeIgv": 18,
-"igv": "0.61",
-"tipAfeIgv": "10",
-"totalImpuestos": "0.61",
-"mtoBaseIgv": "3.39",
-"mtoValorVenta": "3.39",
-"mtoValorUnitario": "3.39",
-"mtoPrecioUnitario": "4.00"
-}
-],
-"legends": [
-{
-"code": "1000",
-"value": "CUATRO CON 00/100 SOLES"
-}
-],
-"observation": "1 SOBRE",
-"cashier": {
-"tipoDoc": 1,
-"numDoc": "-",
-"rznSocial": "MONICA"
-}
-}';
+          "company": {
+          "ruc": "20450523381",
+          "razonSocial": "EMPRESA DE TRANSPORTES REY DE LOS ANDES DE AYMARAES - PAMPAMARCA S.R.L.",
+          "nombreComercial": "REY DE LOS ANDES",
+          "address": {
+          "ubigueo": "030101",
+          "codigoPais": "PE",
+          "departamento": "APURIMAC",
+          "provincia": "ABANCAY",
+          "distrito": "ABANCAY",
+          "urbanizacion": null,
+          "direccion": "AV. BRASIL NRO. 216 - URB. LAS AMÉRICAS",
+          "codLocal": "0000"
+          },
+          "email": null,
+          "telephone": "989290733"
+          },
+          "tipoOperacion": "0101",
+          "tipoDoc": "01",
+          "serie": "FP01",
+          "correlativo": 4639,
+          "fechaEmision": "2023-12-21 09:26:51",
+          "fechaVencimiento": "2023-12-21",
+          "tipoMoneda": "PEN",
+          "mtoOperGravadas": 0,
+          "mtoOperExoneradas": "14.00",
+          "mtoOperInafectas": 0,
+          "mtoISC": 0,
+          "mtoIGV": 0,
+          "mtoCargos": 0,
+          "mtoDescuentos": 0,
+          "mtoOperGratuitas": 0,
+          "sumDsctoGlobal": 0,
+          "totalAnticipios": 0,
+          "totalImpuestos": 0,
+          "valorVenta": "14.00",
+          "subTotal": "14.00",
+          "mtoImpVenta": "14.00",
+          "formaPago": {
+          "moneda": "PEN",
+          "tipo": "Contado",
+          "monto": "14.00"
+          },
+          "cuotas": null,
+          "formato": "ticket",
+          "codLocal": "0000",
+          "client": {
+          "tipoDoc": "6",
+          "numDoc": "20148183083",
+          "rznSocial": "MUNICIPALIDAD DISTRITO DE SORAYA",
+          "email": null,
+          "address": {
+          "ubigueo": "-",
+          "direccion": "-"
+          }
+          },
+          "details": [
+          {
+          "unidad": "ZZ",
+          "cantidad": 1,
+          "sumOtrosCargos": 0,
+          "cargos": 0,
+          "codProducto": "",
+          "codProdSunat": "",
+          "descripcion": "SERVICIO DE TRANSPORTE DE PASAJERO:<br>DNI 31361256 - TORRES DAVILA ROBERLIZ KAREM<br>RUTA: CHACAPUENTE-ABANCAY<br>FECHA: 21/12/2023, HORA:07:40 AM<br>ASIENTO: 1",
+          "isc": 0,
+          "porcentajeIgv": 18,
+          "igv": 0,
+          "totalImpuestos": 0,
+          "mtoBaseIgv": "14.00",
+          "mtoValorVenta": "14.00",
+          "mtoValorUnitario": "14.00",
+          "mtoPrecioUnitario": "14.00",
+          "tipAfeIgv": "20",
+          "atributos": [
+          {
+          "name": "Numero de asiento",
+          "code": "3010",
+          "value": 1
+          },
+          {
+          "name": "Número de documento de identidad del pasajero",
+          "code": "3010",
+          "value": "31361256"
+          },
+          {
+          "name": "Tipo de documento de identidad del pasajero",
+          "code": "3010",
+          "value": "1"
+          },
+          {
+          "name": "Nombres y apellidos del pasajero",
+          "code": "3010",
+          "value": "TORRES DAVILA ROBERLIZ KAREM"
+          },
+          {
+          "name": "Ciudad o lugar de origen",
+          "code": "3008",
+          "value": null
+          },
+          {
+          "name": "Ciudad o lugar de origen",
+          "code": "3008",
+          "value": "CHACAPUENTE"
+          },
+          {
+          "name": "Ciudad o lugar de destino",
+          "code": "3009",
+          "value": null
+          },
+          {
+          "name": "Ciudad o lugar de destino",
+          "code": "3009",
+          "value": "ABANCAY"
+          },
+          {
+          "name": "Fecha de inicio programado",
+          "code": "3010",
+          "value": "2023-12-21"
+          },
+          {
+          "name": "Hora de inicio programado",
+          "code": "3010",
+          "value": "07:40:00"
+          }
+          ]
+          }
+          ],
+          "legends": [
+          {
+          "code": "1000",
+          "value": "CATORCE CON 00/100 SOLES"
+          }
+          ],
+          "observation": null,
+          "cashier": {
+          "tipoDoc": 1,
+          "numDoc": "-",
+          "rznSocial": "ELVIS"
+          }
+          }';
 
         return json_decode($cpeJSON);
     }
