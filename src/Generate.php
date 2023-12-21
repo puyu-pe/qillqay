@@ -2,6 +2,7 @@
 
 namespace PuyuPe\Qillqay;
 
+use Exception;
 use PuyuPe\Qillqay\Extension\ReportTwigExtension;
 use PuyuPe\Qillqay\Extension\RuntimeLoader;
 use mikehaertl\wkhtmlto\Pdf;
@@ -146,7 +147,7 @@ class Generate
         $additionalHeight = 0;
 
         if (isset($data->params->user->header)) {
-            $additionalHeight += 20;
+            $additionalHeight += 30;
         }
 
         if ($data->tipoDoc == '07') {
