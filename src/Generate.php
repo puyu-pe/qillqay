@@ -66,12 +66,15 @@ class Generate
 
                 $options = self::getOptions($size, $data);
                 $options['binary'] = $wkhtmlPath;
+
+                $filename = self::generateName($data);
+
                 $pdf = new Pdf($options);
 
                 $pdf->addPage($html);
 
                 if ($env == 'test' || $format == 'file') {
-                    $tempFilePath = sys_get_temp_dir() . '/nexuspdf_' . self::generateRandomString(6) . '.pdf';
+                    $tempFilePath = sys_get_temp_dir() . '/' . $filename;
                     $result = $pdf->saveAs($tempFilePath);
 
                     if (!$result) {
@@ -82,7 +85,7 @@ class Generate
 
                     return $tempFilePath;
                 } else {
-                    $pdf->send();
+                    $pdf->send($filename, true);
                 }
 
                 break;
@@ -164,4 +167,26 @@ class Generate
         return $totalHeight;
     }
 
+    private static function generateName($data)
+    {
+        if ($data == null) {
+            return '/file_' . self::generateRandomString(6) . '.pdf';
+        } else {
+            $filename = ''; //20564394476-01-F001-6241.pdf
+            if ($data->company && $data->company->ruc) {
+                $filename .= $data->company->ruc . '-';
+            }
+            if ($data->tipoDoc) {
+                $filename .= $data->tipoDoc . '-';
+            }
+            if ($data->serie) {
+                $filename .= $data->serie . '-';
+            }
+            if ($data->correlativo) {
+                $filename .= $data->correlativo;
+            }
+
+            return $filename . '.pdf';
+        }
+    }
 }
