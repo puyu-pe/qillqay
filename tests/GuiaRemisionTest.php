@@ -40,9 +40,9 @@ class GuiaRemisionTest extends TestCase
     {
         $cpeJSON = '{
             "company": {
-            "ruc": "20602974503",
-            "razonSocial": "GARY MOTORS DMG S.R.L.",
-            "nombreComercial": "GARY MOTORS DMG S.R.L.",
+            "ruc": "20490793624",
+            "razonSocial": "INVERSIONES AUTOVET S.R.L.",
+            "nombreComercial": "INVERSIONES AUTOVET S.R.L.",
             "address": {
             "ubigueo": "030101",
             "codigoPais": "PE",
@@ -50,7 +50,7 @@ class GuiaRemisionTest extends TestCase
             "provincia": "Abancay",
             "distrito": "Abancay",
             "urbanizacion": null,
-            "direccion": "AV. BRILLA EL SOL MZ. X Lt. 46 - URB. BELLA VISTA BAJA - ABANCAY - APURIMAC",
+            "direccion": "AV. Canadá A-01 INT. Las Amerícas - Abancay - Apurímac",
             "codLocal": "0000"
             },
             "email": null,
@@ -58,43 +58,106 @@ class GuiaRemisionTest extends TestCase
             },
             "tipoDoc": "09",
             "serie": "T001",
-            "correlativo": "38",
-            "fechaEmision": "2023-08-22",
-            "observation": "ORDEN DE COMPRA Nº 2310297\n- Generado desde: PROFORMA 001-13285 el 22/08/2023\n__________________________________________________\n*NO SE ACEPTARÁN DEVOLUCIONES PARA PRODUCTOS DE SISTEMA ELÉCTRICO\n- Generado desde : FACTURA ELÉCTRONICA F001-4798 del 21/08/2023",
+            "correlativo": "328",
+            "fechaEmision": "2023-12-22",
+            "observation": "PARA LA UNIDAD VEHICULAR TOYOTA HILUX DE PLACA: EGT-248 DEL C.S. PROGRESO",
             "destinatario": {
             "tipoDoc": "6",
-            "numDoc": "20115425651",
-            "rznSocial": "EPS EMUSAP ABANCAY S.A."
+            "numDoc": "20491240238",
+            "rznSocial": "RED DE SALUD GRAU"
             },
             "envio": {
-            "modTraslado": "01",
+            "modTraslado": "02",
             "codTraslado": "01",
             "desTraslado": "VENTA",
-            "fecTraslado": "2023-08-22",
+            "fecTraslado": "2023-12-22",
             "indTransbordo": 0,
-            "pesoTotal": "0.20",
+            "pesoTotal": "28.70",
             "undPesoTotal": "KGM",
-            "transportista": {
-            "tipoDoc": "6",
-            "numDoc": "20602974503",
-            "rznSocial": "GARY MOTORS DMG S.R.L.",
-            "nroMtc": "0001"
+            "choferes": [
+            {
+            "tipo": "Principal",
+            "tipoDoc": "1",
+            "nroDoc": "70760896",
+            "nombres": "JONATHAN",
+            "apellidos": "HUAMAN CCOYURI",
+            "licencia": "T70760896"
+            }
+            ],
+            "vehiculo": {
+            "placa": "EGT248",
+            "codEmisor": "string",
+            "nroAutorizacion": null
             },
             "partida": {
             "ubigeo": "030101",
-            "direccion": "AV:PANAMERICANA 1319 ABANCAY-ABANCAY-APURIMAC"
+            "direccion": "AV. CANADA A-01 INT, LAS AMERICAS"
             },
             "llegada": {
-            "ubigeo": "030101",
-            "direccion": "AV. PRADO NORTE N° 404"
+            "ubigeo": "030701",
+            "direccion": "AV. RENZO MICHELLY S/N CHUQUIBAMBILLA GRAU"
             }
             },
             "details": [
             {
-            "codigo": "5973",
-            "descripcion": "GUANTES CITY IMPERMEABLE  L COLORES RB",
+            "codigo": "3",
+            "descripcion": "ACEITE&nbsp;LUBRICANTE&nbsp;SAE&nbsp;15W-40°&nbsp;PARA&nbsp;MOTOR&nbsp;PETROLERO&nbsp;<br>X&nbsp;1/4&nbsp;gal&nbsp;-&nbsp;CHEVRON",
+            "unidad": "NIU",
+            "cantidad": "7.00"
+            },
+            {
+            "codigo": "244",
+            "descripcion": "ACEITE&nbsp;LUBRICANTE&nbsp;SAE&nbsp;80W-90°&nbsp;X&nbsp;1/4&nbsp;GAL&nbsp;-&nbsp;CHEVRON",
+            "unidad": "NIU",
+            "cantidad": "3.00"
+            },
+            {
+            "codigo": "36",
+            "descripcion": "FILTRO&nbsp;DE&nbsp;ACEITE&nbsp;COD.&nbsp;REF.&nbsp;90915YZZD2&nbsp;-&nbsp;TOYOTA",
+            "unidad": "NIU",
+            "cantidad": "1.00"
+            },
+            {
+            "codigo": "381",
+            "descripcion": "FILTRO&nbsp;DE&nbsp;AIRE&nbsp;COD.&nbsp;REF&nbsp;178010R010&nbsp;-TOYOTA",
+            "unidad": "NIU",
+            "cantidad": "1.00"
+            },
+            {
+            "codigo": "38",
+            "descripcion": "FILTRO&nbsp;DE&nbsp;PETROLEO&nbsp;COD.&nbsp;REF.&nbsp;&nbsp;233900L041&nbsp;-&nbsp;TOYOTA",
             "unidad": "NIU",
             "cantidad": "2.00"
+            },
+            {
+            "codigo": "540",
+            "descripcion": "JUEGO&nbsp;DE&nbsp;PASTILLAS&nbsp;DE&nbsp;FRENO&nbsp;PARA&nbsp;TOYOTA&nbsp;COD&nbsp;REF&nbsp;0446502061&nbsp;-&nbsp;FRENOSA<br>ADQUISICION&nbsp;DE&nbsp;PASTILLAS&nbsp;DE&nbsp;FRENO&nbsp;PARA&nbsp;TOYOTA,&nbsp;INCLUYE&nbsp;EL&nbsp;CAMBIO&nbsp;DE&nbsp;LAS&nbsp;PASTILLAS<br>EN&nbsp;LA&nbsp;UNIDAD&nbsp;VEHICULAR.",
+            "unidad": "NIU",
+            "cantidad": "1.00"
+            },
+            {
+            "codigo": "696",
+            "descripcion": "PLUMILLA&nbsp;LIMPIAPARABRISAS&nbsp;PARA&nbsp;TOYOTA&nbsp;COD&nbsp;REF&nbsp;8522226120&nbsp;-&nbsp;HELLA<br>ADQUISICION&nbsp;DE&nbsp;PLUMILLA&nbsp;LIMPIAPARABRISAS&nbsp;PARA&nbsp;TOYOTA,&nbsp;INCLUYE&nbsp;EL&nbsp;CAMBIO&nbsp;DE&nbsp;LAS&nbsp;<br>PLUMILLAS&nbsp;EN&nbsp;LA&nbsp;UNIDAD&nbsp;VEHICULAR.",
+            "unidad": "NIU",
+            "cantidad": "2.00"
+            },
+            {
+            "codigo": "49",
+            "descripcion": "SISTEMA&nbsp;DIFERENCIAL&nbsp;POSTERIOR&nbsp;COMPLETO&nbsp;PARA&nbsp;TOYOTA&nbsp;COD&nbsp;REF&nbsp;REF&nbsp;411103D261&nbsp;-&nbsp;MG<br>ADQUISCION&nbsp;E&nbsp;INSTALACION&nbsp;DE&nbsp;CONJUNTO&nbsp;DIFERENCIAL&nbsp;POSTERIOR,&nbsp;QUE&nbsp;INCLUYE&nbsp;LOS&nbsp;<br>SIGUIENTES&nbsp;REPUESTOS:<br>-&nbsp;01&nbsp;CONJUNTO&nbsp;DE&nbsp;DISCOS&nbsp;DE&nbsp;BLOCAJE<br>-&nbsp;01&nbsp;CASTILLO&nbsp;DE&nbsp;CORONA<br>-&nbsp;01&nbsp;ESPACIADOR<br>-&nbsp;01&nbsp;EMPAQUE&nbsp;PARA&nbsp;CORONA<br>-&nbsp;02&nbsp;RODAJES&nbsp;LATERALES<br>-&nbsp;01&nbsp;RODAJE&nbsp;GRANDE&nbsp;DE&nbsp;PIÑON&nbsp;DE&nbsp;ATAQUE<br>-&nbsp;01&nbsp;RODAJE&nbsp;PEQUEÑO&nbsp;DE&nbsp;PIÑON&nbsp;DE&nbsp;ATAQUE<br>-&nbsp;01&nbsp;RETEN&nbsp;DE&nbsp;CORONA<br>-&nbsp;03&nbsp;ARANDELAS&nbsp;DE&nbsp;ALUMINIO<br>-&nbsp;01&nbsp;TAPON&nbsp;PERNO&nbsp;DE&nbsp;CORONA",
+            "unidad": "NIU",
+            "cantidad": "1.00"
+            },
+            {
+            "codigo": "510",
+            "descripcion": "SOPORTE&nbsp;CENTRAL&nbsp;DE&nbsp;CARDAN&nbsp;PARA&nbsp;RODAMIENTO&nbsp;DE&nbsp;BOLA&nbsp;PARA&nbsp;VOLKSWAGEN&nbsp;COD&nbsp;REF&nbsp;<br>TMJ/521117&nbsp;-&nbsp;YOKOZUNA<br>SOPORTE&nbsp;CENTRAL&nbsp;DE&nbsp;CARDAN.",
+            "unidad": "NIU",
+            "cantidad": "1.00"
+            },
+            {
+            "codigo": "8",
+            "descripcion": "TAPON&nbsp;DE&nbsp;CARTER&nbsp;PARA&nbsp;TOYOTA&nbsp;COD.&nbsp;REF.&nbsp;90341&nbsp;12012&nbsp;-&nbsp;TOYOTA<br>SELLO&nbsp;EMPAQUE&nbsp;DE&nbsp;TAPON&nbsp;DE&nbsp;CARTER",
+            "unidad": "NIU",
+            "cantidad": "1.00"
             }
             ]
             }';

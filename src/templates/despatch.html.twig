@@ -95,14 +95,16 @@
 											{{ cl.numDoc }}
 										</td>
 									</tr>
-									<tr>
-										<td width="40%" align="left" colspan="2">
-											<strong>Dirección:</strong>
-											{% if cl.address %}
-												{{ cl.address.direccion }}
-											{% endif %}
-										</td>
-									</tr>
+									{% if cl.address and cl.address.direccion %}
+										<tr>
+											<td width="40%" align="left" colspan="2">
+												<strong>Dirección:</strong>
+												{% if cl.address %}
+													{{ cl.address.direccion }}
+												{% endif %}
+											</td>
+										</tr>
+									{% endif %}
 								</tbody>
 							</table>
 						</div>
@@ -121,7 +123,7 @@
 										</td>
 										<td width="40%" align="left">
 											<strong>Fecha Inicio de
-																								                                Traslado:</strong>
+																																				                                Traslado:</strong>
 											{{ doc.envio.fecTraslado|date('d/m/Y') }}
 										</td>
 									</tr>
@@ -132,7 +134,7 @@
 										</td>
 										<td width="40%" align="left">
 											<strong>Modalidad de
-																								                                Transporte:</strong>
+																																				                                Transporte:</strong>
 											{{ doc.envio.modTraslado | catalog('18') }}
 										</td>
 									</tr>
@@ -213,9 +215,9 @@
 										<tr class="border_top">
 											<td align="center">{{ loop.index }}</td>
 											<td align="center">{{ det.codigo }}</td>
-											<td align="center">{{ det.descripcion|raw }}</td>
+											<td align="left">{{ det.descripcion|raw }}</td>
 											<td align="center">{{ det.unidad }}</td>
-											<td align="center">{{ det.cantidad }}</td>
+											<td align="right">{{ det.cantidad }}</td>
 										</tr>
 									{% endfor %}
 								</tbody>
@@ -258,7 +260,7 @@
 											<td style="width: 40%">
 												<blockquote>
 													<b>OBSERVACIÓN:</b>
-                                                    <br>
+													<br>
 													<span>{{ doc.observation|nl2br|raw }}</span>
 												</blockquote>
 											</td>
@@ -271,7 +273,9 @@
 												<strong>Resumen:</strong>
 												{{ doc.params.system.hash }}<br>
 											{% endif %}
-											<span>Representación Impresa de la {{ name|upper }} ELECTRÓNICA.</span>
+											<span>Representación Impresa de la
+												{{ name|upper }}
+												ELECTRÓNICA.</span>
 										</td>
 
 										<td width="15%" align="center">

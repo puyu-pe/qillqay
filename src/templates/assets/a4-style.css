@@ -208,7 +208,7 @@ body {
     vertical-align: top;
     border-top: 1px solid #e7eaec;
     line-height: 1.42857;
-    padding: 6px
+    padding: 4px
 }
 
 .white-bg {
@@ -216,8 +216,7 @@ body {
 }
 
 td {
-    padding-left: 6px;
-    padding-top: 4px;
+    padding-left: 5px;
 }
 
 .table-valores-totales tbody>tr>td {
