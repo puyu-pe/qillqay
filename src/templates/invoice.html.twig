@@ -428,6 +428,17 @@
 															</td>
 														</tr>
 													{% endif %}
+													{% if doc.mtoOperGratuitas %}
+														<tr class="border_bottom">
+															<td align="right">
+																<strong>Op. Gratuitas:</strong>
+															</td>
+															<td width="120" align="right">
+																<span>{{ moneda }}
+																	{{ doc.mtoOperGratuitas|n_format }}</span>
+															</td>
+														</tr>
+													{% endif %}
 													<tr>
 														<td align="right">
 															<strong>I.G.V.
