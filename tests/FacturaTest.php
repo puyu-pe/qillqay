@@ -66,6 +66,7 @@ class FacturaTest extends TestCase
           "mtoOperGravadas": "30.5084",
           "mtoOperExoneradas": "0.0000",
           "mtoOperInafectas": "0.0000",
+          "mtoOperGratuitas": "10.0000",
           "mtoIGV": "5.4916",
           "totalImpuestos": "5.4916",
           "valorVenta": "30.5084",
