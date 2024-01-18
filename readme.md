@@ -168,7 +168,7 @@ $data->params = (object) [
         'customCss' => '[CSS adicional para modificar estilos del documento, opcional]',
         'anulled' => false,
         'rejected' => false,
-        'is_production' => true,
+        'production' => true,
     ],
     'user' => (object) [
         'footer' => 'MUCHAS GRACIAS POR SU PREFERENCIA</br></br><div>Consulte el documento electrónico en :</br>http://localhost:8080/10123456789</div><br>',
