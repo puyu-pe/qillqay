@@ -143,6 +143,7 @@ class FacturaGuiaRelTicketTest extends TestCase
             "background": "#000000",
             "appMessage" : "Emitido desde YUBIZ.PUYU.PE",
             "anulled": false,
+            "rejected": false,
             "is_production": true
           },
           "user": {

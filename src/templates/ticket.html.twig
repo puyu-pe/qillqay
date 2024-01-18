@@ -129,13 +129,20 @@
 				</h5>
 			{% endif %}
 			<div>
-				{% if client.status == 'is_development' %}
-					<h4 class="mark bold">SIN VALOR LEGAL</h4>
+				{% if doc.params.system.anulled == true %}
+					<div class="mark-anulled">
+						<img src='data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250"><text x="30" y="240" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="rgba(255, 0, 0, 0.5)" transform="rotate(-45 5 250)">ANULADO</text></svg>'>
+					</div>
 				{% endif %}
-				{% if doc.anulled %}
-					<h4 class="mark-error">
-						<strong>ANULADO/RECHAZADO</strong>
-					</h4>
+				{% if doc.params.system.rejected == true %}
+					<div class="mark-rejected">
+						<img src='data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250"><text x="40" y="240" font-family="Arial, sans-serif" font-size="35" font-weight="bold" fill="rgba(255, 0, 0, 0.5)" transform="rotate(-45 5 250)">RECHAZADO</text></svg>'>
+					</div>
+				{% endif %}
+				{% if doc.params.system.production == false %}
+					<div class="mark-testing">
+						<img src='data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="280" height="250" viewBox="0 0 250 280"><text x="30" y="240" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="rgba(255, 0, 0, 0.5)" transform="rotate(-45 5 250)">NO VÁLIDO - EN PRUEBAS</text></svg>'>
+					</div>
 				{% endif %}
 			</div>
 			<table>

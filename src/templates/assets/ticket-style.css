@@ -57,20 +57,20 @@ table td {
     text-transform: lowercase;
 }
 
-.mark, .mark-error {
-    color: rgba(255, 0, 0, 0.6);
-    height: 400px;
-    width: 400px;
+.mark-anulled {
     position: absolute;
-    top: 30%;
-    left: 40%;
-    transform: rotate(-50deg);
-    font-size: 40px;
+    top: 13%;
+    left: 20%;
 }
-
-.mark-error {
-    top: 38%;
-    left: 35%;
+.mark-rejected {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+}
+.mark-testing {
+    position: absolute;
+    top: 25%;
+    left: 20%;
 }
 
 .mt-3 {
