@@ -301,6 +301,7 @@ class BoletaTest extends TestCase
             "hash": "m70vBMajaapHr5ByjkwEER8tCjc=",
             "background": "#154c79",
             "anulled": false,
+            "rejected": false,
             "is_production": true
           },
           "user": {

@@ -93,42 +93,51 @@ table {
 }
 
 @media print {
+
     blockquote,
     img,
     tr {
         page-break-inside: avoid
     }
+
     *,
-     :after,
-     :before {
-        color: #000!important;
-        text-shadow: none!important;
-        background: 0 0!important;
-        -webkit-box-shadow: none!important;
-        box-shadow: none!important
+    :after,
+    :before {
+        color: #000 !important;
+        text-shadow: none !important;
+        background: 0 0 !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important
     }
+
     a,
     a:visited {
         text-decoration: underline
     }
+
     a[href]:after {
         content: " (" attr(href) ")"
     }
+
     blockquote {
         border: 1px solid #999
     }
+
     img {
-        max-width: 100%!important
+        max-width: 100% !important
     }
+
     p {
         orphans: 3;
         widows: 3
     }
+
     .table {
-        border-collapse: collapse!important
+        border-collapse: collapse !important
     }
+
     .table td {
-        background-color: #fff!important
+        background-color: #fff !important
     }
 }
 
@@ -220,16 +229,23 @@ td {
 }
 
 .table-valores-totales tbody>tr>td {
-    border-top: 0 none!important
+    border-top: 0 none !important
 }
 
-.mark-error {
-    color: red !important;
-    height: 200px;
+.mark-anulled {
     position: absolute;
-    top: 40%;
-    left: 35%;
-    transform: rotate(-45deg);
+    top: 13%;
+    left: 25%;
+}
+.mark-rejected {
+    position: absolute;
+    top: 20%;
+    left: 25%;
+}
+.mark-testing {
+    position: absolute;
+    top: 25%;
+    left: 25%;
 }
 
 .table-details thead th:first-child {
@@ -240,7 +256,7 @@ td {
     border-radius: 0 10px 0 0;
 }
 
-.denomination{
-    font-family:Tahoma, Geneva, sans-serif;
-    font-size:13px;
+.denomination {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 13px;
 }

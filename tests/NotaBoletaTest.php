@@ -141,6 +141,7 @@ class NotaBoletaTest extends TestCase
             "hash": "m70vBMajaapHr5ByjkwEER8tCjc=",
             "background": "#000000",
             "anulled": false,
+            "rejected": false,
             "appMessage" : "Emitido desde YUBUZ.PUYU.PE",
             "is_production": true
           },

@@ -7,7 +7,6 @@
 			{% if doc.params.system.customCss is not empty %}
 				{{doc.params.system.customCss | raw}}
 			{% endif %}
-
 		</style>
 	</head>
 	<body class="white-bg">
@@ -19,10 +18,19 @@
 		{% set isAnticipo = doc.totalAnticipos is defined and doc.totalAnticipos > 0 %}
 		{% set name = isCustom ? doc.tipoDocNombre : doc.tipoDoc|catalog('01') %}
 		{% if doc.params.system.anulled == true %}
-			<h1 class="mark-error bolt">ANULADO/RECHAZADO</h1>
+			<div class="mark-anulled">
+				<img src='data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><text x="60" y="440" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="rgba(255, 0, 0, 0.5)" transform="rotate(-45 10 420)">ANULADO</text></svg>'>
+			</div>
 		{% endif %}
-		{% if doc.params.system.is_production == false %}
-			<h1 class="mark-error bolt">NO VALIDO, EN PRUEBAS</h1>
+		{% if doc.params.system.rejected == true %}
+			<div class="mark-rejected">
+				<img src='data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><text x="60" y="440" font-family="Arial, sans-serif" font-size="70" font-weight="bold" fill="rgba(255, 0, 0, 0.5)" transform="rotate(-45 10 420)">RECHAZADO</text></svg>'>
+			</div>
+		{% endif %}
+		{% if doc.params.system.production == false %}
+			<div class="mark-testing">
+				<img src='data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="420" height="400" viewBox="0 0 400 420"><text x="60" y="440" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="rgba(255, 0, 0, 0.5)" transform="rotate(-45 10 420)">NO VÁLIDO - EN PRUEBAS</text></svg>'>
+			</div>
 		{% endif %}
 		<table width="100%">
 			<tbody>
