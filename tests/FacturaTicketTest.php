@@ -192,7 +192,7 @@ class FacturaTicketTest extends TestCase
             "appMessage" : "Emitido desde YUBIZ.PUYU.PE",
             "anulled": false,
             "rejected": false,
-            "is_production": true
+            "production": true
           },
           "user": {
                     "footer": "MUCHAS GRACIAS POR SU PREFERENCIA</br></br><div>Consulte el documento electrónico en :</br>http://localhost:8080/10123456789</div><br>",

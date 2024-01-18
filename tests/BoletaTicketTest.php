@@ -593,7 +593,7 @@ class BoletaTicketTest extends TestCase
             "appMessage" : "Emitido desde YUBIZ.PUYU.PE",
             "anulled": false,
             "rejected": false,
-            "is_production": true
+            "production": true
           },
           "user": {
             "footer": "Representación impresa del CPE, consulta en:<br>https://nexus.puyu.pe/20527056579<br>",

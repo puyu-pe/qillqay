@@ -159,7 +159,7 @@ class CustomCssTest extends TestCase
               "background":"#154c79",
               "customCss": " .tabla_borde { font-size: 18px !important; border: 3px solid #123456 !important; } ",
               "anulled":false,
-              "is_production":true
+              "production":true
            },
            "user":{
               "footer":"MUCHAS GRACIAS POR SU PREFERENCIA</br></br><div>Consulte el documento electrónico en :</br>http://localhost:8080/10123456789</div><br>",

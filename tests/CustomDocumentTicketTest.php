@@ -157,7 +157,7 @@ class CustomDocumentTicketTest extends TestCase
               "background":"#154c79",
               "customCss": " #business_sunat { display: none } ",
               "anulled":false,
-              "is_production":true
+              "production":true
            },
            "user":{
               "footer":"MUCHAS GRACIAS POR SU PREFERENCIA</br></br><div>Consulte el documento electrónico en :</br>http://localhost:8080/10123456789</div><br>",
