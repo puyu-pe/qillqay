@@ -149,7 +149,7 @@ class FacturaDetraccionTest extends TestCase
             "background": "#ec2222",
             "anulled": false,
             "rejected": false,
-            "is_production": true
+            "production": true
           },
           "user": {
                     "footer": "MUCHAS GRACIAS POR SU PREFERENCIA</br></br><div>Consulte el documento electrónico en :</br>https://nexus.puyu.pe/20490793624</div><br>",
