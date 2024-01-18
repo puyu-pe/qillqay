@@ -140,10 +140,11 @@ class FacturaTest extends TestCase
     private function getParams()
     {
         $params = '{
-                "system": {
+            "system": {
             "hash": "m70vBMajaapHr5ByjkwEER8tCjc=",
             "background": "#123456",
             "anulled": false,
+            "rejected": false,
             "is_production": true
           },
           "user": {

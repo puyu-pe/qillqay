@@ -124,6 +124,7 @@ class NotaFacturaTest extends TestCase
             "hash": "m70vBMajaapHr5ByjkwEER8tCjc=",
             "background": "#000000",
             "anulled": false,
+            "rejected": false,
             "is_production": true
           },
           "user": {

@@ -148,6 +148,7 @@ class FacturaDetraccionTest extends TestCase
             "hash": " bRoSBxDB2XKl4i+K/avDNKLWp+0=",
             "background": "#ec2222",
             "anulled": false,
+            "rejected": false,
             "is_production": true
           },
           "user": {

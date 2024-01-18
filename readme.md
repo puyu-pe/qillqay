@@ -167,6 +167,7 @@ $data->params = (object) [
         'appMessage' => 'Emitido desde YUBIZ.PUYU.PE', //Requerido en formato ticket
         'customCss' => '[CSS adicional para modificar estilos del documento, opcional]',
         'anulled' => false,
+        'rejected' => false,
         'is_production' => true,
     ],
     'user' => (object) [
@@ -187,7 +188,7 @@ $data->params = (object) [
         ],
         'logo' => 'data:image/png;base64,[codigo]', 
     ],
-    'stringQR' => '', //Cadena a generar codigo QR, requerido para CPE
+    'stringQr' => '', //Cadena a generar codigo QR, requerido para CPE
     'documentFooter' => null,
 ];
 ```

@@ -592,6 +592,7 @@ class BoletaTicketTest extends TestCase
             "background": "#123456",
             "appMessage" : "Emitido desde YUBIZ.PUYU.PE",
             "anulled": false,
+            "rejected": false,
             "is_production": true
           },
           "user": {
