@@ -148,8 +148,8 @@ class FacturaTest extends TestCase
             "production": true
           },
           "user": {
-                    "footer": "MUCHAS GRACIAS POR SU PREFERENCIA</br></br><div>Consulte el documento electrónico en :</br>http://localhost:8080/10123456789</div><br>",
-            "header": null,
+            "footer": "MUCHAS GRACIAS POR SU PREFERENCIA</br></br><div>Consulte el documento electrónico en :</br>http://localhost:8080/10123456789</div><br>",
+            "header": "<center>TALLER MULTIMARCA<br>VENTA DE REPUESTOS Y SERVICIOS</center><br>Contacto : 984626295 - 956774588 - garymotors@gmail.com",
             "extras": [
               {
                   "name": "FORMA DE PAGO",
