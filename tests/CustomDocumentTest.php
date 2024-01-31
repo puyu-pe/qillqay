@@ -186,8 +186,8 @@ class CustomDocumentTest extends TestCase
                  }
               ]
            },
-           "stringQr":"puyu.pe",
-           "documentFooter":null
+           "stringQr":null,
+           "documentFooter": "TEST DE FOOTER ADICIONAL<BR>ESTO DEBE SALIR "
         }';
         return json_decode($params);
     }

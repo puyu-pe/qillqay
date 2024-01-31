@@ -288,7 +288,7 @@ class BoletaTest extends TestCase
       }
    ],
    "observation":" CEL : 990577706\nPLACA: 0183-3I\n_____________________________ NO SE ACEPTARÁN DEVOLUCIONES PARA PRODUCTOS DE SISTEMA ELÉCTRICO ",
-   "documentFooter":""
+   "documentFooter":"test footer"
 }';
 
         return json_decode($cpeJSON);
