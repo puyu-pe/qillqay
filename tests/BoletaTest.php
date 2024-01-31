@@ -56,11 +56,11 @@ class BoletaTest extends TestCase
          "direccion":"AV. PANAMERICANA NRO. 1517",
          "codLocal":"0000"
       },
-      "email":null,
+      "email": "mail@mail.com",
       "telephone":"(083) 200645"
    },
    "tipoOperacion":"0101",
-   "formato":"ticket",
+   "formato":"a4",
    "tipoDoc":"03",
    "codLocal":"0000",
    "serie":"B001",
@@ -288,7 +288,7 @@ class BoletaTest extends TestCase
       }
    ],
    "observation":" CEL : 990577706\nPLACA: 0183-3I\n_____________________________ NO SE ACEPTARÁN DEVOLUCIONES PARA PRODUCTOS DE SISTEMA ELÉCTRICO ",
-   "documentFooter":""
+   "documentFooter":"test footer"
 }';
 
         return json_decode($cpeJSON);
@@ -302,11 +302,11 @@ class BoletaTest extends TestCase
             "background": "#154c79",
             "anulled": false,
             "rejected": false,
-            "production": true
+            "production": false
           },
           "user": {
                     "footer": "MUCHAS GRACIAS POR SU PREFERENCIA</br></br><div>Consulte el documento electrónico en :</br>http://localhost:8080/10123456789</div><br>",
-            "header": null,
+            "header": "TALLER MULTIMARCA - VENTA DE REPUESTOS Y SERVICIOS",
             "extras": [
               {
                   "name": "FORMA DE PAGO",

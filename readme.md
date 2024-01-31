@@ -171,6 +171,7 @@ $data->params = (object) [
         'production' => true,
     ],
     'user' => (object) [
+        //mensaje genérico para todos
         'footer' => 'MUCHAS GRACIAS POR SU PREFERENCIA</br></br><div>Consulte el documento electrónico en :</br>http://localhost:8080/10123456789</div><br>',
         'extras' => [
             (object) [
@@ -189,7 +190,7 @@ $data->params = (object) [
         'logo' => 'data:image/png;base64,[codigo]', 
     ],
     'stringQr' => '', //Cadena a generar codigo QR, requerido para CPE
-    'documentFooter' => null,
+    'documentFooter' => null, //Mensaje adicional para documentos, como numeros de cuenta o números de contacto.
 ];
 ```
 - Se requieren los siguientes parámetros al momento de llamar a una de las funciones:
