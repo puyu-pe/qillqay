@@ -162,14 +162,14 @@ class CustomDocumentTest extends TestCase
     {
         $params = '{
            "system":{
-              "hash":"m70vBMajaapHr5ByjkwEER8tCjc=",
+              "hash": "dasdasdasd",
               "appMessage":"Emitido desde YUBIZ.PUYU.PE",
               "background":"#154c79",
               "anulled":false,
               "production":true
            },
            "user":{
-              "footer":"MUCHAS GRACIAS POR SU PREFERENCIA</br></br><div>Consulte el documento electrónico en :</br>http://localhost:8080/10123456789</div><br>",
+              "footer":"MUCHAS GRACIAS POR SU PREFERENCIA</br>",
               "header":null,
               "extras":[
                  {
@@ -187,7 +187,7 @@ class CustomDocumentTest extends TestCase
               ]
            },
            "stringQr":null,
-           "documentFooter": "TEST DE FOOTER ADICIONAL<BR>ESTO DEBE SALIR "
+           "documentFooter": "TEST DE FOOTER ADICIONAL\\nESTO ES UNA LINEA ADICIONAL"
         }';
         return json_decode($params);
     }
