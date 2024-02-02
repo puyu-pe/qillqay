@@ -30,7 +30,7 @@
 					<h1 id="business_name" class="bold mayus">{{ cp.nombreComercial }}</h1>
 				{% endif %}
 
-				{% if cp.razonSocial is defined and cp.razonSocial is not null %}
+				{% if cp.razonSocial is not empty %}
 					<h5 id="business_sunat" class="bold mayus">{{ cp.razonSocial }}</h5>
 				{% endif %}
 				<h5>RUC :
@@ -154,7 +154,7 @@
 				<tr>
 					{% if isCustom %}
 						{% for header in doc.detailsHeader %}
-							{% set cellWidth = header.width is not null ? header.width : "" %}
+							{% set cellWidth = header.width is not empty ? header.width : "" %}
 							<td align="center" width="{{ cellWidth }}%" class="bold">{{ header.title }}</td>
 						{% endfor %}
 					{% else %}
@@ -182,7 +182,7 @@
 					{% if isCustom %}
 						<tr>
 							{% for header in doc.detailsHeader %}
-								{% set cellAlign = header.align is not null ? header.align : "right" %}
+								{% set cellAlign = header.align is not empty ? header.align : "right" %}
 								<td align="{{ cellAlign }}">{{ attribute(item, header.field) | raw }}</td>
 							{% endfor %}
 						</tr>
@@ -213,7 +213,7 @@
 				{% if isCustom %}
 
 					{% for summary in doc.detailsSummary %}
-						{% set cellColspan = summary.colspan is not null ? summary.colspan : "1" %}
+						{% set cellColspan = summary.colspan is not empty ? summary.colspan : "1" %}
 						<tr class="right">
 							<td colspan="{{ cellColspan }}"></td>
 							<td align="right">
@@ -397,7 +397,7 @@
 				{% endif %}
 			</span>
 		</h5>
-		{% if doc.observation is defined and doc.observation is not null %}
+		{% if doc.observation is not empty %}
 			<div id="observation" class="mt-1">
 				<h5>
 					<b>OBSERVACIÓN:</b>

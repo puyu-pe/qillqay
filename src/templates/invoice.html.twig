@@ -152,7 +152,7 @@
 										</td>
 									</tr>
 
-									{% if doc.fechaVencimiento is not empty and doc.fechaVencimiento and isFactura %}
+									{% if doc.fechaVencimiento is not empty and isFactura %}
 										<tr>
 											<td width="60%" align="left">
 												<strong>Fecha Vencimiento:</strong>
@@ -232,7 +232,7 @@
 										{% if isCustom %}
 											<tr>
 												{% for header in doc.detailsHeader %}
-													{% set cellAlign = header.align is not null ? header.align : "right" %}
+													{% set cellAlign = header.align is not empty ? header.align : "right" %}
 													<td align="{{ cellAlign }}">{{ attribute(det, header.field) | raw }}</td>
 												{% endfor %}
 											</tr>
@@ -335,7 +335,7 @@
 												{% endif %}
 												{% if doc.params.user.extras is defined %}
 													{% for item in doc.params.user.extras %}
-														{% if item.value is not empty and item.value is not null %}
+														{% if item.value is not empty %}
 															<tr class="border_top">
 																<td width="30%" style="font-size: 10px;">
 																	{{ item.name|upper }}:
@@ -643,7 +643,7 @@
 						<!-- footer -->
 						<br>
 						<br>
-						{% if max_items is defined and doc.details|length > max_items %}
+						{% if max_items is not empty and doc.details|length > max_items %}
 							<div style="page-break-after:always;"></div>
 						{% endif %}
 						<div>
@@ -651,7 +651,7 @@
 							<table width="100%" border="0" cellpadding="0" cellspacing="0">
 								<tbody>
 									<tr>
-										{% if doc.params.documentFooter is not null and doc.params.documentFooter|trim is not empty %}
+										{% if doc.params.documentFooter is not empty %}
 											<td style="width: 55%">
 												<blockquote>
 													{{ doc.params.documentFooter|nl2br }}
@@ -659,10 +659,10 @@
 											</td>
 										{% endif %}
 										<td style="text-align: right">
-											{% if doc.params.user.footer is defined %}
+											{% if doc.params.user.footer is not empty %}
 												{{ doc.params.user.footer|raw }}
 											{% endif %}
-											{% if doc.params.system.hash is defined %}
+											{% if doc.params.system.hash is not empty %}
 												<strong>Resumen:</strong>
 												{{ doc.params.system.hash }}<br>
 											{% endif %}
@@ -670,7 +670,7 @@
 												<span>Representación impresa del Comprobante de Pago Electrónico</span>
 											{% endif %}
 										</td>
-										{% if doc.params.stringQr is not null %}
+										{% if doc.params.stringQr is not empty %}
 											<td width="15%" align="center">
 												<img style="padding-bottom:20px;" src="{{ qrCode(doc.params.stringQr)|image_b64('svg+xml') }}" alt="Qr Image">
 											</td>
