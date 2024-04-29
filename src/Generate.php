@@ -43,29 +43,54 @@ class Generate
 
             $size = $data->formato ?? null;
 
-            return self::runGeneration($html, $data, $wkhtmlPath, $format, $size, $env);
+            $params = [
+                'format' => $format,
+                'size' => $size,
+                'env' => $env,
+                'wkhtmlPath' => $wkhtmlPath
+            ];
+
+            return self::runGeneration($html, $data, $params);
         } catch (Exception $exs) {
             return $exs->getTraceAsString();
         }
     }
 
-    public static function fromHtml($html, $format = 'pdf', $size = 'a4', $wkhtmlPath = 'wkhtmltopdf', $env = 'run')
+    public static function fromHtml($html, $format = 'pdf', $size = 'a4', $wkhtmlPath = 'wkhtmltopdf', $env = 'run', $height = 210)
     {
         try {
-            return self::runGeneration($html, null, $wkhtmlPath, $format, $size,  $env);
+
+            $params = [
+                'format' => $format,
+                'size' => $size,
+                'env' => $env,
+                'wkhtmlPath' => $wkhtmlPath,
+                'height' => $height
+            ];
+
+            return self::runGeneration($html, null, $params);
         } catch (Exception $exs) {
             return $exs->getTraceAsString();
         }
     }
 
-    public static function runGeneration($html, $data, $wkhtmlPath, $format = 'pdf', $size = 'a4', $env = 'run')
+    public static function runGeneration($html, $data, $params) //, $wkhtmlPath, $format = 'pdf', $size = 'a4', $env = 'run')
     {
-        switch ($format) {
+        $defaults = [
+            'format' => 'pdf',
+            'size' => 'a4',
+            'env' => 'run',
+            'wkhtmlPath' => 'wkhtmltopdf',
+            'height' => 210
+        ];
+        $params = array_merge($defaults, $params);
+
+        switch ($params['format']) {
             case "file":
             case "pdf":
 
-                $options = self::getOptions($size, $data);
-                $options['binary'] = $wkhtmlPath;
+                $options = self::getOptions($data, $params);
+                $options['binary'] = $params['wkhtmlPath'];
 
                 $filename = self::generateName($data);
 
@@ -73,7 +98,7 @@ class Generate
 
                 $pdf->addPage($html);
 
-                if ($env == 'test' || $format == 'file') {
+                if ($params['env'] == 'test' || $params['format'] == 'file') {
                     $tempFilePath = sys_get_temp_dir() . '/' . $filename;
                     $result = $pdf->saveAs($tempFilePath);
 
@@ -90,7 +115,7 @@ class Generate
 
                 break;
             case "html":
-                if ($env == 'test') {
+                if ($params['env'] == 'test') {
                     $resultPath = sys_get_temp_dir() . '/nexuspdf_' . self::generateRandomString(6) . '.html';
                     file_put_contents($resultPath, $html);
                     return $resultPath;
@@ -102,7 +127,6 @@ class Generate
                 return 'Formato no reconocido';
         }
     }
-
 
     private static function generateRandomString($length = 6)
     {
@@ -116,16 +140,24 @@ class Generate
         return $randomString;
     }
 
-    private static function getOptions($size, $data = null)
+    private static function getOptions($data = null, $params)
     {
-        switch ($size) {
+        $defaults = [
+            'format' => 'pdf',
+            'size' => 'a4',
+            'env' => 'run',
+            'wkhtmlPath' => 'wkhtmltopdf',
+            'height' => 210
+        ];
+        $params = array_merge($defaults, $params);
+
+        switch ($params['size']) {
             case 'ticket':
 
-                $height = '210mm';
+                $height = $params['height'] . 'mm';
                 if ($data != null) {
                     $height = self::estimateTicketHeight($data) . 'mm';
                 }
-
                 return [
                     'no-outline',
                     'print-media-type',
@@ -137,6 +169,7 @@ class Generate
                     'margin-right' => '3mm',
                 ];
             default:
+
                 return [
                     'no-outline',
                     'print-media-type'
