@@ -56,7 +56,7 @@ class Generate
         }
     }
 
-    public static function fromHtml($html, $format = 'pdf', $size = 'a4', $wkhtmlPath = 'wkhtmltopdf', $env = 'run', $height = 210)
+    public static function fromHtml($html, $format = 'pdf', $size = 'a4', $height = 210, $wkhtmlPath = 'wkhtmltopdf', $env = 'run')
     {
         try {
 
