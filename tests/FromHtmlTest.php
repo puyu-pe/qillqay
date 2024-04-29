@@ -22,7 +22,7 @@ class FromHtmlTest extends TestCase
         $wkhtmlPath = $this->config['wkhtmlPath'];
         $format = $this->config['format'];
         $size = 'ticket';
-        $filePath = Generate::fromHtml($html, $format, $size, $wkhtmlPath, 'test', 320);
+        $filePath = Generate::fromHtml($html, $format, $size, 320, $wkhtmlPath, 'test');
 
         $this->assertFileExists($filePath);
     }
