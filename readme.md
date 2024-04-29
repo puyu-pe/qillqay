@@ -214,12 +214,14 @@ $html = Generate::fromObject($data, 'html'); //Generar string formato html
 $location = Generate::fromObject($data, 'file'); //Archivo temporal en pdf (En pruebas)
 ```
 - Llamar a la función fromHtml (debe incluir el css):
+- fromHtml($html, $format = 'pdf', $size = 'a4', $height = 210, $wkhtmlPath = 'wkhtmltopdf', $env = 'run')
+
 ``` 
 $html = [cadena html a generar]
 
 return Generate::fromHtml($html); //Stream de archivo pdf en tamaño a4
 return Generate::fromHtml($html, 'pdf', 'ticket'); //Stream de archivo pdf en tamaño ticket
+return Generate::fromHtml($html, 'pdf', 'ticket', tamaño); //Generar archivo en formato ticket indicando alto de la página
 return Generate::fromHtml($html, 'pdf', 'a4', 'ruta/a/wkhtmltopdf'); //Stream de archivo pdf en tamaño a4 indicando la ruta del binario/ejecutable
-return Generate::fromHtml($html, 'pdf', 'ticket', 'ruta/a/wkhtmltopdf', 'run', tamaño); //Generar archivo en formato ticket indicando alto de la página
 ```
 Se genera un stream del archivo, asi que no es necesario agregar return o asignarlo a una variable
