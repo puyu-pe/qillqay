@@ -40,7 +40,7 @@ class BoletaTicketTest extends TestCase
   "company": {
     "ruc": "20527056579",
     "razonSocial": "EMPRESA TEST S.A.",
-    "nombreComercial": null,
+    "nombreComercial": "EMPRESA TEST S.A.",
     "address": {
       "ubigueo": "030109",
       "codigoPais": "PE",
