@@ -123,7 +123,7 @@
 										</td>
 										<td width="40%" align="left">
 											<strong>Fecha Inicio de
-																																				                                Traslado:</strong>
+																																																																																				                                Traslado:</strong>
 											{{ doc.envio.fecTraslado|date('d/m/Y') }}
 										</td>
 									</tr>
@@ -134,7 +134,7 @@
 										</td>
 										<td width="40%" align="left">
 											<strong>Modalidad de
-																																				                                Transporte:</strong>
+																																																																																				                                Transporte:</strong>
 											{{ doc.envio.modTraslado | catalog('18') }}
 										</td>
 									</tr>
@@ -168,39 +168,70 @@
 							</table>
 						</div>
 						<br>
-						{% set tr = doc.envio.transportista %}
-						{% if tr %}
-							<div class="tabla_borde">
-								<table width="100%" border="0" cellpadding="5" cellspacing="0">
-									<tbody>
-										<tr style="background-color: {{ doc.params.system.background }} !important;">
-											<td colspan="2" class="bold gray" style="border-radius: 10px 10px 0 0 !important">
-												TRANSPORTE
-											</td>
-										</tr>
+						<div class="tabla_borde">
+							<table width="100%" border="0" cellpadding="5" cellspacing="0">
+								<tbody>
+									<tr style="background-color: {{ doc.params.system.background }} !important;">
+										<td colspan="3" class="bold gray" style="border-radius: 10px 10px 0 0 !important">
+											TRANSPORTE
+										</td>
+									</tr>
+									{% set transportista = doc.envio.transportista %}
+									{% set choferes = doc.envio.choferes %}
+									{% set vehiculo = doc.envio.vehiculo %}
+									{% if transportista %}
 										<tr class="border_top">
-											<td width="60%" align="left">
+											<td width="60%" colspan="2" align="left">
 												<strong>Razón Social:</strong>
-												{{ tr.rznSocial }}</td>
+												{{ transportista.rznSocial }}</td>
 											<td width="40%" align="left">
-												<strong>{{ tr.tipoDoc|catalog('061') }}
+												<strong>{{ transportista.tipoDoc|catalog('061') }}
 													:</strong>
-												{{ tr.numDoc }}</td>
+												{{ transportista.numDoc }}</td>
 										</tr>
 										<tr>
 											<td width="60%" align="left">
 												<strong>Vehiculo:</strong>
-												{{ tr.placa }}</td>
-											<td width="40%" align="left">
+												{{ transportista.placa }}</td>
+											<td width="40%" colspan="2" align="left">
 												<strong>Conductor:</strong>
-												{{ tr.choferTipoDoc|catalog('061') }}
-												{{ tr.choferDoc }}
+												{{ transportista.choferTipoDoc|catalog('061') }}
+												{{ transportista.choferDoc }}
 											</td>
 										</tr>
-									</tbody>
-								</table>
-							</div><br>
-						{% endif %}
+									{% endif %}
+									{% if vehiculo %}
+										<tr>
+											<td colspan="3" align="left">
+												<strong>Vehículo:</strong>
+												{{ vehiculo.placa }}
+											</td>
+										</tr>
+									{% endif %}
+
+									{% if choferes is iterable and choferes|length > 0 %}
+										{% for chofer in choferes %}
+											<tr>
+												<td width="30%" align="left">
+													<strong>Conductor:</strong>
+													{{ chofer.tipoDoc|catalog('061') }} 
+													{{ chofer.nroDoc }}
+												</td>
+												<td width="30%" align="left">
+													<strong>Licencia:</strong>
+													{{ chofer.licencia }}
+												</td>
+												<td width="40%" align="left">
+													<strong>Nombre:</strong>
+													{{ chofer.nombres }}
+													{{ chofer.apellidos }}
+												</td>
+											</tr>
+										{% endfor %}
+									{% endif %}
+								</tbody>
+							</table>
+						</div><br>
 						<div class="tabla_borde">
 							<table width="100%" border="0" cellpadding="5" cellspacing="0">
 								<tbody>
