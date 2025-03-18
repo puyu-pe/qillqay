@@ -9,11 +9,9 @@ strong {
 }
 
 body {
-    background-repeat: no-repeat;
-    background-position: center center;
     text-align: center;
     margin: 0;
-    font-family: Verdana, monospace
+    font-family: Arial, Helvetica, sans-serif, Verdana, monospace
 }
 
 .tabla_borde {
@@ -26,11 +24,11 @@ tr.border_bottom td {
 }
 
 tr.border_top td {
-    border-top: 1px solid #666
+    border-top: 1px solid #000
 }
 
 td.border_right {
-    border-right: 1px solid #666
+    border-right: 1px solid #000
 }
 
 .table-valores-totales tbody>tr>td {
@@ -42,7 +40,7 @@ td.border_right {
 }
 
 .table-valores-totales>tbody>tr>td:last-child {
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid #000;
     text-align: right;
     width: 30%
 }
@@ -55,17 +53,6 @@ img {
 table td,
 table tr {
     font-size: 13px
-}
-
-html {
-    font-family: sans-serif;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent
-}
-
-a {
-    background-color: transparent
 }
 
 a:active,
@@ -120,7 +107,7 @@ table {
     }
 
     blockquote {
-        border: 1px solid #999
+        border: 1px solid #000
     }
 
     img {
@@ -205,18 +192,15 @@ h6 {
 }
 
 body {
-    line-height: 1.42857143;
     font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-color: #2f4050;
     font-size: 14px;
-    color: #676a6c;
+    color: #000;
     overflow-x: hidden
 }
 
 .table>tbody>tr>td {
     vertical-align: top;
     border-top: 1px solid #e7eaec;
-    line-height: 1.42857;
     padding: 4px
 }
 
@@ -257,10 +241,10 @@ td {
 }
 
 .table-details tbody tr:not(:last-child) {
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid #000;
 }
 
 .denomination {
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
 }
