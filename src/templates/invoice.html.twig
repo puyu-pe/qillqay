@@ -87,12 +87,12 @@
 													<tr>
 														<td align="center">
 															<strong>
-																	<span style="font-size:15px">{{ cp.nombreComercial }}</span>
+																<span style="font-size:15px">{{ cp.nombreComercial }}</span>
 															</strong>
-                                                            {% if cp.razonSocial != cp.nombreComercial %}
-                                                                <br>
-                                                                <span style="font-size:15px">{{ cp.razonSocial }}</span>
-                                                            {% endif %}
+															{% if cp.razonSocial != cp.nombreComercial %}
+																<br>
+																<span style="font-size:15px">{{ cp.razonSocial }}</span>
+															{% endif %}
 														</td>
 													</tr>
 													<tr>
@@ -683,6 +683,17 @@
 								</tbody>
 							</table>
 						</div>
+
+						{% if name == 'PROFORMA' %}
+							<table width="100%" border="0" cellpadding="0" cellspacing="0" class="signature">
+								<tbody>
+									<tr>
+										<td align="center">___________________________<br>CLIENTE</td>
+										<td align="center">___________________________<br>EMPRESA</td>
+									</tr>
+								</tbody>
+							</table>
+						{% endif %}
 					</td>
 				</tr>
 			</tbody>
