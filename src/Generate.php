@@ -74,7 +74,7 @@ class Generate
         }
     }
 
-    public static function runGeneration($html, $data, $params) //, $wkhtmlPath, $format = 'pdf', $size = 'a4', $env = 'run')
+    public static function runGeneration($html, $data, $params)
     {
         $defaults = [
             'format' => 'pdf',
@@ -205,7 +205,7 @@ class Generate
         if ($data == null) {
             return '/file_' . self::generateRandomString(6) . '.pdf';
         } else {
-            $filename = ''; //20564394476-01-F001-6241.pdf
+            $filename = '';
             if ($data->company && $data->company->ruc) {
                 $filename .= $data->company->ruc . '-';
             }

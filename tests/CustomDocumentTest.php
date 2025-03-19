@@ -57,7 +57,7 @@ class CustomDocumentTest extends TestCase
            },
            "tipoOperacion":"0101",
            "tipoDoc":"00",
-           "tipoDocNombre": "DOCUMENTO PERSONALIZADO",
+           "tipoDocNombre": "PROFORMA",
            "serie":"P001",
            "correlativo":207,
            "fechaEmision":"2023-10-10 15:51:13",
