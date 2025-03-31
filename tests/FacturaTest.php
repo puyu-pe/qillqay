@@ -8,138 +8,157 @@ use PHPUnit\Framework\TestCase;
 
 class FacturaTest extends TestCase
 {
-    private $config;
+  private $config;
 
-    protected function setUp(): void
+  protected function setUp(): void
+  {
+    parent::setUp();
+    $this->config = parse_ini_file(__DIR__ . '/config.ini');
+  }
+
+  public function testGeneratePdf()
+  {
+    $data = $this->getMockedData();
+    $wkhtmlPath = $this->config['wkhtmlPath'];
+    $format = $this->config['format'];
+    $filePath = Generate::fromObject($data, $format, $wkhtmlPath, 'test');
+
+    $this->assertFileExists($filePath);
+  }
+
+  public function getMockedData()
+  {
+    $data = $this->getData();
+    $data->params = $this->getParams();
+    $data->params->user->logo = $this->config['logo'];
+    return $data;
+  }
+
+  private function getData()
+  {
+    $cpeJSON = '{
+    "company": {
+    "ruc": "20602974503",
+    "razonSocial": "GARY MOTORS DMG S.R.L.",
+    "nombreComercial": "GARY MOTORS DMG S.R.L.",
+    "address": {
+    "ubigueo": "030101",
+    "codigoPais": "PE",
+    "departamento": "Apurímac",
+    "provincia": "Abancay",
+    "distrito": "Abancay",
+    "urbanizacion": null,
+    "direccion": "AV. PANAMERICANA NRO. 1517",
+    "codLocal": "0000"
+    },
+    "email": null,
+    "telephone": "(083) 200645 - 984626295 - 956774588"
+    },
+    "tipoOperacion": "0101",
+    "formato": "a4",
+    "tipoDoc": "01",
+    "codLocal": "0000",
+    "serie": "F001",
+    "correlativo": "7302",
+    "fechaEmision": "2025-02-28 11:49:59",
+    "fechaVencimiento": "2025-03-28",
+    "tipoMoneda": "PEN",
+    "mtoOperGravadas": "122.8813",
+    "mtoOperExoneradas": "0.0000",
+    "mtoOperInafectas": "0.0000",
+    "mtoIGV": "22.1187",
+    "totalImpuestos": "22.1187",
+    "valorVenta": "122.8813",
+    "subTotal": "145.0000",
+    "mtoImpVenta": "145.0000",
+    "formaPago": {
+    "moneda": "PEN",
+    "tipo": "Credito",
+    "monto": "145.0000"
+    },
+    "cuotas": [
     {
-        parent::setUp();
-        $this->config = parse_ini_file(__DIR__ . '/config.ini');
+    "moneda": "PEN",
+    "fechaPago": "2025-03-28",
+    "monto": "145.0000"
     }
-
-    public function testGeneratePdf()
+    ],
+    "client": {
+    "tipoDoc": "6",
+    "numDoc": "20104888934",
+    "rznSocial": "CAJA MUNICIPAL DE AHORRO Y CREDITO DE ICA SA",
+    "address": {
+    "ubigueo": "-",
+    "direccion": "AV. CONDE DE NIEVA NRO. 498 ICA - ICA - ICA"
+    },
+    "email": "",
+    "telephone": ""
+    },
+    "cashier": {
+    "tipoDoc": 1,
+    "numDoc": "-",
+    "rznSocial": "YESSENIA"
+    },
+    "details": [
     {
-        $data = $this->getMockedData();
-        $wkhtmlPath = $this->config['wkhtmlPath'];
-        $format = $this->config['format'];
-        $filePath = Generate::fromObject($data, $format, $wkhtmlPath, 'test');
-
-        $this->assertFileExists($filePath);
+    "codProducto": "50920107624",
+    "unidad": "NIU",
+    "descripcion": "MANTENIMIENTO GENERAL",
+    "cantidad": "1.00",
+    "mtoValorUnitario": "55.0847",
+    "mtoValorVenta": "55.0847",
+    "mtoBaseIgv": "55.0847",
+    "porcentajeIgv": "18",
+    "igv": "9.9153",
+    "tipAfeIgv": "10",
+    "totalImpuestos": "9.9153",
+    "mtoPrecioUnitario": "65.00"
+    },
+    {
+    "codProducto": "00114901154",
+    "unidad": "NIU",
+    "descripcion": "ACEITE MOTUL 7100 20W50 SINTETICO 4T 1L",
+    "cantidad": "1.00",
+    "mtoValorUnitario": "44.0678",
+    "mtoValorVenta": "44.0678",
+    "mtoBaseIgv": "44.0678",
+    "porcentajeIgv": "18",
+    "igv": "7.9322",
+    "tipAfeIgv": "10",
+    "totalImpuestos": "7.9322",
+    "mtoPrecioUnitario": "52.00"
+    },
+    {
+    "codProducto": "29416812021",
+    "unidad": "NIU",
+    "descripcion": "ZAPATA POSTERIOR",
+    "cantidad": "1.00",
+    "mtoValorUnitario": "23.7288",
+    "mtoValorVenta": "23.7288",
+    "mtoBaseIgv": "23.7288",
+    "porcentajeIgv": "18",
+    "igv": "4.2712",
+    "tipAfeIgv": "10",
+    "totalImpuestos": "4.2712",
+    "mtoPrecioUnitario": "28.00"
     }
-
-    public function getMockedData()
+    ],
+    "legends": [
     {
-        $data = $this->getData();
-        $data->params = $this->getParams();
-        $data->params->user->logo = $this->config['logo'];
-        return $data;
+    "code": "1000",
+    "value": "CIENTO CUARENTA Y CINCO  CON 00/100 SOLES."
     }
+    ],
+    "observation": " CEL : 991228607\nPLACA: 6541-HC\nENCARGADO : ARTUR NUÑOZ\n\n\n- Generado desde: FACTURA ELÉCTRONICA F001 - 7158 el 21/02/2025 \n\n- Generado desde: FACTURA ELÉCTRONICA F001 - 7277 el 28/02/2025 \n",
+    "documentFooter": ""
+    }';
 
-    private function getData()
-    {
-        $cpeJSON = '{
-          "company": {
-            "ruc": "10123456789",
-            "razonSocial": "EMPRESA TEST",
-            "nombreComercial": "EMPRESA TEST S.R.L.",
-            "address": {
-              "ubigueo": "030101",
-              "codigoPais": "PE",
-              "departamento": "Apurímac",
-              "provincia": "Abancay",
-              "distrito": "Abancay",
-              "urbanizacion": null,
-              "direccion": "AV. BRILLA EL SOL MZ. X Lt. 46 - URB. BELLA VISTA BAJA - ABANCAY - APURIMAC",
-              "codLocal": "0000"
-            },
-            "email": null,
-            "telephone": null
-          },
-          "tipoOperacion": "0101",
-          "formato": "a4",
-          "tipoDoc": "01",
-          "codLocal": "0000",
-          "serie": "F001",
-          "correlativo": "4863",
-          "fechaEmision": "2023-09-06 10:45:19",
-          "fechaVencimiento": "2023-09-24",
-          "tipoMoneda": "PEN",
-          "mtoOperGravadas": "30.5084",
-          "mtoOperExoneradas": "0.0000",
-          "mtoOperInafectas": "0.0000",
-          "mtoOperGratuitas": "10.0000",
-          "mtoIGV": "5.4916",
-          "totalImpuestos": "5.4916",
-          "valorVenta": "30.5084",
-          "subTotal": "36.0000",
-          "mtoImpVenta": "36.0000",
-          "formaPago": {
-            "moneda": "PEN",
-            "tipo": "Contado",
-            "monto": "36.000000"
-          },
-          "cuotas": [],
-          "client": {
-            "tipoDoc": "6",
-            "numDoc": "10310122365",
-            "rznSocial": "VIZCARRA ASCARZA MARCOS",
-            "address": {
-              "ubigueo": "-",
-              "direccion": "-"
-            },
-            "email": null,
-            "telephone": "983602438"
-          },
-          "cashier": {
-            "tipoDoc": 1,
-            "numDoc": "-",
-            "rznSocial": "delfina"
-          },
-          "details": [
-            {
-              "codProducto": "02011310784",
-              "unidad": "NIU",
-              "descripcion": "VALVULA SCOOTER 150 GY6 DMC COPILAR",
-              "cantidad": "1.0000",
-              "mtoValorUnitario": "15.2542",
-              "mtoValorVenta": "15.2542",
-              "mtoBaseIgv": "15.2542",
-              "porcentajeIgv": "18",
-              "igv": "2.7458",
-              "tipAfeIgv": "10",
-              "totalImpuestos": "2.7458",
-              "mtoPrecioUnitario": "18.0000"
-            },
-            {
-              "codProducto": "-",
-              "unidad": "NIU",
-              "descripcion": "VALVULA SCOOTER 150 GY6 ESC COPILAR",
-              "cantidad": "1.0000",
-              "mtoValorUnitario": "15.2542",
-              "mtoValorVenta": "15.2542",
-              "mtoBaseIgv": "15.2542",
-              "porcentajeIgv": "18",
-              "igv": "2.7458",
-              "tipAfeIgv": "10",
-              "totalImpuestos": "2.7458",
-              "mtoPrecioUnitario": "18.0000"
-            }
-          ],
-          "legends": [
-            {
-              "code": "1000",
-              "value": "TREINTA Y SEIS  CON 00/100 SOLES."
-            }
-          ],
-          "observation": "MENSAJE FINAL",
-          "documentFooter": null
-        }';
+    return json_decode($cpeJSON);
+  }
 
-        return json_decode($cpeJSON);
-    }
-
-    private function getParams()
-    {
-        $params = '{
+  private function getParams()
+  {
+    $params = '{
             "system": {
             "hash": "m70vBMajaapHr5ByjkwEER8tCjc=",
             "background": "#123456",
@@ -152,23 +171,23 @@ class FacturaTest extends TestCase
             "header": "<center>TALLER MULTIMARCA<br>VENTA DE REPUESTOS Y SERVICIOS</center><br>Contacto : 984626295 - 956774588 - garymotors@gmail.com",
             "extras": [
               {
-                  "name": "FORMA DE PAGO",
+                "name": "FORMA DE PAGO",
                 "value": "Contado PEN 36.00"
               },
               {
-                  "name": "CAJERO",
+                "name": "CAJERO",
                 "value": "delfina"
               },
               {
-                  "name": "OBSERVACIÓN",
-                "value": ""
+                "name": "OBSERVACIÓN",
+                "value": " CEL : 991228607\nPLACA: 6541-HC\nENCARGADO : ARTUR NUÑOZ\n\n\n- Generado desde: FACTURA ELÉCTRONICA F001 - 7158 el 21/02/2025 \n\n- Generado desde: FACTURA ELÉCTRONICA F001 - 7277 el 28/02/2025"
               }
             ],
             "logo": ""
           },
           "stringQr" : "puyu.pe",
-          "documentFooter": null
+          "documentFooter": "Realice su pago es en los siguientes números de cuenta.\nBCP - Inversiones AUTOVET S.R.L\nNro. De Cta. Corriente: 200-2083884-0-33\nCCI: 00220000208388403346\n_________________________________________________\nBanco de la Nación - Inversiones AUTOVET S.R.L\nNro. De Cta.: 00-181-072008\nCCI: 0181810001810720084\nCta. De detracciones: 00-181-042486\n_________________________________________________\nEdwin David Velázquez Tica\nN.º de Cta.: 588-3082449630\nCCI: 00358801308244963016"
         }';
-        return json_decode($params);
-    }
+    return json_decode($params);
+  }
 }

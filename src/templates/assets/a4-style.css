@@ -173,17 +173,13 @@ p {
 blockquote {
     padding: 10px 20px;
     margin: 0 0 20px;
-    border-left: 5px solid #eee
+    border: 1px solid #cfcdcd;
+    border-left: 5px solid #eee;
+    font-size: 12px;
 }
 
 table {
     background-color: transparent
-}
-
-.table {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 20px
 }
 
 h6 {
@@ -193,7 +189,6 @@ h6 {
 
 body {
     font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
     color: #000;
     overflow-x: hidden
 }
@@ -253,4 +248,19 @@ td {
 
 .signature {
     margin-top: 80px;
+}
+
+.table-extras,
+.table-footer {
+    width: 100%;
+    border: 0;
+    border-spacing: 0;
+}
+
+.table-extras td {
+    padding: 5px;
+}
+
+.table-footer td {
+    font-size: 12px !important;
 }
