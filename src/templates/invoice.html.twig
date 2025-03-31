@@ -221,11 +221,11 @@
 												<th align="center" class="gray">{{ header.title }}</th>
 											{% endfor %}
 										{% else %}
-											<th align="center" class="gray">Cantidad</th>
-											<th align="center" class="gray">Código</th>
+											<th align="center" class="gray" width="12%">Cantidad</th>
+											<th align="center" class="gray" width="15%">Código</th>
 											<th align="center" class="gray">Descripción</th>
-											<th align="center" class="gray">Precio Unitario</th>
-											<th align="center" class="gray">Precio Total</th>
+											<th align="center" class="gray" width="14%">Precio Unitario</th>
+											<th align="center" class="gray" width="14%">Precio Total</th>
 										{% endif %}
 									</tr>
 								</thead>
@@ -276,7 +276,7 @@
 							<tbody>
 								<tr>
 									<td
-										width="50%" valign="top">
+										width="55%" valign="top">
 
 										<!-- legends -->
 										<table width="100%" border="0" cellpadding="5" cellspacing="0">
@@ -308,7 +308,7 @@
 											</tbody>
 										</table>
 
-										<table width="100%" border="0" cellpadding="5" cellspacing="0">
+										<table class="table-extras">
 											<tbody>
 												{% if anotherLegends %}
 													<tr class="border_top">
@@ -345,7 +345,7 @@
 																	{{ item.name|upper }}:
 																</td>
 																<td width="70%" style="font-size: 10px;">
-																	{{ item.value|raw }}
+																	{{ item.value|nl2br|raw }}
 																</td>
 															</tr>
 														{% endif %}
@@ -645,24 +645,22 @@
 						<!-- FIN DETRACCION -->
 
 						<!-- footer -->
-						<br>
-						<br>
 						{% if max_items is not empty and doc.details|length > max_items %}
 							<div style="page-break-after:always;"></div>
 						{% endif %}
 						<div>
-							<hr style="display: block; height: 1px; border: 0; border-top: 1px solid #666; margin: 20px 0; padding: 0;">
-							<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<hr style="border-top: 1px solid #666">
+							<table class="table-footer">
 								<tbody>
 									<tr>
 										{% if doc.params.documentFooter is not empty %}
-											<td style="width: 55%">
+											<td style="width: 55%; padding-left: 0; padding-right: 10px">
 												<blockquote>
 													{{ doc.params.documentFooter|nl2br }}
 												</blockquote>
 											</td>
 										{% endif %}
-										<td style="text-align: right">
+										<td style="text-align: right; vertical-align: middle">
 											{% if doc.params.user.footer is not empty %}
 												{{ doc.params.user.footer|raw }}
 											{% endif %}
@@ -675,8 +673,8 @@
 											{% endif %}
 										</td>
 										{% if doc.params.stringQr is not empty %}
-											<td width="15%" align="center">
-												<img style="padding-bottom:20px;" src="{{ qrCode(doc.params.stringQr)|image_b64('svg+xml') }}" alt="Qr Image">
+											<td width="15%" style="text-align: center; vertical-align: middle">
+												<img src="{{ qrCode(doc.params.stringQr)|image_b64('svg+xml') }}">
 											</td>
 										{% endif %}
 									</tr>
