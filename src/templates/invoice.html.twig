@@ -312,10 +312,10 @@
 											<tbody>
 												{% if anotherLegends %}
 													<tr class="border_top">
-														<td width="30%" style="font-size: 10px;">
+														<td width="30%">
 															LEYENDA:
 														</td>
-														<td width="70%" style="font-size: 10px;">
+														<td width="70%">
 															{% for leg in doc.legends %}
 																{% if leg.code != '1000' and leg.code != '2006' %}
 																	{{ leg.value | raw }}
@@ -329,10 +329,10 @@
 												{% endif %}
 												{% if isNota %}
 													<tr class="border_top">
-														<td width="30%" style="font-size: 10px;">
+														<td width="30%">
 															MOTIVO DE EMISIÓN:
 														</td>
-														<td width="70%" style="font-size: 10px;">
+														<td width="70%">
 															{{ doc.desMotivo }}
 														</td>
 													</tr>
@@ -341,10 +341,10 @@
 													{% for item in doc.params.user.extras %}
 														{% if item.value is not empty %}
 															<tr class="border_top">
-																<td width="30%" style="font-size: 10px;">
+																<td width="30%">
 																	{{ item.name|upper }}:
 																</td>
-																<td width="70%" style="font-size: 10px;">
+																<td width="70%">
 																	{{ item.value|nl2br|raw }}
 																</td>
 															</tr>
