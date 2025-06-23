@@ -39,10 +39,13 @@
 				{% if doc.params.user.header is not empty %}
 					<h5>{{ doc.params.user.header|raw }}</h5>
 				{% endif %}
-				<h5 class="mayus">{{ cp.address.direccion }}</h5>
-				<h5 class="mayus">
-					{{ cp.address.distrito }}-{{ cp.address.provincia }}-{{ cp.address.departamento }}
-				</h5>
+
+			    {% if cp.address %}
+                    <h5 class="mayus">{{ cp.address.direccion }}</h5>
+                    <h5 class="mayus">
+                        {{ cp.address.distrito }}-{{ cp.address.provincia }}-{{ cp.address.departamento }}
+                    </h5>
+                {% endif %}
 				{% if cp.telephone is not empty %}
 					<h5><strong>Contacto:</strong>
 					{{ cp.telephone }}
@@ -68,11 +71,7 @@
 
 		{% set cl = doc.client %}
 		<h5>
-			<b>ADQUIRIENTE:
-			</b>
-		</h5>
-		{% set cl = doc.client %}
-		<h5>
+            <br>
 			<strong>{{ cl.tipoDoc|catalog('061') }}:
 			</strong>
 			{{ cl.numDoc }}
@@ -89,7 +88,12 @@
 				{{ cl.address.direccion }}</h5>
 		{% endif %}
 		<h5>
-			<strong>FECHA DE EMISIÓN:
+			<strong>
+                {% if doc.formaPago is defined and doc.formaPago.tipo == 'Credito' %}
+                	FECHA DE EMISIÓN:
+                {% else %}
+                    FECHA:
+                {% endif %}
 			</strong>
 			{{ doc.fechaEmision|date('d/m/Y') }}
 			{% if doc.fechaEmision|date('H:i:s') != '00:00:00' %}
