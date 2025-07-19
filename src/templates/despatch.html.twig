@@ -105,6 +105,26 @@
 											</td>
 										</tr>
 									{% endif %}
+
+									{% if doc.addDocs is defined and doc.addDocs %}
+                                        <tr class="border_top">
+                                            <td colspan="2"><strong>Documento{{ doc.addDocs|length > 1 ? 's' : '' }} Relacionado{{ doc.addDocs|length > 1 ? 's' : '' }}</strong></td>
+                                        </tr>
+                                        {% for d in doc.addDocs %}
+                                            <tr>
+                                                <td colspan="2" align="left">
+                                                    {# d.tipo: código (01,03,07...), d.nro: Serie-Correlativo, d.tipoDesc opcional #}
+                                                    <strong>{{ d.tipo }}</strong> - {{ d.nro }}
+                                                    {% if d.tipoDesc is defined and d.tipoDesc %}
+                                                        <span> | {{ d.tipoDesc }}</span>
+                                                    {% endif %}
+                                                    {% if d.emisor is defined and d.emisor %}
+                                                        <span> | Emisor: {{ d.emisor }}</span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
 								</tbody>
 							</table>
 						</div>
