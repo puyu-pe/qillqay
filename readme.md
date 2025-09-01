@@ -225,3 +225,62 @@ return Generate::fromHtml($html, 'pdf', 'ticket', tamaño); //Generar archivo en
 return Generate::fromHtml($html, 'pdf', 'a4', 'ruta/a/wkhtmltopdf'); //Stream de archivo pdf en tamaño a4 indicando la ruta del binario/ejecutable
 ```
 Se genera un stream del archivo, asi que no es necesario agregar return o asignarlo a una variable
+
+
+## Documentos personalizados (tipoDoc = `00`)
+
+> Los documentos “custom” se procesan cuando el tipo de documento es `00`.
+> La plantilla Twig evalúa esta condición con:
+
+```twig
+{% set isCustom = doc.tipoDoc in ['00'] %}
+```
+
+### Datos adicionales requeridos para `tipoDoc = 00`
+
+Además del objeto estándar, se **requiere**:
+
+* `doc.tipoDocNombre` (string): nombre visible del documento custom.
+* `doc.detailsHeader` (array de objetos): define el **encabezado** y mapea columnas de `details`.
+  Campos soportados por columna:
+
+    * `field` (string, **requerido**): clave presente en cada item de `details`.
+    * `title` (string, recomendado): etiqueta a mostrar en el encabezado.
+    * `type` (string, opcional): uno de `text` (default), `number`, `currency`, `boolean`, `date`.
+    * `decimals` (int, opcional): número de decimales para `number`/`currency` (por defecto: `number=0`, `currency=2`).
+    * `format` (string, opcional): formato para `date` (por defecto: `d/m/Y`).
+    * `align` (string, opcional): `left|center|right`. Si se omite, se infiere por `type` (`number/currency=right`, `boolean=center`, demás `left`).
+    * `null_as` (string, opcional): placeholder si el valor es `null` o vacío.
+* `doc.details` (array de objetos): filas del detalle. **Cada objeto debe incluir** los campos listados en `detailsHeader[*].field`.
+* `doc.detailsSummary` (array de objetos, opcional): totales/resumen. Para `ticket`, incluya `colspan`.
+
+### Ejemplo mínimo de configuración
+
+```php
+$data->tipoDoc       = '00';
+$data->tipoDocNombre = 'CONSTANCIA';
+$data->detailsHeader = [
+    (object) ['title' => 'CÓDIGO',      'field' => 'codProducto', 'type' => 'text',    'align' => 'left'],
+    (object) ['title' => 'DESCRIPCIÓN', 'field' => 'descripcion', 'type' => 'text'],
+    (object) ['title' => 'CANT.',       'field' => 'cantidad',    'type' => 'number',  'decimals' => 0],
+    (object) ['title' => 'P. UNIT',     'field' => 'precio',      'type' => 'currency','decimals' => 2],
+    (object) ['title' => 'TOTAL',       'field' => 'total',       'type' => 'currency'],
+];
+$data->details = [
+    (object) [
+        'codProducto' => '1.3.23.14.1',
+        'descripcion' => 'CONSTANCIA DE NOTAS POR SEMESTRE',
+        'cantidad'    => '1',
+        'precio'      => '6.00',
+        'total'       => '6.00',
+    ],
+];
+$data->detailsSummary = [
+    (object) ['title' => 'TOTAL', 'value' => '6.00', 'colspan' => 2],
+];
+```
+
+
+### Vista previa
+
+![img.png](img.png)

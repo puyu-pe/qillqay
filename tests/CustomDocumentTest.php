@@ -93,11 +93,13 @@ class CustomDocumentTest extends TestCase
            "detailsHeader":[
               {
                  "title" : "UNIDAD",
-                 "field" : "unidad"
+                 "field" : "unidad",
+                 "align" : "center"
              },
              {
                  "title" : "CANTIDAD",
-                 "field" : "cantidad"
+                 "field" : "cantidad",
+                 "type" : "number"
              },
              {
                  "title" : "CODIGO",
@@ -110,11 +112,13 @@ class CustomDocumentTest extends TestCase
              },
              {
                  "title" : "PRECIO UNITARIO",
-                 "field" : "mtoPrecioUnitario"
+                 "field" : "mtoPrecioUnitario",
+                 "type" : "currency"
              },
              {
                  "title" : "PRECIO TOTAL",
-                 "field" : "total"
+                 "field" : "total",
+                 "type" : "currency"
              }
            ],
            "details":[
@@ -131,14 +135,22 @@ class CustomDocumentTest extends TestCase
                  "cantidad":1,
                  "codProducto": "0100011",
                  "descripcion":"SERVICIO DE TRANSPORTE PASAJERO:<br> 28715164-HUAMAN LIMA LEONCIO ARMANDO,<br> RUTA: ANDAHUAYLAS-AYACUCHO,<br> VIAJE: 05/09/2023 10:00 AM",
-                 "mtoPrecioUnitario":"40.00",
-                 "total":"40.00"
+                 "mtoPrecioUnitario":"1000.00",
+                 "total":"1000.00"
+              },
+              {
+                 "unidad":"ZZ",
+                 "cantidad":1,
+                 "codProducto": "0100011",
+                 "descripcion":"SERVICIO DE TRANSPORTE PASAJERO:<br> 28715164-HUAMAN LIMA LEONCIO ARMANDO,<br> RUTA: ANDAHUAYLAS-AYACUCHO,<br> VIAJE: 05/09/2023 10:00 AM",
+                 "mtoPrecioUnitario":"1000000.00",
+                 "total":"1000000.00"
               }
            ],
            "detailsSummary":[
              {
                  "title" : "TOTAL",
-                 "value" : "40.00"
+                 "value" : "1001040.00"
              }
            ],
            "legends":[
