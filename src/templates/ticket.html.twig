@@ -192,11 +192,11 @@
 						</tr>
 					{% else %}
 
-						{% set mtoValorUnitario = (item.mtoValorUnitario|n_format > 0) ? item.mtoValorUnitario : item.mtoValorGratuito %}
-						{% set mtoPrecioUnitario = (item.mtoPrecioUnitario|n_format > 0) ? item.mtoPrecioUnitario : item.mtoValorGratuito %}
+						{% set mtoValorUnitario = (item.mtoValorUnitario|number_format > 0) ? item.mtoValorUnitario : item.mtoValorGratuito %}
+						{% set mtoPrecioUnitario = (item.mtoPrecioUnitario|number_format > 0) ? item.mtoPrecioUnitario : item.mtoValorGratuito %}
 						{% set mtoPrecioTotal = (mtoPrecioUnitario * item.cantidad) %}
 						<tr>
-							<td class="center">{{ item.cantidad|n_format }}</td>
+							<td class="center">{{ item.cantidad|number_format }}</td>
 							<td class="center">{{ item.codProducto|default('-') }}</td>
 							<td class="left cort mayus bold" colspan="3">{{ item.descripcion|raw }}</td>
 						</tr>
@@ -206,7 +206,7 @@
 								{{ mtoPrecioUnitario|number_format(3, '.', '') }}
 							</td>
 							<td class="right">
-								{{ mtoPrecioTotal|n_format }}
+								{{ mtoPrecioTotal|number_format }}
 							</td>
 						</tr>
 					{% endif %}
@@ -238,7 +238,7 @@
 								GRAVADAS
 							</td>
 							<td class="bold">
-								{{ doc.mtoOperGravadas|n_format }}
+								{{ doc.mtoOperGravadas|number_format }}
 							</td>
 						</tr>
 					{% endif %}
@@ -249,7 +249,7 @@
 								ANTICIPOS
 							</td>
 							<td class="bold">
-								{{ doc.totalAnticipos|n_format }}
+								{{ doc.totalAnticipos|number_format }}
 							</td>
 						</tr>
 					{% endif %}
@@ -260,7 +260,7 @@
 								DESCUENTOS
 							</td>
 							<td class="bold">
-								{{ doc.mtoDescuentos|n_format }}
+								{{ doc.mtoDescuentos|number_format }}
 							</td>
 						</tr>
 					{% endif %}
@@ -271,7 +271,7 @@
 								GRATUITOS
 							</td>
 							<td class="bold">
-								{{ doc.mtoOperGratuitas|n_format }}
+								{{ doc.mtoOperGratuitas|number_format }}
 							</td>
 						</tr>
 					{% endif %}
@@ -283,7 +283,7 @@
 									ISC
 								</td>
 								<td class="bold">
-									{{ doc.mtoISC|n_format }}
+									{{ doc.mtoISC|number_format }}
 								</td>
 							</tr>
 						{% endif %}
@@ -295,7 +295,7 @@
 								I.C.B.P.E.R.
 							</td>
 							<td class="bold">
-								{{ doc.icbper|n_format }}
+								{{ doc.icbper|number_format }}
 							</td>
 						</tr>
 					{% endif %}
@@ -306,7 +306,7 @@
 								IGV
 							</td>
 							<td class="bold">
-								{{ doc.mtoIGV|default(null)|n_format }}
+								{{ doc.mtoIGV|default(null)|number_format }}
 							</td>
 						</tr>
 					{% endif %}
@@ -317,7 +317,7 @@
 								CARGOS
 							</td>
 							<td class="bold">
-								{{ doc.mtoCargos|n_format }}
+								{{ doc.mtoCargos|number_format }}
 							</td>
 						</tr>
 					{% endif %}
@@ -329,7 +329,7 @@
 									EXONERADAS
 								</td>
 								<td class="bold">
-									{{ doc.mtoOperExoneradas|n_format }}
+									{{ doc.mtoOperExoneradas|number_format }}
 								</td>
 							</tr>
 						{% endif %}
@@ -342,7 +342,7 @@
 									INAFECTAS
 								</td>
 								<td class="bold">
-									{{ doc.mtoOperInafectas|n_format }}
+									{{ doc.mtoOperInafectas|number_format }}
 								</td>
 							</tr>
 						{% endif %}
@@ -354,7 +354,7 @@
 								SUM. OTROS CARGOS
 							</td>
 							<td class="bold">
-								{{ doc.sumOtrosCargos|n_format }}
+								{{ doc.sumOtrosCargos|number_format }}
 							</td>
 						</tr>
 					{% endif %}
@@ -365,7 +365,7 @@
 								OTROS DESCUENTOS
 							</td>
 							<td class="bold">
-								{{ doc.sumOtrosDescuentos|n_format }}
+								{{ doc.sumOtrosDescuentos|number_format }}
 							</td>
 						</tr>
 					{% endif %}
@@ -375,7 +375,7 @@
 							TOTAL
 						</td>
 						<td class="bold right">
-							{{ doc.mtoImpVenta|n_format }}
+							{{ doc.mtoImpVenta|number_format }}
 						</td>
 					</tr>
 				{% endif %}
@@ -395,9 +395,9 @@
 			<span>
 				{% if doc.formaPago is not defined %}
 					Contado:
-					{{ doc.mtoImpVenta|n_format }}
+					{{ doc.mtoImpVenta|number_format }}
 				{% else %}
-					{{ doc.formaPago.tipo ~ ' ' ~ doc.formaPago.moneda ~ ' ' ~ doc.formaPago.monto|n_format }}
+					{{ doc.formaPago.tipo ~ ' ' ~ doc.formaPago.moneda ~ ' ' ~ doc.formaPago.monto|number_format }}
 				{% endif %}
 			</span>
 		</h5>
