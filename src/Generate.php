@@ -7,6 +7,7 @@ use PuyuPe\Qillqay\Extension\ReportTwigExtension;
 use PuyuPe\Qillqay\Extension\RuntimeLoader;
 use mikehaertl\wkhtmlto\Pdf;
 use Twig\Environment;
+use Twig\Extension\CoreExtension;
 use Twig\Loader\FilesystemLoader;
 
 class Generate
@@ -19,8 +20,12 @@ class Generate
             $loader = new FilesystemLoader($templatePath);
             $twig = new Environment($loader);
 
+            $twig->getExtension(CoreExtension::class)
+                ->setNumberFormat(2, '.', ',');
+
             $twig->addRuntimeLoader(new RuntimeLoader());
             $twig->addExtension(new ReportTwigExtension());
+
 
             $reportType = 'invoice';
             if ($data->tipoDoc == '09') {
