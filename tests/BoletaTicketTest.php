@@ -70,7 +70,7 @@ class BoletaTicketTest extends TestCase
   "totalImpuestos": "0.0000",
   "valorVenta": "6.0000",
   "subTotal": "6.0000",
-  "mtoImpVenta": "6.0000",
+  "mtoImpVenta": "1006.0000",
   "formaPago": {
     "moneda": "PEN",
     "tipo": "Contado",
