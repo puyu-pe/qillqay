@@ -171,9 +171,17 @@
 											{% endif %}
 										</td>
 									</tr>
+								{% if doc.envio.modTraslado == '01' %}
 									<tr>
-										<td width="60%" align="left">
-											<strong>P. Partida:</strong>
+										<td colspan="2" align="left">
+											<strong>Fecha de entrega de bienes al transportista:</strong>
+											{{ (doc.envio.fecEntregaBienes ?: doc.envio.fecTraslado)|date('d/m/Y') }}
+										</td>
+									</tr>
+								{% endif %}
+								<tr>
+									<td width="60%" align="left">
+										<strong>P. Partida:</strong>
 											{{ doc.envio.partida.ubigeo }}
 											-
 											{{ doc.envio.partida.direccion }}</td>

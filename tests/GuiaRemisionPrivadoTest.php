@@ -25,6 +25,17 @@ class GuiaRemisionPrivadoTest extends TestCase
         $this->assertFileExists($filePath);
     }
 
+    public function testFechaEntregaLabelAbsent()
+    {
+        $data = $this->getMockedData();
+        // modTraslado == '02', so the row should NOT be rendered
+
+        $filePath = Generate::fromObject($data, 'html', $this->config['wkhtmlPath'], 'test');
+        $html = file_get_contents($filePath);
+
+        $this->assertStringNotContainsString('Fecha de entrega de bienes al transportista', $html);
+    }
+
     public function getMockedData()
     {
 

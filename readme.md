@@ -14,9 +14,40 @@ Documentos electrónicos:
 Documentos personalizados (desde el mismo formato de objeto y/o html):
 - Requiere datos adicionales (ver generación de objeto)
 
+---
+
 # Utilización
 
-## Requerimientos
+## Quick-start (containerized)
+
+Prerequisites: **Podman** and **podman-compose** (or `podman-docker`).
+
+```bash
+make build     # Build the PHP + wkhtmltopdf image
+make install   # composer install (vendor/ is gitignored)
+make test      # Run the full PHPUnit suite
+```
+
+| Target | Purpose |
+|--------|---------|
+| `make build` | Build the container image |
+| `make up` / `make down` | Start / stop the container |
+| `make shell` | Open an interactive bash shell in the container |
+| `make install` | Run `composer install` |
+| `make test` | Full PHPUnit suite |
+| `make test-guia-remision-publico` | `GuiaRemisionPublicoTest` only |
+| `make test-guia-remision-privado` | `GuiaRemisionPrivadoTest` only |
+| `make clean` | Remove containers and volumes |
+
+`make up` keeps a persistent container running in the background — use it
+when you expect to run several `make shell` or `make test` commands in a row
+without waiting for a cold start each time. `make down` stops it.
+
+> The `vendor/` directory lives on the host filesystem but is **gitignored**.
+> Re-run `make install` after changing `composer.json`.
+
+## Requerimientos (host / bare-metal)
+
 - PHP 7.4
 - Binario wkhtmltopdf 0.12.6 (mínimo) https://wkhtmltopdf.org/
 
