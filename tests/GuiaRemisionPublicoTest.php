@@ -25,6 +25,33 @@ class GuiaRemisionPublicoTest extends TestCase
         $this->assertFileExists($filePath);
     }
 
+    public function testFechaEntregaBienesExplicit()
+    {
+        $data = $this->getMockedData();
+        $data->envio->fecEntregaBienes = '2024-12-15';
+
+        $filePath = Generate::fromObject($data, 'html', $this->config['wkhtmlPath'], 'test');
+        $html = file_get_contents($filePath);
+
+        $this->assertStringContainsString('Fecha de entrega de bienes al transportista', $html);
+        $this->assertStringContainsString('15/12/2024', $html);
+    }
+
+    public function testFechaEntregaBienesFallback()
+    {
+        $data = $this->getMockedData();
+
+        $filePath = Generate::fromObject($data, 'html', $this->config['wkhtmlPath'], 'test');
+        $html = file_get_contents($filePath);
+
+        $this->assertStringContainsString('Fecha de entrega de bienes al transportista', $html);
+        $this->assertMatchesRegularExpression(
+            '~<strong>Fecha de entrega de bienes al transportista:</strong>\s+01/12/2024~',
+            $html,
+            'Fallback debe usar fecTraslado en la misma fila que la etiqueta'
+        );
+    }
+
     public function getMockedData()
     {
 
@@ -70,7 +97,7 @@ class GuiaRemisionPublicoTest extends TestCase
                 "modTraslado": "01",
                 "codTraslado": "13",
                 "desTraslado": "OTROS",
-                "fecTraslado": "2024-11-18",
+                "fecTraslado": "2024-12-01",
                 "indTransbordo": 0,
                 "pesoTotal": "1100.00",
                 "undPesoTotal": "KGM",

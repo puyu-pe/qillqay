@@ -1,0 +1,33 @@
+# Qillqay dev/test environment — Compose Specification
+# Invoke via: podman compose <command>
+#
+# The project root is bind-mounted read-write so you can edit files on the
+# host and run tests immediately inside the container.  Composer's vendor/
+# directory lives on the host filesystem but is gitignored — no special
+# volume isolation is required for a PHP library dev workflow.
+#
+# If you later need strict host isolation for vendor/, uncomment the named
+# volume and set ':Z' only on the host bind-mount (SELinux relabel).
+
+services:
+  app:
+    build: .
+    image: qillqay-dev:latest
+    volumes:
+      - .:/app:Z
+    working_dir: /app
+    command: sleep infinity
+    environment:
+      COMPOSER_HOME: /tmp/composer
+
+# Named-volume example (commented out — podman-compose + SELinux requires
+# additional tuning; the gitignored vendor/ on the host is simpler):
+#
+# volumes:
+#   vendor:
+#
+# services:
+#   app:
+#     volumes:
+#       - .:/app:Z
+#       - vendor:/app/vendor
